@@ -1,0 +1,59 @@
+#!/usr/bin/ruby
+#
+# hacked by dgraham
+
+ldapservers = ["ldap0.nmt.edu", "ldap1.nmt.edu"]
+
+# open LDAP connection
+def ldapconnect(ldapservers)
+	ldapservers.each do |host|
+		begin
+			connection = LDAP::SSLConn.new(host, 389, true)
+			connection.set_option(LDAP::LDAP_OPT_PROTOCOL_VERSION, 3)
+			return connection
+		rescue Exception
+			puts host + " is not responding!"
+			next
+		end
+	end
+	return nil
+end
+
+# search GECOS fields in LDAP
+def gecossearch(name, users, ldap)
+	base = "ou=accounts,dc=tcc,dc=nmt,dc=edu"
+	ldap.search(base, LDAP::LDAP_SCOPE_SUBTREE, "gecos=*#{name}*") do |result|
+		users << [result["uid"][0], result["gecos"][0]]
+	end
+end
+
+require 'ldap'
+
+if(ARGV.empty?)
+	puts "Usage: finger-names Bob Smith"
+	exit
+end
+
+ldap = ldapconnect(ldapservers)
+if(ldap == nil)
+	puts "No LDAP servers available."
+	exit
+end
+
+users = []
+ARGV.each do |arg|
+	gecossearch(arg, users, ldap)
+end
+if(users == [])
+	puts "No results."
+	exit
+end
+
+users = users.sort
+users.each do |user|
+	acct = user[0] + ":"
+	while(acct.length < 8)
+		acct = acct + " "
+	end
+	puts acct + "\t" + user[1]
+end

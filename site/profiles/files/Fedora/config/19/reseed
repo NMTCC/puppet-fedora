@@ -1,0 +1,28 @@
+#!/bin/bash
+
+export SEMESTER="Spring2014"
+export BRANCH="master"
+export BUILD="1"
+export LIBSYNC="http://update.nmt.edu/kickstart/19/libsync.sh"
+export SYNCPRE="http://replicon.nmt.edu/images"
+export BTHASH="60a68b50f409fe38b72daa2cf4ac4806f18e4448"
+export WINMODE="Normal"
+
+download_libsync() {
+
+	wget -P /tmp $LIBSYNC > /dev/null 2>&1
+	if [ -s "/tmp/libsync.sh" ]
+	then
+		return
+	fi
+	echo "Could not retrieve SYNC library!"
+	exit 69 # EX_UNAVAILABLE from sysexits.h
+
+}
+
+download_libsync
+source /tmp/libsync.sh
+start_transmission
+torrent_image
+rm -f /tmp/libsync.sh
+rm -f /tmp/$SEMESTER-$BRANCH.$BUILD.torrent

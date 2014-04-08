@@ -1,0 +1,11 @@
+#!/bin/sh
+
+/usr/bin/kinit -k
+
+export RSYNCOPTS="-aq"
+
+for x in `/usr/local/share/forge/modules/overlays`
+do
+	rsync ${RSYNCOPTS} update.nmt.edu::F19-$x /
+done
+

@@ -1,0 +1,130 @@
+#!/usr/bin/perl
+
+use POSIX;
+use Quota;
+use File::Copy;
+use File::Path;
+use Sys::Hostname;
+
+# root Windows profile diredtory
+my $winroot = ".windows7-profile.V2";
+
+# setup other variables
+my $homedir = $ENV{"HOME"};
+my $docdir = "$homedir/$winroot/Documents";
+my $deskdir = "$homedir/$winroot/Desktop";
+my $sumtotal = 0;
+my $date = strftime "%m%d%y", localtime;
+my $time = strftime "%H%M%S", localtime;
+my $logdate = strftime "%c", localtime;
+my @hosta = split(/\./, hostname);
+my $host = $hosta[0];
+
+# log output
+open(LOG, ">>$homedir/.tccresetlog") or die "Could not open log file, $!";
+print LOG "reset_windows ($host): $logdate\n";
+
+# sanity check
+unless (-e "$homedir/$winroot") {
+	print "  You do not have a Windows profile!\n";
+	mkpath("$homedir/$winroot");
+	print "  I created a new one for you.\n";
+	print LOG "Windows profile directory created.\n";
+	close(LOG);
+	exit;
+}
+
+# find size of Windows profile, Documents, and Desktop
+my $pro = `du -s $homedir/$winroot`;
+my @proa = split(/\s/, $pro);
+my $profile = $proa[0];
+print LOG "profile = $profile\n";
+if (-e $docdir) {
+	my $doc = `du -s $docdir`;
+	my @doca = split(/\s/, $doc);
+	$sumtotal = $sumtotal + $doca[0];
+	print LOG "Documents = $doca[0]\n";
+}
+if (-e $deskdir) {
+	my $desk = `du -s $deskdir`;
+	my @deska = split(/\s/, $desk);
+	$sumtotal = $sumtotal + $deska[0];
+	print LOG "Desktop = $deska[0]\n";
+}
+
+# ask userhost for our quota through rpc
+my $dev = Quota::getqcarg("$homedir");
+@quotadata = Quota::query($dev, $<);
+print LOG "usage = $quotadata[0]\n";
+print LOG "quota = $quotadata[2]\n";
+
+# never ever do this
+if ($quotadata[0] eq ""){
+	goto noquota;
+}
+
+# setup quota related variables
+my $usage = $quotadata[0];
+my $limit = $quotadata[2];
+my $free = $limit - $usage;
+
+# calculate if it's safe to make a profile backup
+my $fivep = ($limit / 10) / 2;
+if (($sumtotal > $free) || (($limit - (($usage - $profile) + $sumtotal)) < $fivep )) {
+	print "  There is not enough free disk space under this account to back up\n";
+	print "  your Windows data. Please see a User Consultant for assistance.\n";
+	print LOG "Not enough room for file backup.\n";
+	close(LOG);
+	exit;
+}
+
+# skip here for no quota
+noquota:
+
+# nag the user
+print "  Log out from Windows before proceeding.\n";
+print "  There is enough free disk space under this account to back up your Windows\n";
+print "  data, but only files in Desktop and My Documents will be preserved!\n";
+print "Continue? <Y/n> ";
+my $input = <>;
+chomp $input;
+if ($input ne "Y") {
+	print "Aborting per user request...\n";
+	print LOG "Aborting per user request...\n";
+	close(LOG);
+	exit;
+}
+
+# copy the documents
+mkpath("$homedir/From_Windows");
+my $docdest = "$homedir/From_Windows/Documents_$date";
+my $deskdest = "$homedir/From_Windows/Desktop_$date";
+if (-e $docdir) {
+	print 'Copying My Documents from profile to U:\From_Windows folder...'."\n";
+	if (-e $docdest) {
+		move($docdir, $docdest."_".$time);
+	} else {
+		move($docdir, $docdest);
+	}
+	print LOG "Moved Documents directory.\n";
+}
+if (-e $deskdir) {
+	print 'Copying Desktop from profile to U:\From_Windows folder...'."\n";
+	if (-e $deskdest) {
+		move($deskdir, $deskdest."_".$time);
+	} else {
+		move($deskdir, $deskdest);
+	}
+	print LOG "Moved Desktop directory.\n";
+}
+
+# delete the old profile
+print "Removing old profile...\n";
+rmtree("$homedir/$winroot");
+print LOG "Removed profile directory.\n";
+mkpath("$homedir/$winroot");
+print LOG "Windows profile directory created.\n";
+
+# done
+close(LOG);
+print "Done.\n";

@@ -1,0 +1,34 @@
+#!/bin/bash
+
+function zap {
+	rm -rf $1 >> ~/.tccresetlog 2>&1
+}
+
+date=`/usr/bin/date`
+host=`/usr/bin/hostname --short`
+echo "reset_linux ($host): $date" >> ~/.tccresetlog
+
+echo "  Log out from all Linux graphical sessions before proceeding."
+echo "  I will remove your Linux desktop environment settings, sessions,"
+echo "  cache, and X authority files."
+echo -n "Continue? <Y/n> "
+read input
+
+if [ "$input" != "Y" ]
+then
+	echo "Aborting per user request..."
+	echo "Aborting per user request..." >> ~/.tccresetlog
+	exit
+fi
+
+zap ~/.cache
+zap ~/.dmrc
+zap ~/.ICEauthority
+zap ~/.kde
+zap ~/.local
+zap ~/.gnome2
+zap ~/.Xauthority
+zap ~/.xsession-errors
+zap ~/.config
+
+echo "Done."

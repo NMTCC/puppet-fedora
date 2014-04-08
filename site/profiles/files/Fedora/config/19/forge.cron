@@ -1,0 +1,4 @@
+01 * * * * root /usr/local/share/forge/modules/grub2
+10 * * * * root /usr/local/bin/tcc-dracut --quiet
+40 * * * * root /usr/local/bin/tcc-dracut --quiet
+

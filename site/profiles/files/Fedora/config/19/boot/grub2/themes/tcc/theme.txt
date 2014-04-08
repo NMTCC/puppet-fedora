@@ -1,0 +1,51 @@
+title-text: "Spring 2014"
+title-font: "DejaVu Sans Regular 12"
+title-color: "gray"
+message-font: "Perfect DOS VGA 437 Regular 16"
+message-color: "white"
+message-bg-color: "black"
+desktop-image: "terminal_c.png"
+desktop-color: "black"
+terminal-box: "terminal_*.png"
+
++ image {
+	left = "50%-377"
+	top = "25%-135"
+	width = "755"
+	height = "270"
+	file = "tcclogo_white.png"
+#	file = "tcclogo_mario.png"
+}
+
++ boot_menu {
+	left = "50%-310"
+	top = "50%"
+	width = "620"
+	height = "300"
+	item_font = "DejaVu Sans Mono Regular 36"
+	selected_item_font = "DejaVu Sans Mono Bold 36"
+	item_color = "gray"
+	selected_item_color = "white"
+	icon_width = 64
+	icon_height = 64
+	item_height = 72
+	item_padding = 20
+	item_icon_space = 40
+	item_spacing = 12
+	selected_item_pixmap_style = "selection_*.png"
+}
+
++ progress_bar {
+	id = "__timeout__"
+	left = "50%-410"
+	top = "90%"
+	width = "820"
+	height = "20"
+	font = "DejaVu Sans Regular 12"
+	fg_color = "navy"
+	bg_color = "black"
+	border_color = "gray"
+	text_color = "white"
+	show_text = "true"
+	text = "@TIMEOUT_NOTIFICATION_LONG@"
+}

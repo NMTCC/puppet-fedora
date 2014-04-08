@@ -1,0 +1,69 @@
+#!/bin/bash
+
+export SEMESTER="Spring2014"
+export BRANCH="master"
+export BUILD="1"
+export LIBSYNC="http://update.nmt.edu/kickstart/19/libsync.sh"
+export SYNCPRE="http://replicon.nmt.edu/images"
+
+download_libsync() {
+
+	wget -P /tmp $LIBSYNC > /dev/null 2>&1
+	if [ -s "/tmp/libsync.sh" ]
+	then
+		return
+	fi
+	dialog --backtitle "TCC $SEMESTER Kickstart" --title "SYNC" --msgbox "Could not retrieve SYNC library!" 5 36
+	clear
+	exit 69 # EX_UNAVAILABLE from sysexits.h
+
+}
+
+nofile() {
+
+	dialog --backtitle "TCC $SEMESTER Kickstart" --title "SYNC" --msgbox "No local copy of template found!" 5 36
+	clear
+	exit 74 # EX_IOERR from sysexits.h
+
+}
+
+ntfs_check() {
+
+	winpart=`/sbin/blkid -o device -t TYPE=ntfs`
+	if [ "$winpart" == "" ]; then
+		dialog --backtitle "TCC $SEMESTER Kickstart" --title "SYNC" --msgbox "No NTFS partitions were found!" 5 34
+		clear
+		exit 1
+	fi
+
+}
+
+dialog --backtitle "TCC $SEMESTER Kickstart" --title "SYNC" --radiolist "Re-image Windows" 0 0 0 "Local" "Use locally stored copy of template" on "Network" "Unicast a new copy of the template" off 2> /tmp/reapply.$$
+
+case "`cat /tmp/reapply.$$`" in
+	Local)
+		ntfs_check
+		if [ ! -e "/var/lib/transmission/Downloads/$SEMESTER-$BRANCH.$BUILD/$SEMESTER-$BRANCH.$BUILD.vhd1" ]; then nofile; fi
+		if [ ! -e "/var/lib/transmission/Downloads/$SEMESTER-$BRANCH.$BUILD/$SEMESTER-$BRANCH.$BUILD.vhd2.bz2" ]; then nofile; fi
+		download_libsync
+		source /tmp/libsync.sh
+		apply_image
+		;;
+	Network)
+		ntfs_check
+		download_libsync
+		source /tmp/libsync.sh
+		unicast
+		;;
+	*)
+		clear
+		exit 0
+		;;
+esac
+rm -f /tmp/libsync.sh
+
+remctl puppet-win.nmt.edu puppet cert clean "`hostname -s`.tcc7"
+/etc/rc.d/init.d/winreboot preunroll
+chkconfig winreboot on
+/usr/local/bin/set_tcc_os 1 1
+shutdown -r now

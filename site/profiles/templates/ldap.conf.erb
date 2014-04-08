@@ -1,0 +1,16 @@
+###############################################################################
+# << FILE MANAGED BY PUPPET >>
+# Manual changes are likely to be overwritten
+###############################################################################
+
+uri  <%= uri %>
+base <%= base %>
+
+<% if ssl == true then -%>
+ssl           start_tls
+tls_cacertdir <%= scope.lookupvar('ldap::params::cacertdir') %>
+<% else -%>
+ssl           start_tls
+tls_cacertdir <%= scope.lookupvar('ldap::params::cacertdir') %>
+<% end -%>
+
