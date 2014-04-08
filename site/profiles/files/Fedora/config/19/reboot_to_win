@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Reboots a machine to Windows
+# It does some checks first. Pass "--force" to override.
+
+# @khan please disable auto reboots in the tcc-reboot file
+# manual reboots should still be available
+
+function oops() {
+	if [ "$1" != "--force" ]; then
+		echo "$2"
+		exit 1
+	fi
+	return
+}
+
+# Check for any NTFS partitions.
+winpart=`/sbin/blkid -o device -t TYPE=ntfs`
+if [ "$winpart" == "" ]; then
+	echo "No reboot attempted: no NTFS partitions found."
+	exit 1
+fi
+
+# Check for any logged in users.
+users=`w -hs | wc -l`
+if [ "$users" -gt "0" ]; then
+	msg="No reboot attempted: users logged in."
+	oops "$1" "$msg"
+fi
+xusers=`ck-list-sessions`
+if [ "$xusers" != "" ]; then
+	msg="No reboot attempted: X users logged in."
+	oops "$1" "$msg"
+fi
+
+# Check that we're not running on a staff machine.
+hostname=`hostname --short`
+base="ou=clients,ou=machines,dc=tcc,dc=nmt,dc=edu"
+staff=`ldapsearch -xZZLLL -b ${base} cn=${hostname} tccOfficeMachine | sed -n -e '2p' | cut -d ':' -f 2`
+if [ "$staff" != " FALSE" ]; then
+	msg="No reboot attempted: staff machine."
+	oops "$1" "$msg"
+fi
+
+# We can't read grub.cfg anymore, since the Windows entry is dynamically
+# generated. But if we're here, we found an NTFS partition above.
+# The TCC GRUB2 config will always place Windows as the second menu entry.
+/usr/local/bin/set_tcc_os 1 10
+shutdown -r now

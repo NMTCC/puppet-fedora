@@ -1,0 +1,185 @@
+#!/usr/bin/env python
+#
+# TCC Sync Windows Install Rebooter
+# reboots if Windows install/config requires more reboots
+#
+# Author: Jesse B. Crawford <jeanluc@nmt.edu> 
+# chkconfig: 345 20 70
+# description: TCC Sync Windows Install Rebooter
+#
+### BEGIN INIT INFO
+# Provides: winreboot
+# Description: TCC Sync Windows Install Rebooter
+# Default-Start: 345
+### END INIT INFO
+
+###### CONFIGURATION ########################################################
+### FLAG_FILE
+# path to the indicator file. Relative to C:\ in 'dows.
+# use forward slashes! case sensitive!
+# e.g. 'WINDOWS/TCC' will check for C:\WINDOWS\TCC
+FLAG_FILE = "Windows/TCC"
+### FLAG_CONDITION
+# Which condition of the FLAG_FILE means that Windows is done rebooting?
+# if 'present', we'll reboot if the FLAG_FILE doesn't exist yet
+# if 'absent', we'll reboot if the FLAG_FILE still exists.
+FLAG_CONDITION = "present"
+
+import sys, os, subprocess, syslog, traceback, socket
+
+class LinuxOnlyError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+
+def findpart():
+    try:
+        ntfspart = subprocess.check_output(["/sbin/blkid", "-odevice", "-tTYPE=ntfs"]).strip().split("\n")
+	if type(ntfspart) == list:
+		ntfspart = ntfspart[1]
+	else:	
+		raise LinuxOnlyError("No windows partition found on this machine")
+    except subprocess.CalledProcessError as returnerror:
+        # NTFS partition not found
+        if returnerror.returncode == 2:
+            # return code 2 = no matches
+            raise LinuxOnlyError("No windows partition found on this machine")
+        else:
+            raise
+    
+    # now ntfspart should equal the name of the NTFS partition.
+    if ntfspart.count("\n") != 0:
+        # looks like we got multiple matches
+        raise IOError("Multiple results when finding NTFS partition?")
+    
+    return ntfspart
+
+
+def mount(path):
+    """
+    Given the path to a device, mounts that device to /dev/winpart
+    """
+    subprocess.check_call(["mkdir", "-p", "/media/winpart"])
+    subprocess.check_call(["mount", path, "/media/winpart"])
+
+
+def umount():
+    """
+    Unmounts and removes /media/winpart
+    """
+    subprocess.check_call(["umount", "/media/winpart"])
+    subprocess.check_call(["rmdir", "/media/winpart"])
+    
+
+def setwinname(sname):
+    """
+    Replaces reference1 with real shortname in unattend.xml
+    """
+    uafile = "/media/winpart/Windows/Panther/unattend.xml"
+    if os.path.exists(uafile):
+        subprocess.check_call([
+            "sed",
+            "-i",
+            "s/reference1/" + sname + "/",
+            uafile
+        ])
+
+
+def setwincert(sname):
+    """
+    Adds shortname as the puppet certname in puppet.conf
+    """
+    pcfile = "/media/winpart/ProgramData/PuppetLabs/puppet/etc/puppet.conf"
+    if os.path.exists(pcfile):
+        if 'certname' in open(pcfile).read():
+            return
+        with open(pcfile, 'a') as pconf:
+            pconf.write("certname=" + sname + ".tcc7")
+
+
+def checkwin():
+    """
+    check for FLAG_FILE. if FLAG_FILE isn't FLAG_CONDITION,
+    reboot to Windows.
+    """
+
+    # if we're going to unroll, make sure the names are set
+    sname = socket.gethostname().split('.')[0]
+    setwinname(sname)
+    setwincert(sname)
+    
+    # check if the special file exists or doesn't exist.
+    doneRebooting = False;
+    if os.path.exists(os.path.join("/media/winpart",FLAG_FILE)):
+        if FLAG_CONDITION.lower() == "present":
+            doneRebooting = True
+    else:
+        if FLAG_CONDITION.lower() == "absent":
+            doneRebooting = True
+    umount()
+    
+    # now, if donerebooting = false than we need to reboot again. otherwise we don't.
+    if doneRebooting == True:
+        # Disable this init script so we don't keep taking up time on boot
+        syslog.syslog("Detected that Windows configuration is complete. See you next time.")
+        subprocess.check_call(["chkconfig","winreboot","off"])
+    else:
+        # Set GRUB to choose Windows then reboot
+        syslog.syslog("Detected that Windows configuration is incomplete. Rebooting to Windows.")
+        subprocess.check_call(["/usr/local/bin/set_tcc_os", "1", "10"])
+        subprocess.check_call(["shutdown", "-r", "now"])
+        
+        
+if __name__ == '__main__':
+    try:
+        if len(sys.argv) == 1:
+            raise ValueError
+    
+        action = str(sys.argv[1]).strip().lower()
+
+        if action == 'start':
+            ntfspart = findpart()
+            mount(ntfspart)
+            checkwin()
+            sys.exit(0)
+            
+        if action == 'mount':
+            # just for convenience
+            ntfspart = findpart()
+            mount(ntfspart)
+            sys.exit(0)
+            
+        if action == 'unmount':
+            # why not?
+            umount()
+            sys.exit(0)
+
+	if action == 'preunroll':
+            # just for convenience
+            ntfspart = findpart()
+            mount(ntfspart)
+            sname = socket.gethostname().split('.')[0]
+            setwinname(sname)
+            setwincert(sname)
+            umount()
+            sys.exit(0)
+            
+        if action == 'stop' or action == 'restart' or action == 'force-reload':
+            sys.exit(0) # required by SysV spec
+            # no matter what you tell chkconfig, 'stop' may be called on shutdown
+        else:
+            raise ValueError
+
+    except SystemExit:
+        pass # Apparently sys.exit normally raises this?
+    except ValueError:
+        print >> sys.stderr, "Usage: winreboot start"
+        sys.exit(64) # 'command line usage error' from sysexits.h
+    except LinuxOnlyError:
+        syslog.syslog("No Windows partition found.")
+        sys.exit(64)
+    except:
+        syslog.syslog(traceback.format_exc(3))
+        umount() #clean up after ourselves
+        sys.exit(70) # 'internal software error' from sysexits.h

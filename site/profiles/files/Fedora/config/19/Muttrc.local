@@ -1,0 +1,7 @@
+# TCC Configuration for Mutt
+
+set hostname=nmt.edu
+set spoolfile=imap://mailhost.nmt.edu/INBOX
+set imap_user=$USER
+set ssl_starttls=yes
+set imap_authenticators="gssapi:plain"

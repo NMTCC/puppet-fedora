@@ -1,0 +1,56 @@
+#!/bin/bash
+
+MAILTO="tcc-maint@nmt.edu, tcc-uc@nmt.edu"
+
+host=`hostname --short`
+base="ou=clients,ou=machines,dc=tcc,dc=nmt,dc=edu"
+staff=`ldapsearch -xZZLLL -b ${base} cn=${host} tccOfficeMachine | sed -n -e '2p' | cut -d ":" -f 2`
+staff=`echo $staff`
+tccos=`ldapsearch -xZZLLL -b ${base} cn=${host} tccSpecialOS | sed -n -e '2p' | cut -d ":" -f 2`
+tccos=`echo $tccos`
+room=`echo $host | cut -d "-" -f 1`
+building=`echo $room | sed -e 's/[0-9]*//g'`
+
+if [ "$tccos" == "Linux" ]; then staff="TRUE"; fi
+if [ "$building" == "library" ]; then staff="TRUE"; fi
+if [ "$room" == "library208" ]; then staff="FALSE"; fi
+
+if [ "$staff" == "FALSE" ]
+then
+	mouse=`lsusb | grep Mouse | wc -l`
+	kbd=`lsusb | grep Keyboard | wc -l`
+	odd=`lsblk -ln | grep rom | wc -l`
+	case $mouse in
+		"0" )
+			echo "$host does not have a USB mouse attached." | mail -s "$host: missing mouse" $MAILTO
+			;;
+		"1" )
+			#these are not the droids you're looking for
+			;;
+		* )
+			echo "$host has too many USB mice attached." | mail -s "$host: extra mouse" $MAILTO
+			;;
+	esac
+	case $kbd in
+		"0" )
+			echo "$host does not have a USB keyboard attached." | mail -s "$host: missing keyboard" $MAILTO
+			;;
+		"1" )
+			#he can go about his business
+			;;
+		* )
+			echo "$host has too many USB keyboards attached." | mail -s "$host: extra keyboard" $MAILTO
+			;;
+	esac
+	case $odd in
+		"0" )
+			echo "$host does not have an optical drive installed." | mail -s "$host: missing ODD" $MAILTO
+			;;
+		"1" )
+			#move along
+			;;
+		* )
+			echo "$host has too many optical drives installed." | mail -s "$host: extra ODD" $MAILTO
+			;;
+	esac
+fi

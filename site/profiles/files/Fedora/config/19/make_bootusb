@@ -1,0 +1,48 @@
+#!/bin/bash
+
+prefix="/fs/tcc/boot_tools"
+
+#make sure we have input
+if [ "$1" = "" ]
+then
+	echo "Usage: make_bootusb /dev/sde"
+	exit
+else
+	disk="$1"
+	part="$disk"1
+fi
+
+#make sure nothing is mounted
+if [ "`grep $disk /etc/mtab`" != "" ]
+then
+	echo "That device contains mounted filesystems."
+	exit
+fi
+
+#let's double check what we are doing
+echo -n "About to erase $disk, are you really sure? [YARLY]: "
+read -e sure
+if [ "$sure" != "YARLY" ]
+then
+	echo "Bailed out."
+	exit
+fi
+
+#the dirty work
+echo "You must authenticate as a TCC employee in"
+echo "order to access the boot disk image file"
+echo "(Kerberos will be used if possible)."
+read -ep "Username: " user
+mkdir /tmp/busb.$$
+sshfs $user@userhost:$prefix /tmp/busb.$$
+max=`/sbin/parted -sm $disk print | grep "$disk" | cut -s -d : -f 2`
+/sbin/parted -s $disk mklabel msdos mkpart primary fat32 0 $max toggle 1 boot
+mkfs.vfat $part
+/usr/bin/livecd-iso-to-disk --reset-mbr --noverify /tmp/busb.$$/bootcd.iso $part
+fusermount -u /tmp/busb.$$
+mp=`udisks --mount $part | awk 'BEGIN { FS = "at" } ; { print $2 }'`
+sed -i -e 's/Disc/Disk/g' $mp/syslinux/syslinux.cfg
+unzip $prefix/bootusb.zip -d $mp/images/
+udisks --unmount $part
+rmdir /tmp/busb.$$
+echo "Done."

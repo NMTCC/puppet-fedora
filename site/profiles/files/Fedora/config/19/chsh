@@ -1,0 +1,77 @@
+#!/usr/bin/ruby
+
+require 'ldap'          # used to connect and talk w/ldap0
+require 'etc'           # used to get username from uid
+
+# get new shell
+if($*[0] == nil)
+        print " New shell: "
+        newsh = $stdin.gets.chomp
+else
+        newsh = $*[0]
+end
+
+# is this shell valid?
+ok = nil
+File.open("/etc/shells").each { |shell|
+        if(shell.chomp == newsh)
+                ok = "yes"
+        end
+}
+if(!ok)
+        puts "Invalid shell. Try one of these."
+        File.open("/etc/shells").each { |shell|
+                if(!(shell.chomp.include? "#"))
+                        puts shell
+                end
+        }
+        exit
+end
+
+# get password
+print " Password: "
+begin
+        system "stty -echo"
+        passw = $stdin.gets.chomp
+ensure
+        system "stty echo"
+end
+puts
+
+# get username, DN
+user = Etc.getpwuid($stdin.stat.uid).name
+dn = "uid=" + user + ",ou=accounts,dc=tcc,dc=nmt,dc=edu"
+
+# create hash with new shell
+hash = { "loginShell" => [newsh] }
+
+# connect to ldap
+begin
+        ldap = LDAP::SSLConn.new('ldap0.nmt.edu', 389, true)
+        ldap.set_option(LDAP::LDAP_OPT_PROTOCOL_VERSION, 3)
+rescue Exception => e
+        puts "Cannot contact LDAP server: #{e}"
+        exit
+end
+
+# bind as the user
+begin
+        ldap.bind(dn, passw)
+rescue Exception => e
+        puts "Cannot bind as " + user + ": #{e}"
+        exit
+end
+
+# change the shell
+begin
+        ldap.modify(dn, hash)
+rescue Exception => e
+        puts "Cannot change shell: #{e}"
+        exit
+end
+
+# unbind from ldap0
+ldap.unbind
+
+# notify of success
+puts "Success!"

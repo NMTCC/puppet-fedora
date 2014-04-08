@@ -1,0 +1,6 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+MAILTO=root
+HOME=/
+15 0 * * * root /usr/local/bin/reboot_to_win 
+45 6 * * * root /usr/local/bin/random_machine_reboot

@@ -1,0 +1,250 @@
+#!/usr/bin/env python
+
+import sys,os
+import rpm
+import socket
+import commands
+import time,random
+import re
+import argparse
+
+
+def getKernels():
+	#Obtain kernel RPM listing:
+	mi = rpm.TransactionSet().dbMatch('name', 'kernel')
+	kernels = []
+	for hdr in mi:
+		line = hdr['version'] + "-" + hdr['release'] + "." + hdr['arch']
+		kernels.append(line)
+	kernels.reverse()
+	return kernels
+
+
+def getHash():
+	# retrieve GRUB password hash from shadow file; thanks puppet
+	try:
+		shadow = open('/etc/shadow', 'r')
+	except:
+		return None
+	hashed = None
+	for line in shadow:
+		if re.search("tccgrub", line):
+			hashed = line.split(":")[1]
+			break
+	shadow.close()
+	return hashed
+
+
+def getGrubRoot():
+	# ask GRUB which partition it's on
+	grubnoise = commands.getoutput('/sbin/grub2-probe -t drive /boot')
+	grubpart = None
+	for line in grubnoise.split('\n'):
+		if re.search('\(hd\d,\w*\d\)', line):
+			grubpart = line.strip()
+	return grubpart
+
+
+def splitDrive(grubdrive):
+	# split GRUB drive value into parts
+	disk, part = grubdrive.lstrip("(").rstrip(")").split(",")
+	# thanks to grub2 the partitions have a disk label prefix
+	partl = list(part)
+	part = partl[len(partl) - 1]
+	partl.remove(part)
+	dlabel = "".join(partl)
+	return disk, dlabel, part
+
+
+def findWindows():
+	# we're determining if Windows is installed here,
+	# so we bump the timer count if we find out it is
+	timer = 30
+	winpart = commands.getoutput('/sbin/blkid -o device -t TYPE=ntfs')
+	if winpart != "":
+		timer = 300
+	return winpart, timer
+
+
+def writeGrubConf(grubpart, hash, kernels, path):
+	kernel = kernels[0]
+	grubconf = open(path, 'w')
+	grubconf.write('set default="0"\n')
+	grubconf.write('if [ -s $prefix/grubenv ]; then\n')
+	grubconf.write('\tload_env\n')
+	grubconf.write('fi\n')
+	grubconf.write('if [ "${tccboot}" ]; then\n')
+	grubconf.write('\tset default="${tccboot}"\n')
+	grubconf.write('fi\n')
+	grubconf.write('set tccboot=""\n')
+	grubconf.write('save_env tccboot\n')
+	grubconf.write('set gfxmode="1280x800x32;1280x720x32;1024x786x32"\n')
+	grubconf.write('set gfxpayload="keep"\n')
+	grubconf.write('set theme="/grub2/themes/tcc/theme.txt"\n')
+	grubconf.write('set superusers="tcc"\n')
+	grubconf.write('password_pbkdf2 tcc %s\n' % hash)
+	grubconf.write('insmod ext2\n')
+	grubconf.write('insmod gfxmenu\n')
+	grubconf.write('insmod ntfs\n')
+	grubconf.write('insmod part_gpt\n')
+	grubconf.write('insmod part_msdos\n')
+	grubconf.write('insmod png\n')
+	grubconf.write('insmod vbe\n')
+	grubconf.write('loadfont /grub2/themes/tcc/dejavu_sans_mono_regular_36.pf2\n')
+	grubconf.write('loadfont /grub2/themes/tcc/dejavu_sans_mono_bold_36.pf2\n')
+	grubconf.write('loadfont /grub2/themes/tcc/dejavu_sans_regular_12.pf2\n')
+	grubconf.write('loadfont /grub2/themes/tcc/perfect_dos_vga_437_regular_16.pf2\n')
+	grubconf.write('terminal_output gfxterm\n\n')
+	grubconf.write('set timeout="30"\n')
+	grubconf.write('search --file --no-floppy --set=windows /bootmgr\n')
+	grubconf.write('if [ "$?" = "0" ]; then\n')
+	grubconf.write('\tset winver="7"\n')
+	grubconf.write('\tset winpath="/bootmgr"\n')
+	grubconf.write('fi\n')
+	# grubconf.write('search --file --no-floppy --set=windows /ntldr\n')
+	# grubconf.write('if [ "$?" = "0" ]; then\n')
+	# grubconf.write('\tset winver="XP"\n')
+	# grubconf.write('\tset winpath="/ntldr"\n')
+	# grubconf.write('fi\n')
+	grubconf.write('if [ "${windows}" ]; then\n')
+	grubconf.write('\tset timeout="300"\n')
+	grubconf.write('\texport windows\n')
+	grubconf.write('\texport winver\n')
+	grubconf.write('\texport winpath\n')
+	grubconf.write('fi\n')
+	grubconf.write('if [ "${tcctick}" ]; then\n')
+	grubconf.write('\tset timeout="${tcctick}"\n')
+	grubconf.write('fi\n')
+	grubconf.write('set tcctick=""\n')
+	grubconf.write('save_env tcctick\n\n')
+	grubconf.write('menuentry "Fedora Linux x86_64" --class "fedora" --unrestricted --hotkey "l" {\n')
+	grubconf.write('\tinsmod gzio\n')
+	grubconf.write('\tset root="%s"\n' % grubpart)
+	grubconf.write('\techo "Loading Linux kernel %s..."\n' % kernel)
+	grubconf.write('\tlinux /vmlinuz-%s root=/dev/mapper/vg_f19-lv_root ro rd.lvm.lv=vg_f19/lv_swap rd.md=0 rd.dm=0 vconsole.keymap=us rd.luks=0 vconsole.font=latarcyrheb-sun16 rd.lvm.lv=vg_f19/lv_root LANG=en_US.UTF-8\n' % kernel)
+	grubconf.write('\techo "Loading initial ramdisk..."\n')
+	grubconf.write('\tinitrd /initramfs-%s.img\n' % kernel)
+	grubconf.write('}\n\n')
+	grubconf.write('if [ "${windows}" ]; then\n')
+	grubconf.write('\tmenuentry "Windows ${winver}" --class "windows" --unrestricted --hotkey "w" {\n')
+	grubconf.write('\t\tinsmod ntldr\n')
+	grubconf.write('\t\tset root="(${windows})"\n')
+	grubconf.write('\t\techo "Running Windows boot loader..."\n')
+	grubconf.write('\t\tntldr ${winpath}\n')
+	grubconf.write('\t}\n')
+	grubconf.write('fi\n\n')
+	grubconf.write('menuentry "System Maintenance" --class "locked" --users "tcc" --hotkey "m" {\n')
+	grubconf.write('\tconfigfile /grub2/grub.unlocked\n')
+	grubconf.write('}\n\n')
+	grubconf.write('play 480 932 1\n')
+	grubconf.close()
+
+
+def writeUnlockedConf(grubpart, hash, kernels, path):
+	unlockedconf = open(path, 'w')
+	unlockedconf.write('set default="3"\n')
+	unlockedconf.write('set timeout="60"\n')
+	unlockedconf.write('set color_normal="white/black"\n')
+	unlockedconf.write('set color_highlight="black/white"\n')
+	unlockedconf.write('set menu_color_normal="light-gray/blue"\n')
+	unlockedconf.write('set menu_color_highlight="white/light-blue"\n')
+	unlockedconf.write('export color_normal\n')
+	unlockedconf.write('export color_highlight\n')
+	unlockedconf.write('export menu_color_normal\n')
+	unlockedconf.write('export menu_color_highlight\n')
+	unlockedconf.write('insmod ext2\n')
+	unlockedconf.write('insmod ntfs\n')
+	unlockedconf.write('insmod part_gpt\n')
+	unlockedconf.write('insmod part_msdos\n\n')
+	unlockedconf.write('submenu "Fedora options" --hotkey "l" {\n\n')
+	for kernel in kernels:
+		unlockedconf.write('\tmenuentry "Fedora Linux (%s)" {\n' % kernel)
+		unlockedconf.write('\t\tinsmod gzio\n')
+		unlockedconf.write('\t\tset root="%s"\n' % grubpart)
+		unlockedconf.write('\t\techo "Loading Linux kernel %s..."\n' % kernel)
+		unlockedconf.write('\t\tlinux /vmlinuz-%s root=/dev/mapper/vg_f19-lv_root ro rd.lvm.lv=vg_f19/lv_swap rd.md=0 rd.dm=0 vconsole.keymap=us rd.luks=0 vconsole.font=latarcyrheb-sun16 rd.lvm.lv=vg_f19/lv_root rhgb quiet LANG=en_US.UTF-8\n' % kernel)
+		unlockedconf.write('\t\techo "Loading initial ramdisk..."\n')
+		unlockedconf.write('\t\tinitrd /initramfs-%s.img\n' % kernel)
+		unlockedconf.write('\t}\n\n')
+	unlockedconf.write('\tmenuentry "Fedora 19 Kickstart" {\n')
+	unlockedconf.write('\t\tinsmod gzio\n')
+	unlockedconf.write('\t\tset root="%s"\n' % grubpart)
+	unlockedconf.write('\t\techo "Loading Linux kernel..."\n')
+	unlockedconf.write('\t\tlinux /extlinux/images/vmlinuz ks=http://update.nmt.edu/kickstart/19/tcc.ks.cfg selinux=0 noshell rhgb quiet\n')
+	unlockedconf.write('\t\techo "Loading initial ramdisk..."\n')
+	unlockedconf.write('\t\tinitrd /extlinux/images/initrd.img\n')
+	unlockedconf.write('\t}\n\n')
+	unlockedconf.write('}\n\n')
+	unlockedconf.write('if [ "${windows}" ]; then\n')
+	unlockedconf.write('\tsubmenu "Windows options" --hotkey "w" {\n')
+	unlockedconf.write('\t\tmenuentry "Windows ${winver}" {\n')
+	unlockedconf.write('\t\t\tinsmod ntldr\n')
+	unlockedconf.write('\t\t\tset root="(${windows})"\n')
+	unlockedconf.write('\t\t\techo "Running Windows boot loader..."\n')
+	unlockedconf.write('\t\t\tntldr ${winpath}\n')
+	unlockedconf.write('\t\t}\n')
+	unlockedconf.write('\t\tmenuentry "Windows ${winver} (Advanced Options)" {\n')
+	unlockedconf.write('\t\t\tinsmod ntldr\n')
+	unlockedconf.write('\t\t\tset root="(${windows})"\n')
+	unlockedconf.write('\t\t\techo "Running Windows boot loader..."\n')
+	unlockedconf.write('\t\t\tsendkey "F8"\n')
+	unlockedconf.write('\t\t\tntldr ${winpath}\n')
+	unlockedconf.write('\t\t}\n')
+	unlockedconf.write('\t}\n')
+	unlockedconf.write('fi\n\n')
+	unlockedconf.write('menuentry "Maintenance menu..." --hotkey "m" {\n')
+	unlockedconf.write('\tinsmod chain\n')
+	unlockedconf.write('\tset root="%s"\n' % grubpart)
+	unlockedconf.write('\tchainloader +1\n')
+	unlockedconf.write('\tboot\n')
+	unlockedconf.write('}\n\n')
+	unlockedconf.write('menuentry "Previous menu..." --hotkey "backspace" {\n')
+	unlockedconf.write('\tconfigfile /grub2/grub.cfg\n')
+	unlockedconf.write('}\n')
+	unlockedconf.close()
+
+
+if __name__ == '__main__':
+	# add debug options
+	parser = argparse.ArgumentParser(description = "TCC grub.cfg hax for Forge")
+	parser.add_argument('-t', '--test', action = "store_true", default = False, dest = 'test', help = 'write test versions of conf files')
+	parser.add_argument('-n', '--now', action = "store_false", default = True, dest = 'now', help = 'skip the random wait')
+	cmdlineopts = parser.parse_args()
+
+	# don't all slam update at once
+	if cmdlineopts.now:
+		timeout = random.randint(0, 2 * 60 * 10) * 0.1
+		time.sleep(timeout)
+
+	# set paths for configuration files
+	if cmdlineopts.test:
+		cpath = "/boot/grub2/grub.cfg.test"
+		upath = "/boot/grub2/grub.unlocked.test"
+	else:
+		cpath = "/boot/grub2/grub.cfg"
+		upath = "/boot/grub2/grub.unlocked"
+
+	# get GRUB root partition
+	grubpart = getGrubRoot()
+
+	# sanity check
+	if grubpart == None:
+		# EX_IOERR from sysexits.h
+		sys.exit(74)
+
+	# get GRUB password
+	hash = getHash()
+
+	# sanity check 2
+	if hash == None:
+		# EX_UNAVAILABLE from sysexits.h
+		sys.exit(69)
+
+	# get kernel list
+	kernels = getKernels()
+
+	# write a new conf with what we learned
+	writeGrubConf(grubpart, hash, kernels, cpath)
+
+	# write a new unlocked conf with what we learned
+	writeUnlockedConf(grubpart, hash, kernels, upath)
