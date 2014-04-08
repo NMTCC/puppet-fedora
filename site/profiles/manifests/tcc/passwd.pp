@@ -5,14 +5,14 @@ class profiles::tcc::passwd {
   user { 'root':
     ensure   => 'present',
     name     => 'root',
-    password => hiera('rootpasswd'),
+    password => "%{hiera('rootpasswd')}",
     system   => true,
   }
 
   user { 'tccgrub':
     ensure   => 'present',
     name     => 'tccgrub',
-    password => hiera('grubpasswd'),
+    password => "%{hiera('grubpasswd')}",
     system   => true,
   }
 
