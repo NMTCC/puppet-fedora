@@ -78,7 +78,6 @@ class profiles::tcc::config {
 	configfile { 'rssh.conf': dest => '/etc', }
 	configfile { 'khansub.png': dest => '/usr/share/backgrounds', }
 	configfile { 'client.conf': dest => '/etc/cups', }
-	configfile { 'puppet.conf': dest => '/etc/puppet', }
 	configfile { 'smartd.conf': dest => '/etc/smartmontools', }
 	configfile { '65-iscan.rules': dest => '/lib/udev/rules.d', }
 	configfile { 'apcupsd.conf': dest => '/etc/apcupsd', }
@@ -120,7 +119,7 @@ class profiles::tcc::config {
 	profiles::tcc::execlnwrong { 'lxdm-enable': command => '/bin/systemctl enable lxdm.service --force', ln => '/etc/systemd/system/display-manager.service', target => '/usr/lib/systemd/system/lxdm.service', require => Configfile['lxdm.conf'] }
 
 	service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'] }
-	service { 'puppet': ensure => 'running', enable => 'true', require => Configfile['puppet.conf'] }
+	service { 'puppet': ensure => 'running', enable => 'true', }
   #	service { 'transmission-daemon': ensure => 'running', enable => 'true', require => Nofile['/var/lib/transmission/Downloads/Fall2013'], }
 
   #	wget::fetch { 'http://sync.nmt.edu/Spring2014.torrent':	destination => '/tmp/Spring2014.torrent', } ->
