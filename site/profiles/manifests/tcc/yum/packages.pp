@@ -160,6 +160,7 @@ class profiles::tcc::yum::packages {
         'libXrandr-debuginfo',
         'linuxdoc-tools',
         'livecd-tools',
+        'lm_sensors',
         'lohit-kannada-fonts',
         'lynx',
         'mate-backgrounds',
