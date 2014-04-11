@@ -269,7 +269,7 @@ class profiles::tcc::yum::packages {
         'rb_libtorrent',
         'rb_libtorrent-python',
         'redhat-lsb',
-        'remctl',
+#       'remctl',
         'remctl-perl',
         'remctl-python',
         'rssh',
