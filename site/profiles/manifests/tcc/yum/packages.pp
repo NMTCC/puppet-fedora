@@ -214,6 +214,8 @@ class profiles::tcc::yum::packages {
         'nss-util-debuginfo',
         'ntp',
         'numpy',
+        'openldap',
+        'openldap-clients',
         'ocsinventory-agent',
         'octave',
         'octave-signal',
