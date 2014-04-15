@@ -12,6 +12,19 @@ class profiles::sensu::plugins {
     rabbitmq_ssl_cert_chain  => 'puppet:///files/sensu/ssl/cert.pem',
   }  
 
+# Delete the current vcsrepos if they're in detached head state
+  exec { 'rm-sensu-community-plugins':
+    command => '/usr/bin/rm -rf /etc/sensu/plugins/sensu-community-plugins/',
+    onlyif  => '/usr/bin/git --git-dir=/etc/sensu/plugins/sensu-community-plugins/.git/ symbolic-ref HEAD 2>&1 | /usr/bin/grep --quiet \'not a symbolic ref\'',
+    before  => Vcsrepo['/etc/sensu/plugins/sensu-community-plugins'],
+  }
+
+  exec { 'rm-sensu-tcc-plugins':
+    command => '/usr/bin/rm -rf /etc/sensu/plugins/sensu-tcc-plugins/',
+    onlyif  => '/usr/bin/git --git-dir=/etc/sensu/plugins/sensu-tcc-plugins/.git/ symbolic-ref HEAD 2>&1 | /usr/bin/grep --quiet \'not a symbolic ref\'',
+    before  => Vcsrepo['/etc/sensu/plugins/sensu-tcc-plugins'],
+  }
+
   vcsrepo { '/etc/sensu/plugins/sensu-community-plugins':
     ensure   => latest,
     provider => git,
