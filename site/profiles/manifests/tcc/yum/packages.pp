@@ -304,6 +304,7 @@ class profiles::tcc::yum::packages {
         'tccmotd',
         'tcpdump',
         'tcsh',
+        'texlive-epstopdf',
         'telepathy-glib-debuginfo',
         'telepathy-logger-debuginfo',
         'thunar-volman',
