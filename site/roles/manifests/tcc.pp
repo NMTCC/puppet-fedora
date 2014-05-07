@@ -13,6 +13,7 @@ class roles::tcc {
   include profiles::tcc::remctl
 
   include profiles::nrao
+  include profiles::iris
 
   Class[profiles::tcc::yum] -> Class[profiles::tcc::yum::packages] -> Class[profiles::tcc::yum::localizations]
 
