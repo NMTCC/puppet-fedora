@@ -13,6 +13,7 @@ mod "puppetlabs/postgresql"
 mod "puppetlabs/firewall"
 mod "puppetlabs/apt"
 mod "puppetlabs/concat"
+mod "puppetlabs/rsync"
 
 mod 'couchdb',
   :git => 'https://github.com/camptocamp/puppet-couchdb.git'
