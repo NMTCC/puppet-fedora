@@ -144,4 +144,10 @@ class profiles::tcc::config {
 		]
 	}
 
+  package { 'sensu-gem':
+    ensure    => latest,
+		provider  => 'gem',
+		name      => 'sensu-plugin',
+  }	
+
 }
