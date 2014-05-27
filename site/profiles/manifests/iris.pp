@@ -23,4 +23,25 @@ class profiles::iris {
   rsync::get { '/etc/profile.d/cwpsu.csh':
     source => 'update.nmt.edu::CWP/cwpsu.csh',
   }
+
+
+  # Rsync IRIS Scripts
+  rsync::get { '/usr/local/sh':
+    path   => '/usr/local/',
+    source => 'update.nmt.edu::IRIS/sh',
+  }
+  rsync::get { '/usr/local/pl':
+    path   => '/usr/local/',
+    source => 'update.nmt.edu::IRIS/pl',
+  }
+
+  #Rsync IRIS Script profiles
+  rsync::get { '/etc/profile.d/iris.sh':
+    source => 'update.nmt.edu::IRIS/iris.sh',
+  }
+  rsync::get { '/etc/profile.d/iris.csh':
+    source => 'update.nmt.edu::IRIS/iris.csh',
+  }
+
+
 }
