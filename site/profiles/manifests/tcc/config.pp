@@ -164,7 +164,7 @@ class profiles::tcc::config {
   file { 'gems-directory':
       ensure  => directory,
       path    => '/usr/local/share/gems',
-      mode    => '0755',
+      mode    => '0644',
       recurse => true,
   }
 
