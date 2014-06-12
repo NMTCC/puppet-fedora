@@ -1,10 +1,10 @@
 # class profiles::tcc::ldap
 
 class profiles::tcc::ldap(
-  $uri            = "", 
-  $base           = "",
+  $uri            = "ldap://ldap0.nmt.edu/ ldap://ldap1.nmt.edu/", 
+  $base           = "dc=tcc,dc=nmt,dc=edu",
   $ssl            = "true",
-  $ssl_cert       = "",
+  $ssl_cert       = "tccCA.pem",
   $ensure         = present) {
 
   include profiles::tcc::ldap::params
