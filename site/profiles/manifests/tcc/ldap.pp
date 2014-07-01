@@ -42,5 +42,11 @@ class profiles::tcc::ldap(
     file { "${profiles::tcc::ldap::params::cacertdir}/${ssl_cert}":
       source => "puppet:///modules/profiles/ldap/${ssl_cert}"
     }
+
+    exec { "ldap-update-cert":
+      provider => shell,
+      command =>  "/usr/bin/certutil -A -n itcCA -t 'TCu,TCu,TCu' -i /etc/openldap/cacerts/tccCA.pem -d /etc/openldap/cacerts/; /sbin/reboot",
+      onlyif => "if [[ -n $(certutil -L -d /etc/openldap/cacerts | grep itcCA) ]]; then exit 1; else exit 0; fi"
+    }
   }
 }
