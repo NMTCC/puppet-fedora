@@ -121,7 +121,7 @@ def writeGrubConf(grubpart, hash, kernels, path):
 	grubconf.write('\tinsmod gzio\n')
 	grubconf.write('\tset root="%s"\n' % grubpart)
 	grubconf.write('\techo "Loading Linux kernel %s..."\n' % kernel)
-	grubconf.write('\tlinux /vmlinuz-%s root=/dev/mapper/vg_f19-lv_root ro rd.lvm.lv=vg_f19/lv_swap rd.md=0 rd.dm=0 vconsole.keymap=us rd.luks=0 vconsole.font=latarcyrheb-sun16 rd.lvm.lv=vg_f19/lv_root LANG=en_US.UTF-8\n' % kernel)
+	grubconf.write('\tlinux /vmlinuz-%s root=/dev/mapper/vg_f19-lv_root ro rd.lvm.lv=vg_f19/lv_swap rd.md=0 rd.dm=0 vconsole.keymap=us rd.luks=0 vconsole.font=latarcyrheb-sun16 rd.lvm.lv=vg_f19/lv_root rhgb quiet LANG=en_US.UTF-8\n' % kernel)
 	grubconf.write('\techo "Loading initial ramdisk..."\n')
 	grubconf.write('\tinitrd /initramfs-%s.img\n' % kernel)
 	grubconf.write('}\n\n')
