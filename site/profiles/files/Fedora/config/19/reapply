@@ -66,4 +66,10 @@ remctl puppet-win.nmt.edu puppet cert clean "`hostname -s`.tcc7"
 /etc/rc.d/init.d/winreboot preunroll
 chkconfig winreboot on
 /usr/local/bin/set_tcc_os 1 1
-shutdown -r now
+
+if [ "$1" != "--reboot" ]
+then
+        echo "Windows is ready to unroll. Reboot to continue."
+else
+        shutdown -r now
+fi
