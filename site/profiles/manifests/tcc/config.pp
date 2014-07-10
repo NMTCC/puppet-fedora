@@ -158,14 +158,7 @@ class profiles::tcc::config {
     ensure    => 'latest',
     provider  => 'gem',
     name      => 'sensu-plugin',
-  } ->
+  } 
 
-  #Permissions for /usr/local/share/gems needs to be set for users to use
-  file { 'gems-directory':
-      ensure  => directory,
-      path    => '/usr/local/share/gems',
-      mode    => '0644',
-      recurse => true,
-  }
 
 }
