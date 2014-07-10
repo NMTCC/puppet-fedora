@@ -2,10 +2,10 @@ Facter.add("screencount") do
   confine :operatingsystem => "Fedora"
 
   setcode do
-    `DISPLAY=:0 xrandr | grep -E "\sconnected" | wc -l`.to_i
+    `DISPLAY=:0 xrandr 2>&1 | grep -E "\sconnected" | wc -l`.to_i
   end
   
-  resolutions = `DISPLAY=:0 xrandr | grep -E "\sconnected" -A1 --no-group-separator | grep -v -E "\sconnected" | cut -f 4 -d" "`.split("\n")
+  resolutions = `DISPLAY=:0 xrandr 2>&1 | grep -E "\sconnected" -A1 --no-group-separator | grep -v -E "\sconnected" | cut -f 4 -d" "`.split("\n")
   $stderr.reopen("/dev/null", "w")
 end
 
