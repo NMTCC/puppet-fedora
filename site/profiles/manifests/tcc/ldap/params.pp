@@ -1,6 +1,6 @@
 class profiles::tcc::ldap::params {
 
-      $package   = [ 'openldap', 'openldap-clients' ]
+      $package   = [ 'openldap' ]
             
       $prefix    = '/etc/openldap'
       $config    = 'ldap.conf'
