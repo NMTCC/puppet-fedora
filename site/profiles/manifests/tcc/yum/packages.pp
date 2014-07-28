@@ -15,7 +15,6 @@ class profiles::tcc::yum::packages {
         'atk-debuginfo',
         'audacious',
         'audacious-plugins-freeworld',
-        'audacity',
         'audacity-freeworld',
         'audit-debuginfo',
         'autofs',
