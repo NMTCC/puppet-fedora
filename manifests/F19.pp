@@ -1,7 +1,7 @@
 node fedora19 {
 
   include roles::tcc
-  include roles::sensu
+#  include roles::sensu
 
 }
 
