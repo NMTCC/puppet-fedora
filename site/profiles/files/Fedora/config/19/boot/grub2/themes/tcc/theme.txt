@@ -1,4 +1,4 @@
-title-text: "Spring 2014"
+title-text: "Fall 2014"
 title-font: "DejaVu Sans Regular 12"
 title-color: "gray"
 message-font: "Perfect DOS VGA 437 Regular 16"
@@ -10,11 +10,10 @@ terminal-box: "terminal_*.png"
 
 + image {
 	left = "50%-377"
-	top = "25%-135"
+	top = "25%-137"
 	width = "755"
-	height = "270"
-	file = "tcclogo_white.png"
-#	file = "tcclogo_mario.png"
+	height = "273"
+	file = "itclogo_white.png"
 }
 
 + boot_menu {
@@ -42,7 +41,7 @@ terminal-box: "terminal_*.png"
 	width = "820"
 	height = "20"
 	font = "DejaVu Sans Regular 12"
-	fg_color = "navy"
+	fg_color = "#123E67"
 	bg_color = "black"
 	border_color = "gray"
 	text_color = "white"
