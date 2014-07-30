@@ -80,7 +80,7 @@ class profiles::tcc::config {
   configfile { 'clock': dest => '/etc/sysconfig', }
   configfile { 'lxdm.conf': dest => '/etc/lxdm', }
   configfile { '00-keyboard.conf': dest => '/etc/X11/xorg.conf.d', }
-  configfile { 'tcc-reboot': dest => '/etc/cron.d', }
+  configfile { 'nmt-reboot': dest => '/etc/cron.d', }
   configfile { 'forge.cron': dest => '/etc/cron.d', }
   configfile { 'sendmail.cf': dest => '/etc/mail', }
   configfile { 'Muttrc.local': dest => '/etc', }
@@ -107,7 +107,7 @@ class profiles::tcc::config {
   configscript { 'windisk.sh': dest => '/etc/cron.daily', }
   configscript { 'motd': dest => '/usr/bin', }
   configscript { 'chsh': dest => '/usr/local/bin', }
-  configscript { 'set_tcc_os': dest => '/usr/local/bin', }
+  configscript { 'set_next_os': dest => '/usr/local/bin', }
   configscript { 'finger-names': dest => '/usr/local/bin', }
   configscript { 'clear_browser_locks': dest => '/usr/local/bin', }
   configscript { 'reset_windows': dest => '/usr/local/bin', }
@@ -118,7 +118,7 @@ class profiles::tcc::config {
   configscript { 'passwd': dest => '/usr/local/bin', }
   configscript { 'jpgmpg': dest => '/usr/local/bin', }
   configscript { 'make_bootusb': dest => '/usr/local/bin', }
-  configscript { 'tcc-dracut': dest => '/usr/local/bin', }
+  configscript { 'nmt-dracut': dest => '/usr/local/bin', }
   configscript { 'PostLogout': dest => '/etc/lxdm', }
   configscript { 'sfdisk2parted': dest => '/usr/local/bin', }
   configscript { 'killpower': dest => '/etc/apcupsd', }

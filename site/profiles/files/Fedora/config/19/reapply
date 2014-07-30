@@ -65,7 +65,7 @@ rm -f /tmp/libsync.sh
 remctl puppet-win.nmt.edu puppet cert clean "`hostname -s`.tcc7"
 /etc/rc.d/init.d/winreboot preunroll
 chkconfig winreboot on
-/usr/local/bin/set_tcc_os 1 1
+/usr/local/bin/set_next_os 1 1
 
 if [ "$1" != "--reboot" ]
 then

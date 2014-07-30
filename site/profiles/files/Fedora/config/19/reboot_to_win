@@ -45,5 +45,5 @@ fi
 # We can't read grub.cfg anymore, since the Windows entry is dynamically
 # generated. But if we're here, we found an NTFS partition above.
 # The TCC GRUB2 config will always place Windows as the second menu entry.
-/usr/local/bin/set_tcc_os 1 10
+/usr/local/bin/set_next_os 1 10
 shutdown -r now
