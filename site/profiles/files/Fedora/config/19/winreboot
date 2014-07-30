@@ -127,7 +127,7 @@ def checkwin():
     else:
         # Set GRUB to choose Windows then reboot
         syslog.syslog("Detected that Windows configuration is incomplete. Rebooting to Windows.")
-        subprocess.check_call(["/usr/local/bin/set_tcc_os", "1", "10"])
+        subprocess.check_call(["/usr/local/bin/set_next_os", "1", "10"])
         subprocess.check_call(["shutdown", "-r", "now"])
         
         
