@@ -1,4 +1,4 @@
-# TCC Configuration for Mutt
+# NMT Configuration for Mutt
 
 set hostname=nmt.edu
 set spoolfile=imap://mailhost.nmt.edu/INBOX
