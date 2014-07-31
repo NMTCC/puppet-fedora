@@ -24,6 +24,12 @@ FLAG_FILE = "Windows/TCC"
 # if 'present', we'll reboot if the FLAG_FILE doesn't exist yet
 # if 'absent', we'll reboot if the FLAG_FILE still exists.
 FLAG_CONDITION = "present"
+### PUPPET
+# Preconfigure paths to Windows puppet certificates,
+# and the Linux puppet certificates (which we use as
+# a backup location for the Windows files.)
+wppath = "/media/winpart/ProgramData/PuppetLabs/puppet/etc/ssl/"
+lppath = "/var/lib/puppet/ssl/"
 
 import sys, os, subprocess, syslog, traceback, socket
 
@@ -98,17 +104,26 @@ def setwincert(sname):
             pconf.write("certname=" + sname + ".tcc7")
 
 
+def keypaths(cname, parent):
+    """
+    Constructs paths to puppet certificates
+    """
+
+    cert = parent + "certs/" + cname
+    kpri = parent + "private_keys/" + cname
+    kpub = parent + "public_keys/" + cname
+    return (cert, kpri, kpub)
+
+
 def savewincerts(sname):
     """
     Copies the Windows puppet certificates if possible
     """
 
-    # set paths to the certs and keys
-    wppath = "/media/winpart/ProgramData/PuppetLabs/puppet/etc/ssl/"
-    lppath = "/var/lib/puppet/ssl/"
-    cert = wppath + "certs/" + sname + ".tcc7.pem"
-    kpri = wppath + "private_keys/" + sname + ".tcc7.pem"
-    kpub = wppath + "public_keys/" + sname + ".tcc7.pem"
+    # set paths to the certs
+    cname = sname + ".tcc7.pem"
+    cert, kpri, kpub = keypaths(cname, wppath)
+    bcert, bkpri, bkpub = keypaths(cname, lppath)
 
     # it's not paranoid if a directory really isn't there
     if not os.path.exists(lppath + "certs"):
@@ -126,7 +141,7 @@ def savewincerts(sname):
             "-g", "puppet",
             "-m", "644",
             cert,
-            lppath + "certs/" + sname + ".tcc7.pem"
+            bcert
         ])
         syslog.syslog("Saved the Windows puppet certificate.")
     if os.path.exists(kpri):
@@ -136,7 +151,7 @@ def savewincerts(sname):
             "-g", "puppet",
             "-m", "640",
             kpri,
-            lppath + "private_keys/" + sname + ".tcc7.pem"
+            bkpri
         ])
         syslog.syslog("Saved the Windows puppet private key.")
     if os.path.exists(kpub):
@@ -146,7 +161,7 @@ def savewincerts(sname):
             "-g", "puppet",
             "-m", "644",
             kpub,
-            lppath + "public_keys/" + sname + ".tcc7.pem"
+            bkpub
         ])
         syslog.syslog("Saved the Windows puppet public key.")
 
@@ -157,61 +172,41 @@ def restorewincerts(sname):
     Restores the Windows puppet certificates if possible
     """
 
-    # set paths to the certs and keys
-    wppath = "/media/winpart/ProgramData/PuppetLabs/puppet/etc/ssl/"
-    lppath = "/var/lib/puppet/ssl/"
-    cert = lppath + "certs/" + sname + ".tcc7.pem"
-    kpri = lppath + "private_keys/" + sname + ".tcc7.pem"
-    kpub = lppath + "public_keys/" + sname + ".tcc7.pem"
+    # set paths to the certs
+    cname = sname + ".tcc7.pem"
+    cert, kpri, kpub = keypaths(cname, wppath)
+    bcert, bkpri, bkpub = keypaths(cname, lppath)
 
-    # it's not paranoid if a directory really isn't there
-    if not os.path.exists(wppath + "certs"):
-        return
-    if not os.path.exists(wppath + "private_keys"):
-        return
-    if not os.path.exists(wppath + "public_keys"):
-        return
+    # make sure the paths are there first
+    subprocess.check_call(["mkdir", "-p", wppath + "certs"])
+    subprocess.check_call(["mkdir", "-p", wppath + "private_keys"])
+    subprocess.check_call(["mkdir", "-p", wppath + "public_keys"])
 
-    # copy that floppy
-    if os.path.exists(cert):
-        subprocess.check_call([
-            "install",
-            "-o", "puppet",
-            "-g", "puppet",
-            "-m", "644",
-            cert,
-            wppath + "certs/" + sname + ".tcc7.pem"
-        ])
-    if os.path.exists(kpri):
-        subprocess.check_call([
-            "install",
-            "-o", "puppet",
-            "-g", "puppet",
-            "-m", "640",
-            kpri,
-            wppath + "private_keys/" + sname + ".tcc7.pem"
-        ])
-    if os.path.exists(kpub):
-        subprocess.check_call([
-            "install",
-            "-o", "puppet",
-            "-g", "puppet",
-            "-m", "644",
-            kpub,
-            wppath + "public_keys/" + sname + ".tcc7.pem"
-        ])
+    # copy if it seems like a good idea
+    if (not os.path.exists(cert)) and os.path.exists(bcert):
+        subprocess.check_call(["cp", bcert, cert])
+        syslog.syslog("Restored the Windows puppet certificate.")
+    if (not os.path.exists(kpri)) and os.path.exists(bkpri):
+        subprocess.check_call(["cp", bkpri, kpri])
+        syslog.syslog("Restored the Windows puppet public key.")
+    if (not os.path.exists(kpub)) and os.path.exists(bkpub):
+        subprocess.check_call(["cp", bkpub, kpub])
+        syslog.syslog("Restored the Windows puppet public key.")
 
 
 def checkwin():
     """
     check for FLAG_FILE. if FLAG_FILE isn't FLAG_CONDITION,
-    reboot to Windows.
+    reboot to Windows. Also take care of puppet certificates.
     """
 
     # if we're going to unroll, make sure the names are set
     sname = socket.gethostname().split('.')[0]
     setwinname(sname)
     setwincert(sname)
+
+    # if puppet hasn't generated certs yet, use the old ones
+    restorewincerts(sname)
     
     # check if the special file exists or doesn't exist.
     doneRebooting = False;
