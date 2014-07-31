@@ -188,7 +188,7 @@ def restorewincerts(sname):
         syslog.syslog("Restored the Windows puppet certificate.")
     if (not os.path.exists(kpri)) and os.path.exists(bkpri):
         subprocess.check_call(["cp", bkpri, kpri])
-        syslog.syslog("Restored the Windows puppet public key.")
+        syslog.syslog("Restored the Windows puppet private key.")
     if (not os.path.exists(kpub)) and os.path.exists(bkpub):
         subprocess.check_call(["cp", bkpub, kpub])
         syslog.syslog("Restored the Windows puppet public key.")
