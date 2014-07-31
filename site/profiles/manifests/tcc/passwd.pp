@@ -9,9 +9,9 @@ class profiles::tcc::passwd {
     system   => true,
   }
 
-  user { 'tccgrub':
+  user { 'nmtgrub':
     ensure   => 'present',
-    name     => 'tccgrub',
+    name     => 'nmtgrub',
     password => hiera('grubpasswd'),
     system   => true,
   }

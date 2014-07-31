@@ -8,7 +8,7 @@ import argparse
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(
-		description = "List all TCC Forge overlays"
+		description = "List all ITC Forge overlays"
 	)
 	parser.add_argument(
 		'-n',

@@ -13,7 +13,7 @@ download_libsync() {
 	then
 		return
 	fi
-	dialog --backtitle "TCC $SEMESTER Kickstart" --title "SYNC" --msgbox "Could not retrieve SYNC library!" 5 36
+	dialog --backtitle "ITC $SEMESTER Kickstart" --title "SYNC" --msgbox "Could not retrieve SYNC library!" 5 36
 	clear
 	exit 69 # EX_UNAVAILABLE from sysexits.h
 
@@ -21,7 +21,7 @@ download_libsync() {
 
 nofile() {
 
-	dialog --backtitle "TCC $SEMESTER Kickstart" --title "SYNC" --msgbox "No local copy of template found!" 5 36
+	dialog --backtitle "ITC $SEMESTER Kickstart" --title "SYNC" --msgbox "No local copy of template found!" 5 36
 	clear
 	exit 74 # EX_IOERR from sysexits.h
 
@@ -31,14 +31,14 @@ ntfs_check() {
 
 	winpart=`/sbin/blkid -o device -t TYPE=ntfs`
 	if [ "$winpart" == "" ]; then
-		dialog --backtitle "TCC $SEMESTER Kickstart" --title "SYNC" --msgbox "No NTFS partitions were found!" 5 34
+		dialog --backtitle "ITC $SEMESTER Kickstart" --title "SYNC" --msgbox "No NTFS partitions were found!" 5 34
 		clear
 		exit 1
 	fi
 
 }
 
-dialog --backtitle "TCC $SEMESTER Kickstart" --title "SYNC" --radiolist "Re-image Windows" 0 0 0 "Local" "Use locally stored copy of template" on "Network" "Unicast a new copy of the template" off 2> /tmp/reapply.$$
+dialog --backtitle "ITC $SEMESTER Kickstart" --title "SYNC" --radiolist "Re-image Windows" 0 0 0 "Local" "Use locally stored copy of template" on "Network" "Unicast a new copy of the template" off 2> /tmp/reapply.$$
 
 case "`cat /tmp/reapply.$$`" in
 	Local)
