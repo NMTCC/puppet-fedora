@@ -39,7 +39,7 @@ end
 parts = "mkpart primary NTFS " + bootvol[0].to_s + "s " + bootvol[1].to_s + "s"
 parts += " mkpart primary NTFS " + imgvol[0].to_s + "s " + imgvol[1].to_s + "s"
 
-puts "Caveat partitioner! Assuming a TCC template style map,"
+puts "Caveat partitioner! Assuming an ITC template style map,"
 puts "with MSDOS disk label and two NTFS volumes:"
 puts
 puts "parted -sm /dev/sda mklabel msdos " + parts + " set 1 boot on"
