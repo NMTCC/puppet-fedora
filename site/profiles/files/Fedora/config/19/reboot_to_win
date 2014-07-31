@@ -3,7 +3,7 @@
 # Reboots a machine to Windows
 # It does some checks first. Pass "--force" to override.
 
-# @khan please disable auto reboots in the tcc-reboot file
+# @khan please disable auto reboots in the nmt-reboot file
 # manual reboots should still be available
 
 function oops() {
@@ -44,6 +44,6 @@ fi
 
 # We can't read grub.cfg anymore, since the Windows entry is dynamically
 # generated. But if we're here, we found an NTFS partition above.
-# The TCC GRUB2 config will always place Windows as the second menu entry.
+# The ITC GRUB2 config will always place Windows as the second menu entry.
 /usr/local/bin/set_next_os 1 10
 shutdown -r now
