@@ -1,12 +1,12 @@
 #!/bin/bash
 
 function zap {
-	rm -rf $1 >> ~/.tccresetlog 2>&1
+	rm -rf $1 >> ~/.nmtresetlog 2>&1
 }
 
 date=`/usr/bin/date`
 host=`/usr/bin/hostname --short`
-echo "reset_linux ($host): $date" >> ~/.tccresetlog
+echo "reset_linux ($host): $date" >> ~/.nmtresetlog
 
 echo "  Log out from all Linux graphical sessions before proceeding."
 echo "  I will remove your Linux desktop environment settings, sessions,"
@@ -17,7 +17,7 @@ read input
 if [ "$input" != "Y" ]
 then
 	echo "Aborting per user request..."
-	echo "Aborting per user request..." >> ~/.tccresetlog
+	echo "Aborting per user request..." >> ~/.nmtresetlog
 	exit
 fi
 

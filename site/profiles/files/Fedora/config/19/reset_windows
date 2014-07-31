@@ -21,7 +21,7 @@ my @hosta = split(/\./, hostname);
 my $host = $hosta[0];
 
 # log output
-open(LOG, ">>$homedir/.tccresetlog") or die "Could not open log file, $!";
+open(LOG, ">>$homedir/.nmtresetlog") or die "Could not open log file, $!";
 print LOG "reset_windows ($host): $logdate\n";
 
 # sanity check
