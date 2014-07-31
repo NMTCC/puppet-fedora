@@ -29,7 +29,7 @@ then
 fi
 
 #the dirty work
-echo "You must authenticate as a TCC employee in"
+echo "You must authenticate as an ITC employee in"
 echo "order to access the boot disk image file"
 echo "(Kerberos will be used if possible)."
 read -ep "Username: " user
