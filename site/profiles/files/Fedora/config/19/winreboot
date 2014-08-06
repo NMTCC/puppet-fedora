@@ -206,7 +206,7 @@ def checkwin():
     setwincert(sname)
 
     # if puppet hasn't generated certs yet, use the old ones
-    restorewincerts(sname)
+    #restorewincerts(sname)
     
     # check if the special file exists or doesn't exist.
     doneRebooting = False;
