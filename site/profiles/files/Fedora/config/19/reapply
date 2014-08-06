@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export SEMESTER="Spring2014"
+export SEMESTER="Fall2014"
 export BRANCH="master"
 export BUILD="1"
 export LIBSYNC="http://update.nmt.edu/kickstart/19/libsync.sh"
