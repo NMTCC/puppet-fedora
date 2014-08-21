@@ -91,7 +91,7 @@ class profiles::tcc::config {
   configfile { 'smartd.conf': dest => '/etc/smartmontools', }
   configfile { '65-iscan.rules': dest => '/lib/udev/rules.d', }
   configfile { 'apcupsd.conf': dest => '/etc/apcupsd', }
-  configfile { 'boot/extlinux/extlinux.conf': dest => '', mode => '0640', }
+  configfile { 'extlinux.conf': dest => '/boot/extlinux', mode => '0640', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
