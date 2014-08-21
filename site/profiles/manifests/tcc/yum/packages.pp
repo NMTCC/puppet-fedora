@@ -190,6 +190,7 @@ class profiles::tcc::yum::packages {
         'python-psycopg2',
         'python-setproctitle',
         'python-sqlalchemy',
+        'python-twisted',
         'python-virtualenv',
         'python3-devel',
         'python3-lxml',
