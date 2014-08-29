@@ -4,21 +4,37 @@
 # Currently, this is 'puppetagent'
 class profiles::tcc::remctl {
 
-  remctl::command { 'puppetagent':
-    commands        => [
-      {
-        'command'    => 'puppet',
-        'subcommand' => 'agent',
-        'executable' => '/usr/local/bin/puppetagent',
-        'acl'        => '/etc/remctl/acl/puppetagent',
-      },
-    ],
+  remctl::command {
+    'puppetagent':
+      commands         => [
+        {
+          'command'    => 'puppet',
+          'subcommand' => 'agent',
+          'executable' => '/usr/local/bin/puppetagent',
+          'acl'        => '/etc/remctl/acl/puppetagent',
+        },
+      ],
+    'remreboot':
+      commands         => [
+        {
+          'command'    => 'remreboot',
+          'subcommand' => 'ALL',
+          'executable' => '/usr/local/bin/remreboot',
+          'acl'        => '/etc/remctl/acl/remreboot',
+        },
+      ],
   }
 
-  remctl::acl { 'puppetagent':
-    principals => [
-      'remctl/neptr.nmt.edu@NMT.EDU',
-    ],
+  remctl::acl {
+    'puppetagent':
+      principals => [
+        'remctl/neptr.nmt.edu@NMT.EDU',
+      ],
+    'remreboot':
+      principals => [
+        'remctl/neptr.nmt.edu@NMT.EDU',
+        'dgraham@NMT.EDU',
+      ],
   }
 
   file { '/usr/local/bin/puppetagent':
