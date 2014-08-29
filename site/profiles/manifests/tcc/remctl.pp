@@ -43,7 +43,6 @@ class profiles::tcc::remctl {
   remctl::acl { 'remreboot':
     principals => [
       'remctl/neptr.nmt.edu@NMT.EDU',
-      'dgraham@NMT.EDU',
     ],
   }
 
