@@ -29,4 +29,21 @@ class profiles::tcc::remctl {
     owner   => 'root',
   }
 
+  remctl::command { 'remreboot':
+    commands        => [
+      {
+        'command'    => 'remreboot',
+        'subcommand' => 'ALL',
+        'executable' => '/usr/local/bin/remreboot',
+        'acl'        => '/etc/remctl/acl/remreboot',
+      },
+    ],
+  }
+
+  remctl::acl { 'remreboot':
+    principals => [
+      'remctl/neptr.nmt.edu@NMT.EDU',
+    ],
+  }
+
 }
