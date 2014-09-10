@@ -46,4 +46,21 @@ class profiles::tcc::remctl {
     ],
   }
 
+
+  remctl::command { 'xorguser':
+    commands        => [
+      {
+        'command'    => 'xorguser',
+        'subcommand' => 'ALL',
+        'executable' => '/usr/local/bin/xorg_user',
+        'acl'        => '/etc/remctl/acl/xorguser',
+      },
+    ],
+  }
+
+  remctl::acl { 'xorguser':
+    principals => [
+      'remctl/neptr.nmt.edu@NMT.EDU',
+    ],
+  }
 }
