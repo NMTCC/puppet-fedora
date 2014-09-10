@@ -124,6 +124,7 @@ class profiles::tcc::config {
   configscript { 'killpower': dest => '/etc/apcupsd', }
   configscript { 'reseed': dest => '/usr/local/bin', }
   configscript { 'remreboot': dest => '/usr/local/bin', }
+  configscript { 'xorg_user': dest => '/usr/local/bin', }
 
   # The 'service' type can't pass --force to the systemctl; this has to be done by exec, then.  Yuck.
   # service { 'lxdm': ensure => 'running', enable => 'true', require => Configfile['lxdm.conf'] }
