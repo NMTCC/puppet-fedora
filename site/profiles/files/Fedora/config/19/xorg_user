@@ -1,6 +1,10 @@
 #!/bin/bash
 
 uid=`ck-list-sessions | grep user | sed -e 's/unix-user = //' | tr -d "'"`
-ent=`getent passwd $uid`
-IFS=':' read -ra INFO <<< "$ent"
-echo "${INFO[0]}"
+
+if [ $uid ]
+then
+	ent=`getent passwd $uid`
+	IFS=':' read -ra INFO <<< "$ent"
+	echo "${INFO[0]}"
+fi
