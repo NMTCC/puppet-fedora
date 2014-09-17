@@ -1,2 +1,2 @@
-05,35 * * * * root /usr/local/bin/stagger_puppet
+10,40 * * * * root sleep $((RANDOM % 1500)) && puppet agent -t > /dev/null 2>&1
 
