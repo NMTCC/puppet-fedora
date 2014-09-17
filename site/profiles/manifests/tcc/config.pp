@@ -82,6 +82,7 @@ class profiles::tcc::config {
   configfile { '00-keyboard.conf': dest => '/etc/X11/xorg.conf.d', }
   configfile { 'nmt-reboot': dest => '/etc/cron.d', }
   configfile { 'forge.cron': dest => '/etc/cron.d', }
+  configfile { 'puppet.cron': dest => '/etc/cron.d', }
   configfile { 'sendmail.cf': dest => '/etc/mail', }
   configfile { 'Muttrc.local': dest => '/etc', }
   configfile { 'pine.conf': dest => '/etc', }
