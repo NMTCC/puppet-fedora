@@ -82,6 +82,7 @@ class profiles::tcc::config {
   configfile { '00-keyboard.conf': dest => '/etc/X11/xorg.conf.d', }
   configfile { 'nmt-reboot': dest => '/etc/cron.d', }
   configfile { 'forge.cron': dest => '/etc/cron.d', }
+  configfile { 'puppet.cron': dest => '/etc/cron.d', }
   configfile { 'sendmail.cf': dest => '/etc/mail', }
   configfile { 'Muttrc.local': dest => '/etc', }
   configfile { 'pine.conf': dest => '/etc', }
@@ -131,7 +132,7 @@ class profiles::tcc::config {
   profiles::tcc::execlnwrong { 'lxdm-enable': command => '/bin/systemctl enable lxdm.service --force', ln => '/etc/systemd/system/display-manager.service', target => '/usr/lib/systemd/system/lxdm.service', require => Configfile['lxdm.conf'] }
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'] }
-  service { 'puppet': ensure => 'running', enable => 'true', }
+  service { 'puppet': ensure => 'stopped', enable => 'false', }
   # service { 'transmission-daemon': ensure => 'running', enable => 'true', require => Nofile['/var/lib/transmission/Downloads/Fall2013'], }
 
   # wget::fetch { 'http://sync.nmt.edu/Spring2014.torrent': destination => '/tmp/Spring2014.torrent', } ->
