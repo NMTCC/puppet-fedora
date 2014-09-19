@@ -4,7 +4,7 @@
 # Currently, this is 'puppetagent'
 class profiles::tcc::remctl {
 
-  remctl::command { 'puppetagent':
+  remctl::server::command { 'puppetagent':
     commands        => [
       {
         'command'    => 'puppet',
@@ -15,7 +15,7 @@ class profiles::tcc::remctl {
     ],
   }
 
-  remctl::acl { 'puppetagent':
+  remctl::server::acl { 'puppetagent':
     principals => [
       'remctl/neptr.nmt.edu@NMT.EDU',
     ],
@@ -29,7 +29,7 @@ class profiles::tcc::remctl {
     owner   => 'root',
   }
 
-  remctl::command { 'remreboot':
+  remctl::server::command { 'remreboot':
     commands        => [
       {
         'command'    => 'remreboot',
@@ -40,14 +40,14 @@ class profiles::tcc::remctl {
     ],
   }
 
-  remctl::acl { 'remreboot':
+  remctl::server::acl { 'remreboot':
     principals => [
       'remctl/neptr.nmt.edu@NMT.EDU',
     ],
   }
 
 
-  remctl::command { 'xorguser':
+  remctl::server::command { 'xorguser':
     commands        => [
       {
         'command'    => 'xorguser',
@@ -58,7 +58,7 @@ class profiles::tcc::remctl {
     ],
   }
 
-  remctl::acl { 'xorguser':
+  remctl::server::acl { 'xorguser':
     principals => [
       'remctl/neptr.nmt.edu@NMT.EDU',
     ],
