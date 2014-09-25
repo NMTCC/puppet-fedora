@@ -195,6 +195,7 @@ class profiles::tcc::yum::packages {
         'python-virtualenv',
         'python3-devel',
         'python3-lxml',
+        'python3-matplotlib-tk',
         'python3-tools',
         'R',
         'rb_libtorrent-python',
