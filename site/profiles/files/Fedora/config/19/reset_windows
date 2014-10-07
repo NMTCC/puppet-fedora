@@ -13,6 +13,7 @@ my $winroot = ".windows7-profile.V2";
 my $homedir = $ENV{"HOME"};
 my $docdir = "$homedir/$winroot/Documents";
 my $deskdir = "$homedir/$winroot/Desktop";
+my $downdir = "$homedir/$winroot/Downloads";
 my $sumtotal = 0;
 my $date = strftime "%m%d%y", localtime;
 my $time = strftime "%H%M%S", localtime;
@@ -34,7 +35,7 @@ unless (-e "$homedir/$winroot") {
 	exit;
 }
 
-# find size of Windows profile, Documents, and Desktop
+# find size of Windows profile, Documents, Downloads, and Desktop
 my $pro = `du -s $homedir/$winroot`;
 my @proa = split(/\s/, $pro);
 my $profile = $proa[0];
@@ -50,6 +51,12 @@ if (-e $deskdir) {
 	my @deska = split(/\s/, $desk);
 	$sumtotal = $sumtotal + $deska[0];
 	print LOG "Desktop = $deska[0]\n";
+}
+if (-e $downdir) {
+	my $down = `du -s $downdir`;
+	my @downa = split(/\s/, $down);
+	$sumtotal = $sumtotal + $downa[0];
+	print LOG "Downloads = $downa[0]\n";
 }
 
 # ask userhost for our quota through rpc
@@ -83,8 +90,9 @@ noquota:
 
 # nag the user
 print "  Log out from Windows before proceeding.\n";
-print "  There is enough free disk space under this account to back up your Windows\n";
-print "  data, but only files in Desktop and My Documents will be preserved!\n";
+print "  There is enough free disk space under this account to back up your\n";
+print "  Windows data, but only files in Desktop, Downloads, and My Documents\n";
+print "  will be preserved!\n";
 print "Continue? <Y/n> ";
 my $input = <>;
 chomp $input;
@@ -99,6 +107,7 @@ if ($input ne "Y") {
 mkpath("$homedir/From_Windows");
 my $docdest = "$homedir/From_Windows/Documents_$date";
 my $deskdest = "$homedir/From_Windows/Desktop_$date";
+my $downdest = "$homedir/From_Windows/Downloads_$date";
 if (-e $docdir) {
 	print 'Copying My Documents from profile to U:\From_Windows folder...'."\n";
 	if (-e $docdest) {
@@ -114,6 +123,15 @@ if (-e $deskdir) {
 		move($deskdir, $deskdest."_".$time);
 	} else {
 		move($deskdir, $deskdest);
+	}
+	print LOG "Moved Desktop directory.\n";
+}
+if (-e $downdir) {
+	print 'Copying Downloads from profile to U:\From_Windows folder...'."\n";
+	if (-e $downdest) {
+		move($downdir, $downdest."_".$time);
+	} else {
+		move($downdir, $downdest);
 	}
 	print LOG "Moved Desktop directory.\n";
 }
