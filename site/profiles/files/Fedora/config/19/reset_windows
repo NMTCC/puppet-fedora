@@ -133,7 +133,7 @@ if (-e $downdir) {
 	} else {
 		move($downdir, $downdest);
 	}
-	print LOG "Moved Desktop directory.\n";
+	print LOG "Moved Downloads directory.\n";
 }
 
 # delete the old profile
