@@ -101,6 +101,7 @@ class profiles::tcc::config {
   ln { '/boot/boot': target => '/boot', require => Configdir['boot'], }
   ln { '/usr/local/bin/grub2': target => '/usr/local/share/forge/modules/grub2', require => Configdir['modules'], }
   ln { '/usr/share/xsessions/default.desktop': target => '/usr/share/xsessions/cinnamon.desktop', }
+  ln { '/usr/bin/sqlplus': target => '/usr/lib/oracle/12.1/client64/bin/sqlplus', }
 
   configscript { 'winreboot': dest => '/etc/rc.d/init.d', }
   configscript { 'peripheral_check': dest => '/etc/cron.daily', }
