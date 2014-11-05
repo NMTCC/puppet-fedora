@@ -14,6 +14,7 @@ class roles::tcc {
   include profiles::rsync::all
 
   include profiles::iris
+  include profiles::firewall
 
   Class[profiles::tcc::yum] -> Class[profiles::tcc::yum::packages] -> Class[profiles::tcc::yum::localizations]
 
