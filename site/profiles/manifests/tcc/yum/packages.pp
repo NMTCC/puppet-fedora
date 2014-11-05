@@ -141,6 +141,7 @@ class profiles::tcc::yum::packages {
         'meld',
         'mercurial',
         'mjpegtools',
+        'mono-devel',
         'mousepad',
         'mutt',
         'MySQL-python',
