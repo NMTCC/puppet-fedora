@@ -197,6 +197,7 @@ class profiles::tcc::yum::packages {
         'mercurial',
         'mesa-debuginfo',
         'mjpegtools',
+        'mono-devel',
         'mousepad',
         'mutt',
         'mutter-debuginfo',
