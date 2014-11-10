@@ -194,6 +194,7 @@ class profiles::tcc::yum::packages {
         'python-sqlalchemy',
         'python-twisted',
         'python-virtualenv',
+        'python3-beautifulsoup4',
         'python3-devel',
         'python3-lxml',
         'python3-matplotlib-tk',
