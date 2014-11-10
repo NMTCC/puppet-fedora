@@ -14,6 +14,6 @@ class roles::nmt {
   include profiles::rsync::all
 
 
-  Class[profiles::tcc::yum] -> Class[profiles::tcc::yum::packages] -> Class[profiles::tcc::yum::localizations]
+  Class[profiles::nmt::yum] -> Class[profiles::nmt::yum::packages] -> Class[profiles::nmt::yum::localizations]
 
 }
