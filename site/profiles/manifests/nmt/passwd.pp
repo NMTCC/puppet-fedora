@@ -1,6 +1,6 @@
-# class profiles::tcc::passw
+# class profiles::nmt::passw
 
-class profiles::tcc::passwd {
+class profiles::nmt::passwd {
 
   user { 'root':
     ensure   => 'present',
