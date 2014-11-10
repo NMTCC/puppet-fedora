@@ -1,6 +1,6 @@
-# class profiles::rsync::all
+# class profiles::nmt::rsync
 
-class profiles::rsync::all {
-  include profiles::rsync::extlinux
-  include profiles::rsync::logo
+class profiles::nmt::rsync {
+  include profiles::nmt::rsync::extlinux
+  include profiles::nmt::rsync::logo
 }

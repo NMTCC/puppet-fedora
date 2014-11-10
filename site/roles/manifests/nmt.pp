@@ -11,7 +11,7 @@ class roles::nmt {
   include profiles::nmt::ldap
   include profiles::nmt::passwd
   include profiles::nmt::remctl
-  include profiles::rsync::all
+  include profiles::nmt::rsync
 
 
   Class[profiles::nmt::yum] -> Class[profiles::nmt::yum::packages] -> Class[profiles::nmt::yum::localizations]
