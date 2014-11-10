@@ -1,8 +1,8 @@
-# Class profiles::remctl
+# Class profiles::nmt::remctl
 #
 # Configures the remctl commands common to all TCC Fedora client stations
 # Currently, this is 'puppetagent'
-class profiles::tcc::remctl {
+class profiles::nmt::remctl {
 
   remctl::command { 'puppetagent':
     commands        => [

@@ -1,8 +1,8 @@
-# class profiles::tcc::config
+# class profiles::nmt::config
 
-class profiles::tcc::config {
+class profiles::nmt::config {
 
-  $moduleloc = "puppet:///modules/profiles/${operatingsystem}/config/${operatingsystemrelease}"
+  $moduleloc = "puppet:///modules/profiles/${operatingsystem}/config/${operatingsystemmajrelease}"
 
   File {
     owner => 'root',
@@ -21,7 +21,7 @@ class profiles::tcc::config {
   define configfile ($dest, $mode = '0644') {
     file { $title :
       mode   => $mode,
-      source => "${profiles::tcc::config::moduleloc}/${$title}",
+      source => "${profiles::nmt::config::moduleloc}/${$title}",
       path   => "${dest}/${title}",
     }
   }
@@ -42,7 +42,7 @@ class profiles::tcc::config {
 
   define configdir ($dest, $recurse = 'remote') {
     file { $title :
-      source  => "${profiles::tcc::config::moduleloc}/${$title}",
+      source  => "${profiles::nmt::config::moduleloc}/${$title}",
       path    => "${dest}/${title}",
       recurse => $recurse,
       ensure  => 'directory',
@@ -130,7 +130,7 @@ class profiles::tcc::config {
 
   # The 'service' type can't pass --force to the systemctl; this has to be done by exec, then.  Yuck.
   # service { 'lxdm': ensure => 'running', enable => 'true', require => Configfile['lxdm.conf'] }
-  profiles::tcc::execlnwrong { 'lxdm-enable': command => '/bin/systemctl enable lxdm.service --force', ln => '/etc/systemd/system/display-manager.service', target => '/usr/lib/systemd/system/lxdm.service', require => Configfile['lxdm.conf'] }
+  profiles::nmt::execlnwrong { 'lxdm-enable': command => '/bin/systemctl enable lxdm.service --force', ln => '/etc/systemd/system/display-manager.service', target => '/usr/lib/systemd/system/lxdm.service', require => Configfile['lxdm.conf'] }
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'] }
   service { 'puppet': ensure => 'stopped', enable => 'false', }

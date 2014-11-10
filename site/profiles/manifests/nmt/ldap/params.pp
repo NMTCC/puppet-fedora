@@ -1,4 +1,4 @@
-class profiles::tcc::ldap::params {
+class profiles::nmt::ldap::params {
 
       $package   = [ 'openldap' ]
             
