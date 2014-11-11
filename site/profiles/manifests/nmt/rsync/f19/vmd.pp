@@ -1,4 +1,4 @@
-class profiles::nmt::rsync::vmd {
+class profiles::nmt::rsync::f19::vmd {
   rsync::get { 'vmd':
     source => "update.nmt.edu::F19-vmd",
     path => '/',

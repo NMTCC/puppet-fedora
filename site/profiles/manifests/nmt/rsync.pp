@@ -1,11 +1,22 @@
 # class profiles::nmt::rsync
 
 class profiles::nmt::rsync {
-  include profiles::nmt::rsync::anaconda
-  include profiles::nmt::rsync::comsol
-  include profiles::nmt::rsync::extlinux
-  include profiles::nmt::rsync::logo
-  include profiles::nmt::rsync::maple
-  include profiles::nmt::rsync::matlab
-  include profiles::nmt::rsync::vmd
+
+  case $::operatingsystemmajrelease {
+    '19': {
+      include profiles::nmt::rsync::f19::extlinux
+      include profiles::nmt::rsync::f19::logo
+    }
+    '21': {
+      include profiles::nmt::rsync::f19::anaconda
+      include profiles::nmt::rsync::f19::comsol
+      include profiles::nmt::rsync::f21::extlinux
+      include profiles::nmt::rsync::f19::logo
+      include profiles::nmt::rsync::f19::maple
+      include profiles::nmt::rsync::f19::matlab
+      include profiles::nmt::rsync::f19::vmd
+    }
+    default: {}
+  }
+
 }
