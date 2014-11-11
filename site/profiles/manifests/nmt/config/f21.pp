@@ -36,6 +36,7 @@ class profiles::nmt::config::f21 {
   configfile { '65-iscan.rules': dest => '/lib/udev/rules.d', }
   configfile { 'apcupsd.conf': dest => '/etc/apcupsd', }
   configfile { 'extlinux.conf': dest => '/boot/extlinux', mode => '0640', }
+  configfile { 'user@.service': dest => '/usr/lib/systemd/system', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
