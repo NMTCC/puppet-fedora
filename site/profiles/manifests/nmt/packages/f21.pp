@@ -208,7 +208,6 @@ class profiles::nmt::packages::f21 {
     'rubygem-gtk2',
     'ruby-gnome2',
     'ruby-irb',
-    'ruby-ldap',
     'rxvt-unicode',
     'scipy',
     'screen',
