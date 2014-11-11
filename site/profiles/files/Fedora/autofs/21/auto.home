@@ -1,0 +1,22 @@
+#!/bin/bash
+
+##
+## TCC auto.home file for using ldap instead of hesiod
+## example version, but also probably final version
+##
+
+# get the raw home dir to automount and find the 2nd element
+# in the path name to look up the server exporting it.
+
+rawdir=`/usr/bin/ldapsearch -ZZ -x -LLL uid="$1" tccRawHomeDir |\
+  /bin/sed -n 's/tccRawHomeDir: //p'`
+
+if [ -z "${rawdir}" ]; then
+  exit 1
+fi
+
+basedir=`echo "$rawdir" | cut -d'/' -f3`
+
+mounthost=`/usr/bin/ldapsearch -ZZ -x -LLL -b 'ou=automount,dc=tcc,dc=nmt,dc=edu' cn="${basedir}" | sed -n 's/tccMountHost: //p'`
+
+echo "-fstype=nfs,vers=3 ${mounthost}:${rawdir:3}"
