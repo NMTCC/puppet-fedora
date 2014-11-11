@@ -272,6 +272,7 @@ class profiles::nmt::packages::f21 {
   $removelist = [
     'abrt-java-connector',
     'deja-dup',
+    'deja-dup-nautilus',
     'kdesdk',
     'ruby-ldap',
   ]
