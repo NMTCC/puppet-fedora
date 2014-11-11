@@ -266,6 +266,7 @@ class profiles::nmt::packages::f19 {
     'yum-utils',
     'zsh',
   ]
+
   $removelist = [
     'abrt-java-connector',
     'deja-dup',
@@ -273,5 +274,9 @@ class profiles::nmt::packages::f19 {
     'LPRng',
     'xine-lib-extras-freeworld',
   ]
+
+  Package { ensure => 'installed', require => Exec['yum-makecache'], }
+  package { $packlist : provider => 'yum', }
+  package { $removelist : ensure => 'absent', provider => 'yum', }
 
 }
