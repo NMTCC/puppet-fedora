@@ -121,6 +121,11 @@ class profiles::nmt::yum::f21 {
   disabledrepo { 'rpmfusion-nonfree-updates-testing': }
   disabledrepo { 'rpmfusion-nonfree-updates-testing-debuginfo': }
   disabledrepo { 'rpmfusion-nonfree-updates-testing-source': }
+###
+  disabledrepo { 'tcc-rpmfusion-free-updates': }
+  disabledrepo { 'tcc-rpmfusion-nonfree-updates': }
+  disabledrepo { 'puppetlabs-products': }
+  disabledrepo { 'puppetlabs-deps': }
 
 
   file { '/etc/pki/rpm-gpg':
