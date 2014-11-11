@@ -1,4 +1,4 @@
-class profiles::nmt::localizations::f19 {
+class profiles::nmt::yum::localizations::f19 {
 
   $packlist = [
     'hunspell-am',

@@ -1,12 +1,12 @@
 # Defines the TCC package lists
-class profiles::nmt::packages {
+class profiles::nmt::yum::packages {
 
   case $::operatingsystemmajrelease {
     '19': {
-      class { "profiles::nmt::packages::f19": }
+      class { "profiles::nmt::yum::packages::f19": }
     }
     '21': {
-      class { "profiles::nmt::packages::f21": }
+      class { "profiles::nmt::yum::packages::f21": }
     }
     default: {
       $packlist = []

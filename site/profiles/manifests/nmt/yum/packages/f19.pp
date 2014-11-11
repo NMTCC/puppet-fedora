@@ -1,5 +1,5 @@
 # Defines the TCC package lists
-class profiles::nmt::packages::f19 {
+class profiles::nmt::yum::packages::f19 {
 
   $packlist = [
     'a2ps',

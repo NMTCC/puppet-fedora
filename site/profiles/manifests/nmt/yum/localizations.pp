@@ -1,10 +1,10 @@
-class profiles::nmt::localizations {
+class profiles::nmt::yum::localizations {
   case $operatingsystemmajrelease {
   '19': {
-      class { "profiles::nmt::localizations::f19": }
+      class { "profiles::nmt::yum::localizations::f19": }
     }
   '21': {
-      class { "profiles::nmt::localizations::f21": }
+      class { "profiles::nmt::yum::localizations::f21": }
     }
   default: {
     $packlist = []
