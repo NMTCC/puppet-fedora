@@ -2,8 +2,6 @@
 
 class profiles::nmt::yum {
 
-  $moduleloc = "puppet:///modules/profiles/${operatingsystem}/yum/${operatingsystemmajrelease}"
-
   define gpgrepo ($descr = absent, $baseurl, $gpgkey, $metadata_expire = absent, $enabled = 0) {
     yumrepo { $title :
       name => $title,

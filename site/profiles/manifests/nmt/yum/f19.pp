@@ -2,6 +2,8 @@
 
 class profiles::nmt::yum::f19 {
 
+  $moduleloc = "puppet:///modules/profiles/${operatingsystem}/yum/${operatingsystemmajrelease}"
+
   enabledgpgrepo { 'google-chrome':
     descr => 'google-chrome',
     baseurl => 'http://dl.google.com/linux/chrome/rpm/stable/x86_64/',
