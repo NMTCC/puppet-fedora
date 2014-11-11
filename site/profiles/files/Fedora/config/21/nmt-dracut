@@ -1,0 +1,14 @@
+#!/usr/bin/ruby
+
+if(Process.uid.to_s != "0")
+	puts "You are not root."
+	exit
+end
+
+Dir.chdir("/boot")
+Dir.glob("vmlinuz-*.x86_64").each do |kernel|
+	kver = kernel.sub(/vmlinuz-/, "").sub(/\.x86_64/, "")
+	if(!File.exist?("/boot/initramfs-" + kver + ".x86_64.img"))
+		system('/usr/bin/dracut /boot/initramfs-' + kver + '.x86_64.img --kver ' + kver + ' > /dev/null 2>&1')
+	end
+end

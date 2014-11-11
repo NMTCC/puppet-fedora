@@ -17,7 +17,6 @@ class profiles::nmt::config::f21 {
 
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
-  configdir { 'modules': dest => '/usr/local/share/forge', require => File['/usr/local/share/forge'], }
 
   nofile { '/etc/sysconfig/desktop': }
 
@@ -43,13 +42,11 @@ class profiles::nmt::config::f21 {
   ln { '/usr/local/bin/python': target => '/usr/bin/python', }
   ln { '/usr/share/backgrounds/default.png': target => '/usr/share/backgrounds/khansub.png', require => Configfile['khansub.png'], }
   ln { '/boot/boot': target => '/boot', require => Configdir['boot'], }
-  ln { '/usr/local/bin/grub2': target => '/usr/local/share/forge/modules/grub2', require => Configdir['modules'], }
   ln { '/usr/share/xsessions/default.desktop': target => '/usr/share/xsessions/cinnamon.desktop', }
   ln { '/usr/bin/sqlplus': target => '/usr/lib/oracle/12.1/client64/bin/sqlplus', }
 
   configscript { 'winreboot': dest => '/etc/rc.d/init.d', }
   configscript { 'peripheral_check': dest => '/etc/cron.daily', }
-  configscript { 'overlay': dest => '/etc/cron.daily', }
   configscript { 'windisk.sh': dest => '/etc/cron.daily', }
   configscript { 'motd': dest => '/usr/bin', }
   configscript { 'chsh': dest => '/usr/local/bin', }
@@ -71,6 +68,7 @@ class profiles::nmt::config::f21 {
   configscript { 'reseed': dest => '/usr/local/bin', }
   configscript { 'remreboot': dest => '/usr/local/bin', }
   configscript { 'xorg_user': dest => '/usr/local/bin', }
+  configscript { 'grub2': dest => '/usr/local/bin', }
 
   # The 'service' type can't pass --force to the systemctl; this has to be done by exec, then.  Yuck.
   # service { 'lxdm': ensure => 'running', enable => 'true', require => Configfile['lxdm.conf'] }
