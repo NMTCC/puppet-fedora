@@ -57,6 +57,6 @@ class profiles::nmt::config {
     }
   }
 
-  class { "profiles::nmt::config::f${operatingsystemmajrelease}" }
+  class { "profiles::nmt::config::f${operatingsystemmajrelease}": }
 
 }
