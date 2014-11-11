@@ -1,6 +1,6 @@
-# class profiles::nmt::config::F19
+# class profiles::nmt::config::f19
 
-class profiles::nmt::config::F19 {
+class profiles::nmt::config::f19 {
 
   file { '/etc/motd':
     source  => [
