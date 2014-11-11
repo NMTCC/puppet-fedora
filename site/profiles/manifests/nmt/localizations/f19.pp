@@ -129,6 +129,11 @@ class profiles::nmt::localizations::f19 {
     'hunspell-yi',
     'hunspell-zu',
   ]
+
   $removelist = []
+
+  Package { ensure => 'installed', require => Exec['yum-makecache'], }
+  package { $packlist : provider => 'yum', }
+  package { $removelist : provider => 'yum', ensure => 'absent', }
 
 }
