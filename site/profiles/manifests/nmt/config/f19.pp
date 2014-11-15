@@ -90,15 +90,12 @@ class profiles::nmt::config::f19 {
   k5login { '/root/.k5login':
     ensure     => 'present',
     principals => [
-      'khan@NMT.EDU',
       'ken@NMT.EDU',
       'dgraham@NMT.EDU',
       'dylan@NMT.EDU',
       'wopr@NMT.EDU',
       'odo@NMT.EDU',
       'kaiba@NMT.EDU',
-      'jeanluc@NMT.EDU',
-      'floomby@NMT.EDU',
     ]
   }
 

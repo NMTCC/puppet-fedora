@@ -30,7 +30,7 @@ class profiles::nmt::config::f21 {
   configfile { 'Muttrc.local': dest => '/etc', }
   configfile { 'pine.conf': dest => '/etc', }
   configfile { 'rssh.conf': dest => '/etc', }
-  configfile { 'khansub.png': dest => '/usr/share/backgrounds', }
+  configfile { 'itcf21.png': dest => '/usr/share/backgrounds', }
   configfile { 'client.conf': dest => '/etc/cups', }
   configfile { 'smartd.conf': dest => '/etc/smartmontools', }
   configfile { '65-iscan.rules': dest => '/lib/udev/rules.d', }
@@ -41,7 +41,7 @@ class profiles::nmt::config::f21 {
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
   ln { '/usr/local/bin/python': target => '/usr/bin/python', }
-  ln { '/usr/share/backgrounds/default.png': target => '/usr/share/backgrounds/khansub.png', require => Configfile['khansub.png'], }
+  ln { '/usr/share/backgrounds/default.png': target => '/usr/share/backgrounds/itcf21.png', require => Configfile['itcf21.png'], }
   ln { '/boot/boot': target => '/boot', require => Configdir['boot'], }
   ln { '/usr/share/xsessions/default.desktop': target => '/usr/share/xsessions/cinnamon.desktop', }
   ln { '/usr/bin/sqlplus': target => '/usr/lib/oracle/12.1/client64/bin/sqlplus', }
@@ -89,15 +89,12 @@ class profiles::nmt::config::f21 {
   k5login { '/root/.k5login':
     ensure     => 'present',
     principals => [
-      'khan@NMT.EDU',
       'ken@NMT.EDU',
       'dgraham@NMT.EDU',
       'dylan@NMT.EDU',
       'wopr@NMT.EDU',
       'odo@NMT.EDU',
       'kaiba@NMT.EDU',
-      'jeanluc@NMT.EDU',
-      'floomby@NMT.EDU',
     ]
   }
 
