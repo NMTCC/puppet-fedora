@@ -71,6 +71,7 @@ class profiles::nmt::packages::f21 {
     'gnome-theme-curvylooks',
     'gnome-tweak-tool',
     'gnugo',
+    'google-chrome-stable',
     'gpgme-devel',
     'grace',
     'graphviz',
