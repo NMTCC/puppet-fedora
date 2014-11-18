@@ -31,6 +31,14 @@ class profiles::nmt::yum {
     }
   }
 
-  class { "profiles::nmt::yum::f${operatingsystemmajrelease}": }
+  case $::operatingsystemmajrelease {
+    '19': {
+      class { "profiles::nmt::yum::f19": }
+    }
+    '21': {
+      class { "profiles::nmt::yum::f21": }
+    }
+    default: {}
+  }
 
 }
