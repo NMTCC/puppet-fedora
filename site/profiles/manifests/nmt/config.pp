@@ -57,6 +57,14 @@ class profiles::nmt::config {
     }
   }
 
-  class { "profiles::nmt::config::f${operatingsystemmajrelease}": }
+  case $::operatingsystemmajrelease {
+    '19': {
+      class { "profiles::nmt::config::f19": }
+    }
+    '21': {
+      class { "profiles::nmt::config::f21": }
+    }
+    default: {}
+  }
 
 }
