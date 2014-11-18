@@ -1,4 +1,4 @@
-01 * * * * root /usr/local/share/forge/modules/grub2
+01 * * * * root /usr/local/bin/grub2
 10 * * * * root /usr/local/bin/nmt-dracut --quiet
 40 * * * * root /usr/local/bin/nmt-dracut --quiet
 
