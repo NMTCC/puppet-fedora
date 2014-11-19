@@ -5,7 +5,7 @@ class profiles::nmt::autofs {
 	$dest = "/etc"
 	$scripts = ['fs', 'sf', 'home']
 	
-	$moduleloc = "puppet:///modules/profiles/${operatingsystem}/autofs/${::operatingsystemmajrelease}"
+	$moduleloc = "puppet:///modules/profiles/${operatingsystem}/autofs/${operatingsystemrelease}"
 
 	File { owner => 'root', group => 'root', }
 	define fsfile ($ext = $title, $mode) {
