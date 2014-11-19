@@ -13,11 +13,10 @@ class profiles::nmt::config::f21 {
       Exec['kinit']
     ]
   }
-  file { '/usr/local/share/forge': ensure => 'directory', }
+  file { '/etc/lightdm/scripts': ensure => 'directory', }
 
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
-  configdir { 'scripts': dest => '/etc/lightdm', }
 
   nofile { '/etc/sysconfig/desktop': }
 
