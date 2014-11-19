@@ -37,6 +37,7 @@ class profiles::nmt::config::f21 {
   configfile { 'extlinux.conf': dest => '/boot/extlinux', mode => '0640', }
   configfile { 'user@.service': dest => '/usr/lib/systemd/system', }
   configfile { 'lightdm-tcc.conf': dest => '/etc/lightdm/lightdm.conf.d', }
+  configfile { 'makeloginfaster.service': dest => '/etc/systemd/system', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
@@ -77,6 +78,7 @@ class profiles::nmt::config::f21 {
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'] }
   service { 'puppet': ensure => 'stopped', enable => 'false', }
+  service { 'makeloginfaster': ensure => 'running', enable => 'true', require => Configfile['makeloginfaster.service'] }
   # service { 'transmission-daemon': ensure => 'running', enable => 'true', require => Nofile['/var/lib/transmission/Downloads/Fall2013'], }
 
   # wget::fetch { 'http://sync.nmt.edu/Spring2014.torrent': destination => '/tmp/Spring2014.torrent', } ->
