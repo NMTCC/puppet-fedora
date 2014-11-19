@@ -111,6 +111,7 @@ class profiles::nmt::packages::f21 {
     'libreoffice',
     'libtorrent-devel',
     'libXp',
+    'lightdm-gtk',
     'linuxdoc-tools',
     'livecd-tools',
     'lm_sensors',
