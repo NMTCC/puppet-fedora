@@ -64,7 +64,9 @@ class profiles::nmt::config {
     '21': {
       class { "profiles::nmt::config::f21": }
     }
-    default: {}
+    default: {
+      warning('No config for this release version.')
+    }
   }
 
 }

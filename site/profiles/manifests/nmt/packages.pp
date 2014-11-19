@@ -8,7 +8,9 @@ class profiles::nmt::packages {
     '21': {
       class { "profiles::nmt::packages::f21": }
     }
-    default: {}
+    default: {
+      warning('No package list for this release version.')
+    }
   }
 
 }

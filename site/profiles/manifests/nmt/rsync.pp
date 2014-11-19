@@ -16,7 +16,9 @@ class profiles::nmt::rsync {
       include profiles::nmt::rsync::f19::matlab
       include profiles::nmt::rsync::f19::vmd
     }
-    default: {}
+    default: {
+      warning('No rsync paths for this release version.')
+    }
   }
 
 }

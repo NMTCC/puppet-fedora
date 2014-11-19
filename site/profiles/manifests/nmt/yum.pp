@@ -38,7 +38,9 @@ class profiles::nmt::yum {
     '21': {
       class { "profiles::nmt::yum::f21": }
     }
-    default: {}
+    default: {
+      warning('No repositories for this release version.')
+    }
   }
 
 }

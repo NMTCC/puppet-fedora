@@ -7,7 +7,9 @@ class profiles::nmt::localizations {
   '21': {
       class { "profiles::nmt::localizations::f21": }
     }
-  default: {}
+  default: {
+      warning('No localizations for this release version.')
+    }
   }
 
 }
