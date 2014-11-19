@@ -7,6 +7,3 @@
 
 # Reset LightDM session settings
 /usr/bin/rm -f /var/lib/lightdm/.cache/lightdm-gtk-greeter/state
-
-# Restart LightDM
-/usr/bin/systemctl restart lightdm.service
