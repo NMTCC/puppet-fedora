@@ -38,6 +38,7 @@ class profiles::nmt::config::f21 {
   configfile { 'user@.service': dest => '/usr/lib/systemd/system', }
   configfile { 'lightdm-tcc.conf': dest => '/etc/lightdm/lightdm.conf.d', }
   configfile { 'makeloginfaster.service': dest => '/etc/systemd/system', }
+  configfile { 'winreboot.service': dest => '/etc/systemd/system', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
@@ -47,7 +48,7 @@ class profiles::nmt::config::f21 {
   ln { '/usr/share/xsessions/default.desktop': target => '/usr/share/xsessions/cinnamon.desktop', }
   ln { '/usr/bin/sqlplus': target => '/usr/lib/oracle/12.1/client64/bin/sqlplus', }
 
-  configscript { 'winreboot': dest => '/etc/rc.d/init.d', }
+  configscript { 'winreboot': dest => '/usr/local/bin', }
   configscript { 'peripheral_check': dest => '/etc/cron.daily', }
   configscript { 'windisk.sh': dest => '/etc/cron.daily', }
   configscript { 'motd': dest => '/usr/bin', }

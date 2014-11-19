@@ -223,13 +223,13 @@ def checkwin():
         savewincerts(sname)
         umount()
         syslog.syslog("Detected that Windows configuration is complete. See you next time.")
-        subprocess.check_call(["chkconfig","winreboot","off"])
+        subprocess.check_call(["systemctl","disable","winreboot.service"])
     else:
         # Set GRUB to choose Windows then reboot
         umount()
         syslog.syslog("Detected that Windows configuration is incomplete. Rebooting to Windows.")
         subprocess.check_call(["/usr/local/bin/set_next_os", "1", "10"])
-        subprocess.check_call(["shutdown", "-r", "now"])
+        subprocess.check_call(["systemctl", "reboot"])
         
         
 if __name__ == '__main__':
