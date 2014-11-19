@@ -17,11 +17,11 @@ class profiles::nmt::config::f21 {
 
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
+  configdir { 'scripts': dest => '/etc/lightdm', }
 
   nofile { '/etc/sysconfig/desktop': }
 
   configfile { 'clock': dest => '/etc/sysconfig', }
-  configfile { 'lxdm.conf': dest => '/etc/lxdm', }
   configfile { '00-keyboard.conf': dest => '/etc/X11/xorg.conf.d', }
   configfile { 'nmt-reboot': dest => '/etc/cron.d', }
   configfile { 'forge.cron': dest => '/etc/cron.d', }
@@ -37,6 +37,7 @@ class profiles::nmt::config::f21 {
   configfile { 'apcupsd.conf': dest => '/etc/apcupsd', }
   configfile { 'extlinux.conf': dest => '/boot/extlinux', mode => '0640', }
   configfile { 'user@.service': dest => '/usr/lib/systemd/system', }
+  configfile { 'lightdm-tcc.conf': dest => '/etc/lightdm/lightdm.conf.d', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
@@ -63,7 +64,7 @@ class profiles::nmt::config::f21 {
   configscript { 'jpgmpg': dest => '/usr/local/bin', }
   configscript { 'make_bootusb': dest => '/usr/local/bin', }
   configscript { 'nmt-dracut': dest => '/usr/local/bin', }
-  configscript { 'PostLogout': dest => '/etc/lxdm', }
+  configscript { 'PostLogout': dest => '/etc/lightdm/scripts', }
   configscript { 'sfdisk2parted': dest => '/usr/local/bin', }
   configscript { 'killpower': dest => '/etc/apcupsd', }
   configscript { 'reseed': dest => '/usr/local/bin', }
@@ -73,7 +74,7 @@ class profiles::nmt::config::f21 {
 
   # The 'service' type can't pass --force to the systemctl; this has to be done by exec, then.  Yuck.
   # service { 'lxdm': ensure => 'running', enable => 'true', require => Configfile['lxdm.conf'] }
-  profiles::nmt::execlnwrong { 'lxdm-enable': command => '/bin/systemctl enable lxdm.service --force', ln => '/etc/systemd/system/display-manager.service', target => '/usr/lib/systemd/system/lxdm.service', require => Configfile['lxdm.conf'] }
+  profiles::nmt::execlnwrong { 'lightdm-enable': command => '/bin/systemctl enable lightdm.service --force', ln => '/etc/systemd/system/display-manager.service', target => '/usr/lib/systemd/system/lightdm.service', require => Configfile['lightdm-tcc.conf'] }
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'] }
   service { 'puppet': ensure => 'stopped', enable => 'false', }
