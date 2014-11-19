@@ -2,7 +2,7 @@
 
 class profiles::nmt::rsync {
 
-  case $::operatingsystemmajrelease {
+  case $::operatingsystemrelease {
     '19': {
       include profiles::nmt::rsync::f19::extlinux
       include profiles::nmt::rsync::f19::logo

@@ -2,7 +2,7 @@
 
 class profiles::nmt::config {
 
-  $moduleloc = "puppet:///modules/profiles/${operatingsystem}/config/${operatingsystemmajrelease}"
+  $moduleloc = "puppet:///modules/profiles/${operatingsystem}/config/${operatingsystemrelease}"
 
   File {
     owner => 'root',
@@ -57,7 +57,7 @@ class profiles::nmt::config {
     }
   }
 
-  case $::operatingsystemmajrelease {
+  case $::operatingsystemrelease {
     '19': {
       class { "profiles::nmt::config::f19": }
     }

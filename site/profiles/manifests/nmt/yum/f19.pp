@@ -2,7 +2,7 @@
 
 class profiles::nmt::yum::f19 {
 
-  $moduleloc = "puppet:///modules/profiles/${operatingsystem}/yum/${operatingsystemmajrelease}"
+  $moduleloc = "puppet:///modules/profiles/${operatingsystem}/yum/${operatingsystemrelease}"
 
   enabledgpgrepo { 'google-chrome':
     descr => 'google-chrome',

@@ -31,7 +31,7 @@ class profiles::nmt::yum {
     }
   }
 
-  case $::operatingsystemmajrelease {
+  case $::operatingsystemrelease {
     '19': {
       class { "profiles::nmt::yum::f19": }
     }

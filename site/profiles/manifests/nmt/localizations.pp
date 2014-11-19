@@ -1,6 +1,6 @@
 class profiles::nmt::localizations {
 
-  case $::operatingsystemmajrelease {
+  case $::operatingsystemrelease {
   '19': {
       class { "profiles::nmt::localizations::f19": }
     }

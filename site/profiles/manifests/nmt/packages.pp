@@ -1,7 +1,7 @@
 # Defines the TCC package lists
 class profiles::nmt::packages {
 
-  case $::operatingsystemmajrelease {
+  case $::operatingsystemrelease {
     '19': {
       class { "profiles::nmt::packages::f19": }
     }
