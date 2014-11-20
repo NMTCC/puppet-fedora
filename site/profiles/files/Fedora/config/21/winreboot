@@ -45,7 +45,7 @@ def findpart():
 	if type(ntfspart) == list:
 		ntfspart = ntfspart[1]
 	else:	
-                subprocess.check_call(["systemctl","disable","winreboot.service"])
+		subprocess.check_call(["systemctl","disable","winreboot.service"])
 		raise LinuxOnlyError("No windows partition found on this machine")
     except subprocess.CalledProcessError as returnerror:
         # NTFS partition not found
