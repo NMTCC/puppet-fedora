@@ -45,6 +45,7 @@ def findpart():
 	if type(ntfspart) == list:
 		ntfspart = ntfspart[1]
 	else:	
+                subprocess.check_call(["systemctl","disable","winreboot.service"])
 		raise LinuxOnlyError("No windows partition found on this machine")
     except subprocess.CalledProcessError as returnerror:
         # NTFS partition not found
@@ -279,7 +280,6 @@ if __name__ == '__main__':
         sys.exit(64) # 'command line usage error' from sysexits.h
     except LinuxOnlyError:
         syslog.syslog("No Windows partition found.")
-        subprocess.check_call(["systemctl","disable","winreboot.service"])
         sys.exit(64)
     except:
         syslog.syslog(traceback.format_exc(3))
