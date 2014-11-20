@@ -1,7 +1,7 @@
 class profiles::nmt::rsync::f19::comsol {
 
   rsync::get { 'comsol':
-    source => "update.nmt.edu::F19-comsol/usr/local/comsol43b",
+    source => 'update.nmt.edu::F19-comsol/usr/local/comsol43b',
     path => '/usr/local/',
     recursive => true,
     links => true,
@@ -9,7 +9,7 @@ class profiles::nmt::rsync::f19::comsol {
   }
 
   rsync::get { 'comsol-desktop':
-    source => "update.nmt.edu::F19-comsol/usr/local/share/applications/comsol.desktop",
+    source => 'update.nmt.edu::F19-comsol/usr/local/share/applications/comsol.desktop',
     path => '/usr/local/share/applications/',
     times => true,
   }
