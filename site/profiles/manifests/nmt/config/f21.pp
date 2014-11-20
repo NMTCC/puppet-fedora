@@ -39,6 +39,7 @@ class profiles::nmt::config::f21 {
   configfile { 'lightdm-tcc.conf': dest => '/etc/lightdm/lightdm.conf.d', }
   configfile { 'makeloginfaster.service': dest => '/etc/systemd/system', }
   configfile { 'winreboot.service': dest => '/etc/systemd/system', }
+  configfile { 'gnome-software-service.desktop': dest => '/etc/xdg/autostart', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
