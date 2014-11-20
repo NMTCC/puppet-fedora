@@ -279,6 +279,7 @@ if __name__ == '__main__':
         sys.exit(64) # 'command line usage error' from sysexits.h
     except LinuxOnlyError:
         syslog.syslog("No Windows partition found.")
+        subprocess.check_call(["systemctl","disable","winreboot.service"])
         sys.exit(64)
     except:
         syslog.syslog(traceback.format_exc(3))
