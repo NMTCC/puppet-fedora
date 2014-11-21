@@ -1,0 +1,7 @@
+{
+ "uuid": "bluetooth@cinnamon.org",
+ "name": "bluetoothStub",
+ "description": "A stub for Cinnamon's deprecated bluetooth applet.",
+ "icon": "gnome-panel-separator",
+ "max-instances": "1"
+}

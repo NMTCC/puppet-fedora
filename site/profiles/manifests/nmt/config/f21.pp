@@ -14,6 +14,7 @@ class profiles::nmt::config::f21 {
     ]
   }
   file { '/etc/lightdm/scripts': ensure => 'directory', }
+  file { '/usr/share/cinnamon/applets/bluetooth@cinnamon.org': ensure => 'directory', }
 
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
@@ -40,6 +41,8 @@ class profiles::nmt::config::f21 {
   configfile { 'makeloginfaster.service': dest => '/etc/systemd/system', }
   configfile { 'winreboot.service': dest => '/etc/systemd/system', }
   configfile { 'gnome-software-service.desktop': dest => '/etc/xdg/autostart', }
+  configfile { 'applet.js': dest => '/usr/share/cinnamon/applets/bluetooth@cinnamon.org', }
+  configfile { 'metadata.json': dest => '/usr/share/cinnamon/applets/bluetooth@cinnamon.org', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
