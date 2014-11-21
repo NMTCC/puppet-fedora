@@ -79,12 +79,12 @@ class profiles::nmt::yum::f21 {
   yumrepo { 'tcc-update':
     descr => 'TCC Local Packages for Fedora $releasever',
     baseurl => 'http://update.nmt.edu/tcc/fedora/$releasever/$basearch/',
-    gpgcheck => false,
+    gpgcheck => 0,
   }
   yumrepo { 'tcc-update-source':
     descr => 'TCC Local Packages for Fedora $releasever - Source',
     baseurl => 'http://update.nmt.edu/tcc/fedora/$releasever/source/SRPMS/',
-    gpgcheck => false,
+    gpgcheck => 0,
   }
 
 
