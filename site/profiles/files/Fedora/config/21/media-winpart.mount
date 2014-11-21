@@ -1,0 +1,9 @@
+[Unit]
+Description=Windows partition
+
+[Mount]
+What=/dev/sda2
+Where=/media/winpart
+Type=ntfs
+Options=rw
+TimeoutSec=5

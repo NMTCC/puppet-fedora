@@ -42,6 +42,7 @@ class profiles::nmt::config::f21 {
   configfile { 'gnome-software-service.desktop': dest => '/etc/xdg/autostart', }
   configfile { 'applet.js': dest => '/usr/share/cinnamon/applets/bluetooth@cinnamon.org', }
   configfile { 'metadata.json': dest => '/usr/share/cinnamon/applets/bluetooth@cinnamon.org', }
+  configfile { 'media-winpart.mount': dest => '/etc/systemd/system', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
