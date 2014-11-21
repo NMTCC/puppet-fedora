@@ -39,7 +39,6 @@ class profiles::nmt::config::f21 {
   configfile { 'user@.service': dest => '/usr/lib/systemd/system', }
   configfile { 'lightdm-tcc.conf': dest => '/etc/lightdm/lightdm.conf.d', }
   configfile { 'makeloginfaster.service': dest => '/etc/systemd/system', }
-  configfile { 'winreboot.service': dest => '/etc/systemd/system', }
   configfile { 'gnome-software-service.desktop': dest => '/etc/xdg/autostart', }
   configfile { 'applet.js': dest => '/usr/share/cinnamon/applets/bluetooth@cinnamon.org', }
   configfile { 'metadata.json': dest => '/usr/share/cinnamon/applets/bluetooth@cinnamon.org', }
@@ -52,7 +51,6 @@ class profiles::nmt::config::f21 {
   ln { '/usr/share/xsessions/default.desktop': target => '/usr/share/xsessions/cinnamon.desktop', }
   ln { '/usr/bin/sqlplus': target => '/usr/lib/oracle/12.1/client64/bin/sqlplus', }
 
-  configscript { 'winreboot': dest => '/usr/local/bin', }
   configscript { 'peripheral_check': dest => '/etc/cron.daily', }
   configscript { 'windisk.sh': dest => '/etc/cron.daily', }
   configscript { 'motd': dest => '/usr/bin', }
