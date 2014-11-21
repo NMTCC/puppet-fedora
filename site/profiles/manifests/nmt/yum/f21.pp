@@ -76,15 +76,15 @@ class profiles::nmt::yum::f21 {
 #    baseurl => 'http://replicon.nmt.edu/rpmfusion/nonfree/fedora/updates/$releasever/$basearch/',
 #    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever-$basearch',
 #  }
-  enabledgpgrepo { 'tcc-update':
+  yumrepo { 'tcc-update':
     descr => 'TCC Local Packages for Fedora $releasever',
     baseurl => 'http://update.nmt.edu/tcc/fedora/$releasever/$basearch/',
-    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-tcc-update',
+    gpgcheck => false,
   }
-  enabledgpgrepo { 'tcc-update-source':
+  yumrepo { 'tcc-update-source':
     descr => 'TCC Local Packages for Fedora $releasever - Source',
     baseurl => 'http://update.nmt.edu/tcc/fedora/$releasever/source/SRPMS/',
-    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-tcc-update',
+    gpgcheck => false,
   }
 
 
