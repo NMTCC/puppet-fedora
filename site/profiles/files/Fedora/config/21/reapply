@@ -5,6 +5,8 @@ export BRANCH="master"
 export BUILD="1"
 export LIBSYNC="http://update.nmt.edu/kickstart/19/libsync.sh"
 export SYNCPRE="http://replicon.nmt.edu/images/Fall2014"
+export UNATTEND="/media/winpart/Windows/Panther/unattend.xml"
+export WPCONF="/media/winpart/ProgramData/PuppetLabs/puppet/etc/puppet.conf"
 
 download_libsync() {
 
@@ -63,9 +65,16 @@ esac
 rm -f /tmp/libsync.sh
 
 remctl puppet-win.nmt.edu puppet cert clean "`hostname -s`.tcc7"
-/etc/rc.d/init.d/winreboot preunroll
-chkconfig winreboot on
-/usr/local/bin/set_next_os 1 1
+systemctl start media-winpart.mount
+if [ -e "$UNATTEND" ]
+then
+        sed -i -e "s/reference1/$(hostname -s)/" $UNATTEND
+fi
+if [ -e "$WPCONF" ]
+then
+        echo "certname=$(hostname -s).tcc7" >> $WPCONF
+fi
+systemctl stop media-winpart.mount
 
 if [ "$1" != "--reboot" ]
 then
