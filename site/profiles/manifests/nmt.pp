@@ -3,7 +3,7 @@
 class profiles::nmt {
 
   # This is a hack to make nodes report as unchanged; they report as changed whenever an exec is actually run.
-  exec { 'kinit': command => '/bin/kinit -k', unless => '/bin/klist', }
+  exec { 'kinit': command => '/bin/kinit -k', unless => 'if ! /bin/klist -k; then kinit -k; fi', }
   # This has the same hack, plus, the arrow at the end of this line makes 'yum-makecache' run before 'yum-upgrade'; puppet is orderless otherwise.
   exec { 'yum-makecache': command => '/bin/yum makecache', timeout => 0, unless => '/bin/yum makecache', } ->
   exec { 'yum-update': command => '/bin/yum update -y --setopt=protected_multilib=false', timeout => 0, unless => '/bin/yum check-update', }
