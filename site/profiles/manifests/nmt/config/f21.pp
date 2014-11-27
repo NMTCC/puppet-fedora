@@ -106,15 +106,15 @@ class profiles::nmt::config::f21 {
 
   file { 'vmlinuz':
     mode => '0644',
-    source => '/tmp/${title}',
-    path => '/boot/extlinux/images/${title}',
+    source => '/tmp/vmlinuz',
+    path => '/boot/extlinux/images/vmlinuz',
     require => Wget::Fetch['vmlinuz'],
   }
 
   file { 'initrd.img':
     mode => '0644',
-    source => '/tmp/${title}',
-    path => '/boot/extlinux/images/${title}',
+    source => '/tmp/initrd.img',
+    path => '/boot/extlinux/images/initrd.img',
     require => Wget::Fetch['initrd'],
   }
 
