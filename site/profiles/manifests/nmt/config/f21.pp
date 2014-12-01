@@ -92,32 +92,6 @@ class profiles::nmt::config::f21 {
   #  path    => '/usr/bin:/usr/sbin:/bin',
   #}
 
-  wget::fetch { 'http://replicon.nmt.edu/fedora/linux/development/21/x86_64/os/isolinux/vmlinuz':
-    destination => '/tmp/vmlinuz',
-    cache_dir => '/var/cache/wget',
-    alias => 'vmlinuz',
-  }
-
-  wget::fetch { 'http://replicon.nmt.edu/fedora/linux/development/21/x86_64/os/isolinux/initrd.img':
-    destination => '/tmp/initrd.img',
-    cache_dir => '/var/cache/wget',
-    alias => 'initrd',
-  }
-
-  file { 'vmlinuz':
-    mode => '0644',
-    source => '/tmp/vmlinuz',
-    path => '/boot/extlinux/images/vmlinuz',
-    require => Wget::Fetch['vmlinuz'],
-  }
-
-  file { 'initrd.img':
-    mode => '0644',
-    source => '/tmp/initrd.img',
-    path => '/boot/extlinux/images/initrd.img',
-    require => Wget::Fetch['initrd'],
-  }
-
   k5login { '/root/.k5login':
     ensure     => 'present',
     principals => [
