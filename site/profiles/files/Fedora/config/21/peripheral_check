@@ -2,6 +2,23 @@
 
 MAILTO="tcc-maint@nmt.edu, tcc-uc@nmt.edu"
 
+check_winpart() {
+
+	systemctl start media-winpart.mount
+	if [ -d "/media/winpart/Windows" ]
+	then
+		winfree=`df --output=avail /media/winpart | sed -e '1d'`
+		hwinfree=`df -h --output=avail /media/winpart | sed -e '1d'`
+		if [ "$winfree" -lt "4194304" ]
+		then
+			echo "$host is running out of room on its Windows partition ($hwinfree available)." | mail -s "$host: Windows low on space" $MAILTO
+			
+		fi
+	fi
+	systemctl stop media-winpart.mount
+
+}
+
 host=`hostname --short`
 base="ou=clients,ou=machines,dc=tcc,dc=nmt,dc=edu"
 staff=`ldapsearch -xZZLLL -b ${base} cn=${host} tccOfficeMachine | sed -n -e '2p' | cut -d ":" -f 2`
@@ -53,4 +70,9 @@ then
 			echo "$host has too many optical drives installed." | mail -s "$host: extra ODD" $MAILTO
 			;;
 	esac
+
+	winpart=`/sbin/blkid -o device -t TYPE=ntfs`
+	if [ "$winpart" != "" ]; then
+		check_winpart
+	fi
 fi

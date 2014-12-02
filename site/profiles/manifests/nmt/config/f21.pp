@@ -53,7 +53,6 @@ class profiles::nmt::config::f21 {
   ln { '/usr/bin/sqlplus': target => '/usr/lib/oracle/12.1/client64/bin/sqlplus', }
 
   configscript { 'peripheral_check': dest => '/etc/cron.daily', }
-  configscript { 'windisk.sh': dest => '/etc/cron.daily', }
   configscript { 'motd': dest => '/usr/bin', }
   configscript { 'chsh': dest => '/usr/local/bin', }
   configscript { 'set_next_os': dest => '/usr/local/bin', }
