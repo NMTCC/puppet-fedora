@@ -82,6 +82,7 @@ class profiles::nmt::config::f21 {
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'] }
   service { 'puppet': ensure => 'stopped', enable => 'false', }
   service { 'makeloginfaster': ensure => 'running', enable => 'true', require => Configfile['makeloginfaster.service'] }
+  service { 'postfix': ensure => 'running', enable => 'true', }
   # service { 'transmission-daemon': ensure => 'running', enable => 'true', require => Nofile['/var/lib/transmission/Downloads/Fall2013'], }
 
   # wget::fetch { 'http://sync.nmt.edu/Spring2014.torrent': destination => '/tmp/Spring2014.torrent', } ->
