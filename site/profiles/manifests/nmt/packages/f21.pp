@@ -214,6 +214,7 @@ class profiles::nmt::packages::f21 {
     'scipy',
     'screen',
     'scribus',
+    'SDL2-devel',
     'seamonkey',
     'SFML-devel',
     'sharutils',
