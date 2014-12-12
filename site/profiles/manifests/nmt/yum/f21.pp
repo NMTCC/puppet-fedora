@@ -34,48 +34,37 @@ class profiles::nmt::yum::f21 {
 
   enabledgpgrepo { 'tcc-fedora':
     descr => 'TCC Fedora $releasever - $basearch',
-    baseurl => 'http://replicon.nmt.edu/fedora/linux/development/$releasever/$basearch/os/',
-    metadata_expire => '7d',
-    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$basearch-primary',
-  }
-  enabledgpgrepo { 'tcc-fedora-debuginfo':
-    descr => 'TCC Fedora $releasever - $basearch - Debug',
-    baseurl => 'http://replicon.nmt.edu/fedora/linux/development/$releasever/$basearch/debug/',
+    baseurl => 'http://replicon.nmt.edu/fedora/linux/releases/$releasever/Everything/$basearch/os/',
     metadata_expire => '7d',
     gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$basearch-primary',
   }
   enabledgpgrepo { 'tcc-fedora-updates':
     descr => 'TCC Fedora $releasever - $basearch - Updates',
-    baseurl => 'http://replicon.nmt.edu/fedora/linux/updates/testing/$releasever/$basearch/',
-    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$basearch-primary',
-  }
-  enabledgpgrepo { 'tcc-fedora-updates-debuginfo':
-    descr => 'TCC Fedora $releasever - $basearch - Updates - Debug',
-    baseurl => 'http://replicon.nmt.edu/fedora/linux/updates/testing/$releasever/$basearch/debug/',
+    baseurl => 'http://replicon.nmt.edu/fedora/linux/updates/$releasever/$basearch/',
     gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$basearch-primary',
   }
   enabledgpgrepo { 'tcc-rpmfusion-free':
     descr => 'TCC RPM Fusion for Fedora $releasever - Free',
-    baseurl => 'http://replicon.nmt.edu/rpmfusion/free/fedora/development/$releasever/$basearch/os/',
+    baseurl => 'http://replicon.nmt.edu/rpmfusion/free/fedora/releases/$releasever/Everything/$basearch/os/',
     metadata_expire => '7d',
     gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-fedora-$releasever-primary',
   }
-#  enabledgpgrepo { 'tcc-rpmfusion-free-updates':
-#    descr => 'TCC RPM Fusion for Fedora $releasever - Free - Updates',
-#    baseurl => 'http://replicon.nmt.edu/rpmfusion/free/fedora/updates/$releasever/$basearch/',
-#    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-fedora-$releasever-$basearch',
-#  }
+  enabledgpgrepo { 'tcc-rpmfusion-free-updates':
+    descr => 'TCC RPM Fusion for Fedora $releasever - Free - Updates',
+    baseurl => 'http://replicon.nmt.edu/rpmfusion/free/fedora/updates/$releasever/$basearch/',
+    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-fedora-$releasever-$basearch',
+  }
   enabledgpgrepo { 'tcc-rpmfusion-nonfree':
     descr => 'TCC RPM Fusion for Fedora $releasever - Nonfree',
-    baseurl => 'http://replicon.nmt.edu/rpmfusion/nonfree/fedora/development/$releasever/$basearch/os/',
+    baseurl => 'http://replicon.nmt.edu/rpmfusion/nonfree/fedora/releases/$releasever/Everything/$basearch/os/',
     metadata_expire => '7d',
     gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever-primary',
   }
-#  enabledgpgrepo { 'tcc-rpmfusion-nonfree-updates':
-#    descr => 'TCC RPM Fusion for Fedora $releasever - Nonfree - Updates',
-#    baseurl => 'http://replicon.nmt.edu/rpmfusion/nonfree/fedora/updates/$releasever/$basearch/',
-#    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever-$basearch',
-#  }
+  enabledgpgrepo { 'tcc-rpmfusion-nonfree-updates':
+    descr => 'TCC RPM Fusion for Fedora $releasever - Nonfree - Updates',
+    baseurl => 'http://replicon.nmt.edu/rpmfusion/nonfree/fedora/updates/$releasever/$basearch/',
+    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever-$basearch',
+  }
   yumrepo { 'tcc-update':
     descr => 'TCC Local Packages for Fedora $releasever',
     baseurl => 'http://update.nmt.edu/tcc/fedora/$releasever/$basearch/',
@@ -122,10 +111,10 @@ class profiles::nmt::yum::f21 {
   disabledrepo { 'rpmfusion-nonfree-updates-testing-debuginfo': }
   disabledrepo { 'rpmfusion-nonfree-updates-testing-source': }
 ###
-  disabledrepo { 'tcc-rpmfusion-free-updates': }
-  disabledrepo { 'tcc-rpmfusion-nonfree-updates': }
   disabledrepo { 'puppetlabs-products': }
   disabledrepo { 'puppetlabs-deps': }
+  disabledrepo { 'tcc-fedora-debuginfo': }
+  disabledrepo { 'tcc-fedora-updates-debuginfo': }
 
 
   file { '/etc/pki/rpm-gpg':
