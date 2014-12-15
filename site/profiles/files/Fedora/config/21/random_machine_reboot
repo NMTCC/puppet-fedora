@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Reboot instructor stations to Windows
+if [ "$(hostname|cut -f1 -d.|cut -f2 -d'-')" = "inst" ]
+then
+	exec /usr/local/bin/reboot_to_win
+fi
+
+
+# Reboot odd numbered computers to Windows
+if [ $((`hostname|cut -f1 -d.|tr - '\n'|tail -n1`%2)) -eq 1 ]
+then
+	exec /usr/local/bin/reboot_to_win
+fi
