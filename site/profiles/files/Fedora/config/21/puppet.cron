@@ -1,2 +1,2 @@
-10,40 * * * * root sleep $((RANDOM \% 1500)) && puppet agent -t --environment f21updates > /dev/null 2>&1
+10,40 * * * * root sleep $((RANDOM \% 1500)) && puppet agent -t --environment master > /dev/null 2>&1
 
