@@ -43,11 +43,11 @@ class profiles::nmt::config::f21 {
   configfile { 'applet.js': dest => '/usr/share/cinnamon/applets/bluetooth@cinnamon.org', }
   configfile { 'metadata.json': dest => '/usr/share/cinnamon/applets/bluetooth@cinnamon.org', }
   configfile { 'media-winpart.mount': dest => '/etc/systemd/system', }
+  configfile { 'lightdm-gtk-greeter.conf': dest => '/etc/lightdm', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
   ln { '/usr/local/bin/python': target => '/usr/bin/python', }
-  ln { '/usr/share/backgrounds/default.png': target => '/usr/share/backgrounds/itcf21.png', require => Configfile['itcf21.png'], }
   ln { '/boot/boot': target => '/boot', require => Configdir['boot'], }
   ln { '/usr/share/xsessions/default.desktop': target => '/usr/share/xsessions/cinnamon.desktop', }
   ln { '/usr/bin/sqlplus': target => '/usr/lib/oracle/12.1/client64/bin/sqlplus', }
