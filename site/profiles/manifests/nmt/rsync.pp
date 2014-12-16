@@ -9,7 +9,7 @@ class profiles::nmt::rsync {
     }
     '21': {
       include profiles::nmt::rsync::f19::anaconda
-      include profiles::nmt::rsync::f19::comsol
+      include profiles::nmt::rsync::f21::comsol
       include profiles::nmt::rsync::f21::extlinux
       include profiles::nmt::rsync::f21::isolinux
       include profiles::nmt::rsync::f19::logo
