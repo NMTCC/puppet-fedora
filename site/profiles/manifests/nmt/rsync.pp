@@ -6,6 +6,7 @@ class profiles::nmt::rsync {
     '19': {
       include profiles::nmt::rsync::f19::extlinux
       include profiles::nmt::rsync::f19::logo
+      include profiles::nmt::rsync::f19::f21ks
     }
     '21': {
       include profiles::nmt::rsync::f19::anaconda
