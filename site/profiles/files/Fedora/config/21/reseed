@@ -1,12 +1,12 @@
 #!/bin/bash
 
-export SEMESTER="Fall2014"
+export SEMESTER="Spring2015"
 export BRANCH="master"
 export BUILD="1"
-export LIBSYNC="http://update.nmt.edu/kickstart/19/libsync.sh"
-export SYNCPRE="http://replicon.nmt.edu/images"
-export BTHASH="b5a12aa9e171547202864d7235d22a9b4526568d"
-export OLDBTHASH="60a68b50f409fe38b72daa2cf4ac4806f18e4448"
+export LIBSYNC="http://update.nmt.edu/kickstart/21/libsync.sh"
+export SYNCPRE="http://replicon.nmt.edu/images/Spring2015"
+export BTHASH="6e4bec907c8efb58c62b108dc0fec9a62aee4ef1"
+export OLDBTHASH="b5a12aa9e171547202864d7235d22a9b4526568d"
 export WINMODE="Normal"
 
 download_libsync() {
