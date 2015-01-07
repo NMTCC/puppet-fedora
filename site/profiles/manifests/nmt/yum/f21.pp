@@ -52,7 +52,7 @@ class profiles::nmt::yum::f21 {
   enabledgpgrepo { 'tcc-rpmfusion-free-updates':
     descr => 'TCC RPM Fusion for Fedora $releasever - Free - Updates',
     baseurl => 'http://replicon.nmt.edu/rpmfusion/free/fedora/updates/$releasever/$basearch/',
-    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-fedora-$releasever-$basearch',
+    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-fedora-$releasever-primary',
   }
   enabledgpgrepo { 'tcc-rpmfusion-nonfree':
     descr => 'TCC RPM Fusion for Fedora $releasever - Nonfree',
@@ -63,7 +63,7 @@ class profiles::nmt::yum::f21 {
   enabledgpgrepo { 'tcc-rpmfusion-nonfree-updates':
     descr => 'TCC RPM Fusion for Fedora $releasever - Nonfree - Updates',
     baseurl => 'http://replicon.nmt.edu/rpmfusion/nonfree/fedora/updates/$releasever/$basearch/',
-    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever-$basearch',
+    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever-primary',
   }
   yumrepo { 'tcc-update':
     descr => 'TCC Local Packages for Fedora $releasever',
