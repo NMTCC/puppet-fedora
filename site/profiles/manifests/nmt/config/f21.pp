@@ -74,6 +74,7 @@ class profiles::nmt::config::f21 {
   configscript { 'remreboot': dest => '/usr/local/bin', }
   configscript { 'xorg_user': dest => '/usr/local/bin', }
   configscript { 'grub2': dest => '/usr/local/bin', }
+  configscript { 'fail2log': dest => '/etc/cron.daily', }
 
   # The 'service' type can't pass --force to the systemctl; this has to be done by exec, then.  Yuck.
   # service { 'lxdm': ensure => 'running', enable => 'true', require => Configfile['lxdm.conf'] }
