@@ -1,8 +1,11 @@
 class profiles::nmt::rsync::f21::matlab {
 
-  file { '/usr/local/matlab-2013a':
+  file { 'matlab-2013a':
     ensure => 'absent',
-    force => 'true',
+    path => '/usr/local/matlab-2013a',
+    recurse => true,
+    purge => true,
+    force => true,
   }
 
   rsync::get { 'matlab':
