@@ -284,7 +284,7 @@ class profiles::nmt::packages::f21 {
   ]
 
   Package { ensure => 'installed', require => Exec['yum-makecache'], }
-  package { $packlist : provider => 'yum', }
   package { $removelist : ensure => 'absent', provider => 'yum', }
+  package { $packlist : provider => 'yum', }
 
 }
