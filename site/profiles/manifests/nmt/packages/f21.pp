@@ -233,7 +233,6 @@ class profiles::nmt::packages::f21 {
     'strace',
     'system-switch-displaymanager',
     'tcc-perl-Quota',
-    'tcc-ruby-ldap',
     'tccmotd',
     'tcpdump',
     'texlive-epstopdf',
