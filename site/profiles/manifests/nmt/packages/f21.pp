@@ -213,6 +213,7 @@ class profiles::nmt::packages::f21 {
     'rubygem-puppet-lint',
     'ruby-gnome2',
     'ruby-irb',
+    'ruby-ldap',
     'rxvt-unicode',
     'scipy',
     'screen',
@@ -280,7 +281,7 @@ class profiles::nmt::packages::f21 {
     'deja-dup',
     'deja-dup-nautilus',
     'kdesdk',
-    'ruby-ldap',
+    'tcc-ruby-ldap',
   ]
 
   Package { ensure => 'installed', require => Exec['yum-makecache'], }
