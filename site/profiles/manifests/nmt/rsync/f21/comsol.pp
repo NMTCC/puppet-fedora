@@ -1,5 +1,13 @@
 class profiles::nmt::rsync::f21::comsol {
 
+  file { 'comsol43b':
+    ensure => 'absent',
+    path => '/usr/local/comsol43b',
+    recurse => true,
+    purge => true,
+    force => true,
+  }
+
   rsync::get { 'comsol':
     source => 'update.nmt.edu::F21-comsol/comsol44',
     path => '/usr/local/',
