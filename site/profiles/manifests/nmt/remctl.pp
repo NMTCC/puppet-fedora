@@ -46,7 +46,6 @@ class profiles::nmt::remctl {
     ],
   }
 
-
   remctl::command { 'xorguser':
     commands        => [
       {
@@ -63,4 +62,30 @@ class profiles::nmt::remctl {
       'remctl/neptr.nmt.edu@NMT.EDU',
     ],
   }
+
+  remctl::command { 'cupholder':
+    commands        => [
+      {
+        'command'    => 'cupholder',
+        'subcommand' => 'ALL',
+        'executable' => '/usr/local/bin/cup_holder',
+        'acl'        => '/etc/remctl/acl/cupholder',
+      },
+    ],
+  }
+
+  remctl::acl { 'cupholder':
+    principals => [
+      'remctl/neptr.nmt.edu@NMT.EDU',
+    ],
+  }
+
+  file { '/usr/local/bin/cup_holder':
+    ensure  => 'file',
+    content => "#!/bin/bash\n\n/usr/bin/eject -T 2>&1\n",
+    group   => 'root',
+    mode    => '0750',
+    owner   => 'root',
+  }
+
 }
