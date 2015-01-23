@@ -1,11 +1,8 @@
 class profiles::nmt::rsync::f21::comsol {
 
-  file { 'comsol43b':
-    ensure => 'absent',
-    path => '/usr/local/comsol43b',
-    recurse => true,
-    purge => true,
-    force => true,
+  exec { 'comsol43b':
+    command => 'rm -rf /usr/local/comsol43b',
+    onlyif => 'test -e /usr/local/comsol43b',
   }
 
   rsync::get { 'comsol':

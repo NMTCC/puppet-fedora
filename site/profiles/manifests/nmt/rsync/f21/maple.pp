@@ -1,11 +1,8 @@
 class profiles::nmt::rsync::f21::maple {
 
-  file { 'maple17':
-    ensure => 'absent',
-    path => '/usr/local/maple17',
-    recurse => true,
-    purge => true,
-    force => true,
+  exec { 'maple17':
+    command => 'rm -rf /usr/local/maple17',
+    onlyif => 'test -e /usr/local/maple17',
   }
 
   rsync::get { 'maple':
