@@ -1,6 +1,7 @@
 class profiles::nmt::rsync::f21::matlab {
 
   exec { 'matlab-2013a':
+    path => '/usr/bin/',
     command => 'rm -rf /usr/local/matlab-2013a',
     onlyif => 'test -e /usr/local/matlab-2013a',
   }

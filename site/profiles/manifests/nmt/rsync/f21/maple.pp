@@ -1,6 +1,7 @@
 class profiles::nmt::rsync::f21::maple {
 
   exec { 'maple17':
+    path => '/usr/bin/',
     command => 'rm -rf /usr/local/maple17',
     onlyif => 'test -e /usr/local/maple17',
   }

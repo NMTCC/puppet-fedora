@@ -1,6 +1,7 @@
 class profiles::nmt::rsync::f21::comsol {
 
   exec { 'comsol43b':
+    path => '/usr/bin/',
     command => 'rm -rf /usr/local/comsol43b',
     onlyif => 'test -e /usr/local/comsol43b',
   }
