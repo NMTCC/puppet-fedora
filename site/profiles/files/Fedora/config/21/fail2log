@@ -12,7 +12,7 @@ import re
 # Only run where we care
 myhosts = ["rainbow", "login"]
 shortname = socket.gethostname().split('.')[0]
-if shortname not in hosts:
+if shortname not in myhosts:
   sys.exit(0)
 
 tally2output = iter(subprocess.check_output(("pam_tally2",
