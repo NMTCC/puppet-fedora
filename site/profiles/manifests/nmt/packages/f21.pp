@@ -5,6 +5,7 @@ class profiles::nmt::packages::f21 {
     'a2ps',
     'abiword',
     'ack',
+    'AdobeReader_enu',
     'alpine',
     'alsamixergui',
     'apcupsd',
