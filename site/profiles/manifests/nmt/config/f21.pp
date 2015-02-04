@@ -45,6 +45,7 @@ class profiles::nmt::config::f21 {
   configfile { 'media-winpart.mount': dest => '/etc/systemd/system', }
   configfile { 'lightdm-gtk-greeter.conf': dest => '/etc/lightdm', }
   configfile { 'pcscfg.cfg': dest => '/usr/lib/oracle/12.1/client64/lib/precomp/admin', require => Package['oracle-instantclient12.1-precomp'], }
+  configfile { 'main.cf': dest => '/etc/postfix', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
