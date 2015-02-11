@@ -22,7 +22,7 @@ if [ "$winpart" == "" ]; then
 fi
 
 # Check for any logged in users.
-users=`loginctl --no-legend list-users | grep -v lightdm | wc -l`
+users=`loginctl --no-legend list-users | grep -v "lightdm\|root" | wc -l`
 if [ "$users" -gt "0" ]; then
 	msg="No reboot attempted: users logged in."
 	oops "$1" "$msg"
