@@ -19,16 +19,16 @@ class profiles::nmt::yum::f21 {
     baseurl => 'http://linuxdownload.adobe.com/linux/i386/',
     gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux',
   }
-#  enabledgpgrepo { 'puppetlabs-products':
-#    descr => 'Puppet Labs Products Fedora $releasever - $basearch',
-#    baseurl => 'http://yum.puppetlabs.com/fedora/f$releasever/products/$basearch',
-#    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
-#  }
-#  enabledgpgrepo { 'puppetlabs-deps':
-#    descr => 'Puppet Labs Dependencies Fedora $releasever - $basearch',
-#    baseurl => 'http://yum.puppetlabs.com/fedora/f$releasever/dependencies/$basearch',
-#    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
-#  }
+  enabledgpgrepo { 'puppetlabs-products':
+    descr => 'Puppet Labs Products Fedora $releasever - $basearch',
+    baseurl => 'http://yum.puppetlabs.com/fedora/f$releasever/products/$basearch',
+    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
+  }
+  enabledgpgrepo { 'puppetlabs-deps':
+    descr => 'Puppet Labs Dependencies Fedora $releasever - $basearch',
+    baseurl => 'http://yum.puppetlabs.com/fedora/f$releasever/dependencies/$basearch',
+    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
+  }
 
 
 
@@ -76,45 +76,43 @@ class profiles::nmt::yum::f21 {
     gpgcheck => 0,
   }
 
-
-  disabledrepo { 'fedora': }
-  disabledrepo { 'fedora-debuginfo': }
-  disabledrepo { 'fedora-source': }
-  disabledrepo { 'updates': }
-  disabledrepo { 'updates-debuginfo': }
-  disabledrepo { 'updates-source': }
-  disabledrepo { 'updates-testing': }
-  disabledrepo { 'updates-testing-debuginfo': }
-  disabledrepo { 'updates-testing-source': }
-  disabledrepo { 'rpmfusion-free-rawhide': }
-  disabledrepo { 'rpmfusion-free-rawhide-debuginfo': }
-  disabledrepo { 'rpmfusion-free-rawhide-source': }
-  disabledrepo { 'rpmfusion-nonfree-rawhide': }
-  disabledrepo { 'rpmfusion-nonfree-rawhide-debuginfo': }
-  disabledrepo { 'rpmfusion-nonfree-rawhide-source': }
-  disabledrepo { 'rpmfusion-free': }
-  disabledrepo { 'rpmfusion-free-debuginfo': }
-  disabledrepo { 'rpmfusion-free-source': }
-  disabledrepo { 'rpmfusion-nonfree': }
-  disabledrepo { 'rpmfusion-nonfree-debuginfo': }
-  disabledrepo { 'rpmfusion-nonfree-source': }
-  disabledrepo { 'rpmfusion-free-updates': }
-  disabledrepo { 'rpmfusion-free-updates-debuginfo': }
-  disabledrepo { 'rpmfusion-free-updates-source': }
-  disabledrepo { 'rpmfusion-nonfree-updates': }
-  disabledrepo { 'rpmfusion-nonfree-updates-debuginfo': }
-  disabledrepo { 'rpmfusion-nonfree-updates-source': }
-  disabledrepo { 'rpmfusion-free-updates-testing': }
-  disabledrepo { 'rpmfusion-free-updates-testing-debuginfo': }
-  disabledrepo { 'rpmfusion-free-updates-testing-source': }
-  disabledrepo { 'rpmfusion-nonfree-updates-testing': }
-  disabledrepo { 'rpmfusion-nonfree-updates-testing-debuginfo': }
-  disabledrepo { 'rpmfusion-nonfree-updates-testing-source': }
-###
-  disabledrepo { 'puppetlabs-products': }
-  disabledrepo { 'puppetlabs-deps': }
-  disabledrepo { 'tcc-fedora-debuginfo': }
-  disabledrepo { 'tcc-fedora-updates-debuginfo': }
+  removerepo { 'fedora': }
+  removerepo { 'fedora-debuginfo': }
+  removerepo { 'fedora-source': }
+  removerepo { 'fedora-updates': }
+  removerepo { 'fedora-updates-testing': }
+  removerepo { 'updates': }
+  removerepo { 'updates-debuginfo': }
+  removerepo { 'updates-source': }
+  removerepo { 'updates-testing': }
+  removerepo { 'updates-testing-debuginfo': }
+  removerepo { 'updates-testing-source': }
+  removerepo { 'rpmfusion-free-rawhide': }
+  removerepo { 'rpmfusion-free-rawhide-debuginfo': }
+  removerepo { 'rpmfusion-free-rawhide-source': }
+  removerepo { 'rpmfusion-nonfree-rawhide': }
+  removerepo { 'rpmfusion-nonfree-rawhide-debuginfo': }
+  removerepo { 'rpmfusion-nonfree-rawhide-source': }
+  removerepo { 'rpmfusion-free': }
+  removerepo { 'rpmfusion-free-debuginfo': }
+  removerepo { 'rpmfusion-free-source': }
+  removerepo { 'rpmfusion-nonfree': }
+  removerepo { 'rpmfusion-nonfree-debuginfo': }
+  removerepo { 'rpmfusion-nonfree-source': }
+  removerepo { 'rpmfusion-free-updates': }
+  removerepo { 'rpmfusion-free-updates-debuginfo': }
+  removerepo { 'rpmfusion-free-updates-source': }
+  removerepo { 'rpmfusion-nonfree-updates': }
+  removerepo { 'rpmfusion-nonfree-updates-debuginfo': }
+  removerepo { 'rpmfusion-nonfree-updates-source': }
+  removerepo { 'rpmfusion-free-updates-testing': }
+  removerepo { 'rpmfusion-free-updates-testing-debuginfo': }
+  removerepo { 'rpmfusion-free-updates-testing-source': }
+  removerepo { 'rpmfusion-nonfree-updates-testing': }
+  removerepo { 'rpmfusion-nonfree-updates-testing-debuginfo': }
+  removerepo { 'rpmfusion-nonfree-updates-testing-source': }
+  removerepo { 'tcc-fedora-debuginfo': }
+  removerepo { 'tcc-fedora-updates-debuginfo': }
 
 
   file { '/etc/pki/rpm-gpg':
