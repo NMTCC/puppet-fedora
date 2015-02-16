@@ -19,16 +19,16 @@ class profiles::nmt::yum::f21 {
     baseurl => 'http://linuxdownload.adobe.com/linux/i386/',
     gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux',
   }
-#  enabledgpgrepo { 'puppetlabs-products':
-#    descr => 'Puppet Labs Products Fedora $releasever - $basearch',
-#    baseurl => 'http://yum.puppetlabs.com/fedora/f$releasever/products/$basearch',
-#    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
-#  }
-#  enabledgpgrepo { 'puppetlabs-deps':
-#    descr => 'Puppet Labs Dependencies Fedora $releasever - $basearch',
-#    baseurl => 'http://yum.puppetlabs.com/fedora/f$releasever/dependencies/$basearch',
-#    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
-#  }
+  enabledgpgrepo { 'puppetlabs-products':
+    descr => 'Puppet Labs Products Fedora $releasever - $basearch',
+    baseurl => 'http://yum.puppetlabs.com/fedora/f$releasever/products/$basearch',
+    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
+  }
+  enabledgpgrepo { 'puppetlabs-deps':
+    descr => 'Puppet Labs Dependencies Fedora $releasever - $basearch',
+    baseurl => 'http://yum.puppetlabs.com/fedora/f$releasever/dependencies/$basearch',
+    gpgkey => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
+  }
 
 
 
