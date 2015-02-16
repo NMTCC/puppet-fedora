@@ -22,8 +22,7 @@ class profiles::nmt::yum {
   }
 
   define removerepo {
-    file { "${title}.repo" :
-      path   => '/etc/yum.repos.d',
+    file { "/etc/yum.repos.d/${title}.repo" :
       ensure => 'absent',
       force  => 'true',
     }
