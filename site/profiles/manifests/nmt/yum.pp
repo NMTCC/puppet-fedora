@@ -25,6 +25,7 @@ class profiles::nmt::yum {
     file { "/etc/yum.repos.d/${title}.repo" :
       ensure => 'absent',
       force  => 'true',
+      backup => 'false',
     }
   }
 
