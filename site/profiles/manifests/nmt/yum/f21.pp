@@ -79,6 +79,8 @@ class profiles::nmt::yum::f21 {
   removerepo { 'fedora': }
   removerepo { 'fedora-debuginfo': }
   removerepo { 'fedora-source': }
+  removerepo { 'fedora-updates': }
+  removerepo { 'fedora-updates-testing': }
   removerepo { 'updates': }
   removerepo { 'updates-debuginfo': }
   removerepo { 'updates-source': }
