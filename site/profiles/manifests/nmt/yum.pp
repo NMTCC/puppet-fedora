@@ -21,6 +21,14 @@ class profiles::nmt::yum {
     }
   }
 
+  define removerepo {
+    file { "${title}.repo" :
+      path   => '/etc/yum.repos.d',
+      ensure => 'absent',
+      force  => 'true',
+    }
+  }
+
   define enabledgpgrepo ($descr = absent, $baseurl, $gpgkey, $metadata_expire = absent) {
     gpgrepo { $title : 
       descr => $descr,
