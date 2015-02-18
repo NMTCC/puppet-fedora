@@ -214,7 +214,7 @@ class profiles::nmt::packages::f21 {
     'rubygem-puppet-lint',
     'ruby-gnome2',
     'ruby-irb',
-#    'ruby-ldap',
+    'ruby-ldap',
     'rxvt-unicode',
     'scipy',
     'screen',
@@ -286,7 +286,5 @@ class profiles::nmt::packages::f21 {
   Package { ensure => 'installed', require => Exec['yum-makecache'], }
   package { $packlist : provider => 'yum', }
   package { $removelist : ensure => 'absent', provider => 'yum', }
-  package { 'ruby-ldap' : provider => 'yum', require => Package['tcc-ruby-ldap'], }
-  package { 'tcc-ruby-ldap' : ensure => 'absent', provider => 'yum', }
 
 }
