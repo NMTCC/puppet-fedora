@@ -251,7 +251,7 @@ class profiles::nmt::packages::f21 {
     'unrar',
     'vacation',
     'vim-X11',
-    'vlc',
+#    'vlc',
     'w3m-img',
     'WindowMaker',
     'wine',
