@@ -1,0 +1,2 @@
+/u      program:/usr/local/libexec/auto.home --timeout=60
+/fs     program:/usr/local/libexec/auto.fs --timeout=60

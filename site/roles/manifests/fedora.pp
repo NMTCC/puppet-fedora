@@ -1,6 +1,6 @@
-# class roles::nmt
+# class roles::fedora
 
-class roles::nmt {
+class roles::fedora {
 
   include profiles::nmt
   include profiles::nmt::autofs
