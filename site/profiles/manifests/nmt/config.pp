@@ -2,7 +2,7 @@
 
 class profiles::nmt::config {
 
-  $moduleloc = "puppet:///modules/profiles/${operatingsystem}/config/${operatingsystemrelease}"
+  $moduleloc = "puppet:///modules/profiles/${operatingsystem}/config/${operatingsystemmajrelease}"
 
   File {
     owner => 'root',
@@ -57,12 +57,15 @@ class profiles::nmt::config {
     }
   }
 
-  case $::operatingsystemrelease {
+  case $::operatingsystemmajrelease {
     '19': {
       class { "profiles::nmt::config::f19": }
     }
     '21': {
       class { "profiles::nmt::config::f21": }
+    }
+    '8': {
+      class { "profiles::nmt::config::jessie": }
     }
     default: {
       warning('No config for this release version.')
