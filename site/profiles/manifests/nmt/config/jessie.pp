@@ -40,6 +40,7 @@ class profiles::nmt::config::jessie {
   #configfile { 'defaults.list': dest => '/usr/share/applications', }
   configfile { 'krb5.conf': dest => '/etc', }
   configfile { 'sssd.conf': dest => '/etc/sssd', mode => '0600', }
+  configfile { 'sshd_config': dest => '/etc/ssh', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
