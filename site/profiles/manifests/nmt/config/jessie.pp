@@ -38,6 +38,8 @@ class profiles::nmt::config::jessie {
   #configfile { 'pcscfg.cfg': dest => '/usr/lib/oracle/12.1/client64/lib/precomp/admin', require => Package['oracle-instantclient12.1-precomp'], }
   #configfile { 'main.cf': dest => '/etc/postfix', }
   #configfile { 'defaults.list': dest => '/usr/share/applications', }
+  configfile { 'krb5.conf': dest => '/etc', }
+  configfile { 'sssd.conf': dest => '/etc/sssd', mode => '0600', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
@@ -71,9 +73,10 @@ class profiles::nmt::config::jessie {
   configscript { 'fail2log': dest => '/etc/cron.daily', }
   configscript { 'smartdnotify': dest => '/usr/local/libexec', }
 
-  service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'] }
+  service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
   service { 'puppet': ensure => 'stopped', enable => 'false', }
   #service { 'postfix': ensure => 'running', enable => 'true', }
+  service { 'sssd': ensure => 'running', enable => 'true', require => Configfile['sssd.conf'], }
 
   k5login { '/root/.k5login':
     ensure     => 'present',
