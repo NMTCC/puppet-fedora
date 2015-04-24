@@ -7,8 +7,8 @@ check_winpart() {
 	systemctl start media-winpart.mount
 	if [ -d "/media/winpart/Windows" ]
 	then
-		winfree=`df --output=avail /media/winpart | sed -e '1d'`
-		hwinfree=`df -h --output=avail /media/winpart | sed -e '1d'`
+		winfree=$(df --output=avail /media/winpart | sed -e '1d')
+		hwinfree=$(df -h --output=avail /media/winpart | sed -e '1d')
 		if [ "$winfree" -lt "4194304" ]
 		then
 			echo "$host is running out of room on its Windows partition ($hwinfree available)." | mail -s "$host: Windows low on space" $MAILTO
@@ -19,14 +19,14 @@ check_winpart() {
 
 }
 
-host=`hostname --short`
+host=$(hostname --short)
 base="ou=clients,ou=machines,dc=tcc,dc=nmt,dc=edu"
-staff=`ldapsearch -xZZLLL -b ${base} cn=${host} tccOfficeMachine | sed -n -e '2p' | cut -d ":" -f 2`
-staff=`echo $staff`
-tccos=`ldapsearch -xZZLLL -b ${base} cn=${host} tccSpecialOS | sed -n -e '2p' | cut -d ":" -f 2`
-tccos=`echo $tccos`
-room=`echo $host | cut -d "-" -f 1`
-building=`echo $room | sed -e 's/[0-9]*//g'`
+staff=$(ldapsearch -xZZLLL -b ${base} cn=${host} tccOfficeMachine | sed -n -e '2p' | cut -d ":" -f 2)
+staff=$(echo $staff)
+tccos=$(ldapsearch -xZZLLL -b ${base} cn=${host} tccSpecialOS | sed -n -e '2p' | cut -d ":" -f 2)
+tccos=$(echo $tccos)
+room=$(echo $host | cut -d "-" -f 1)
+building=$(echo $room | sed -e 's/[0-9]*//g')
 
 if [ "$tccos" == "Linux" ]; then staff="TRUE"; fi
 if [ "$building" == "library" ]; then staff="TRUE"; fi
@@ -34,9 +34,9 @@ if [ "$room" == "library208" ]; then staff="FALSE"; fi
 
 if [ "$staff" == "FALSE" ]
 then
-	mouse=`lsusb | grep Mouse | wc -l`
-	kbd=`lsusb | grep Keyboard | wc -l`
-	odd=`lsblk -ln | grep rom | wc -l`
+	mouse=$(lsusb | grep Mouse | wc -l)
+	kbd=$(lsusb | grep Keyboard | wc -l)
+	odd=$(lsblk -ln | grep rom | wc -l)
 	case $mouse in
 		"0" )
 			echo "$host does not have a USB mouse attached." | mail -s "$host: missing mouse" $MAILTO
@@ -71,7 +71,7 @@ then
 			;;
 	esac
 
-	winpart=`/sbin/blkid -o device -t TYPE=ntfs`
+	winpart=$(/sbin/blkid -o device -t TYPE=ntfs)
 	if [ "$winpart" != "" ]; then
 		check_winpart
 	fi

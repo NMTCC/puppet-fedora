@@ -3,7 +3,7 @@
 export SEMESTER="Spring2015"
 export BRANCH="master"
 export BUILD="1"
-export LIBSYNC="http://update.nmt.edu/kickstart/21/libsync.sh"
+export LIBSYNC="http://update.nmt.edu/preseed/jessie/libsync"
 export SYNCPRE="http://replicon.nmt.edu/images/Spring2015"
 export BTHASH="6e4bec907c8efb58c62b108dc0fec9a62aee4ef1"
 export OLDBTHASH="b5a12aa9e171547202864d7235d22a9b4526568d"
@@ -12,7 +12,7 @@ export WINMODE="Normal"
 download_libsync() {
 
 	wget -P /tmp $LIBSYNC > /dev/null 2>&1
-	if [ -s "/tmp/libsync.sh" ]
+	if [ -s "/tmp/libsync" ]
 	then
 		return
 	fi
@@ -22,9 +22,9 @@ download_libsync() {
 }
 
 download_libsync
-source /tmp/libsync.sh
+source /tmp/libsync
 start_transmission
 transmission-remote -t $OLDBTHASH --remove-and-delete
 torrent_image
-rm -f /tmp/libsync.sh
+rm -f /tmp/libsync
 rm -f /tmp/$SEMESTER-$BRANCH.$BUILD.torrent

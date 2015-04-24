@@ -1,6 +1,6 @@
 #!/bin/bash
 
-me=`hostname -s`
+me=$(hostname -s)
 
 # Reboot instructor stations to Windows
 if [ "${me: -4}" = "inst" ]

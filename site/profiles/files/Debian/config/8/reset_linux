@@ -4,8 +4,8 @@ function zap {
 	rm -rf $1 >> ~/.nmtresetlog 2>&1
 }
 
-date=`/usr/bin/date`
-host=`/usr/bin/hostname --short`
+date=$(date)
+host=$(hostname --short)
 echo "reset_linux ($host): $date" >> ~/.nmtresetlog
 
 echo "  Log out from all Linux graphical sessions before proceeding."

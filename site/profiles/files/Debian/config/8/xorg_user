@@ -1,10 +1,4 @@
 #!/bin/bash
 
-uid=`ck-list-sessions | grep user | sed -e 's/unix-user = //' | tr -d "'"`
-
-if [ $uid ]
-then
-	ent=`getent passwd $uid`
-	IFS=':' read -ra INFO <<< "$ent"
-	echo "${INFO[0]}"
-fi
+accts=$(loginctl --no-legend list-users | grep -v "lightdm\|root" | awk '{ print $2 }')
+if [ $accts ]; then echo $accts; fi

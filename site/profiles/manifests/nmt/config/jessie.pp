@@ -63,7 +63,6 @@ class profiles::nmt::config::jessie {
   configscript { 'passwd': dest => '/usr/local/bin', }
   configscript { 'jpgmpg': dest => '/usr/local/bin', }
   configscript { 'make_bootusb': dest => '/usr/local/bin', }
-  configscript { 'nmt-dracut': dest => '/usr/local/bin', }
   configscript { 'PostLogout': dest => '/etc/lightdm/scripts', }
   configscript { 'sfdisk2parted': dest => '/usr/local/bin', }
   #configscript { 'killpower': dest => '/etc/apcupsd', }
@@ -76,7 +75,6 @@ class profiles::nmt::config::jessie {
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
   service { 'puppet': ensure => 'stopped', enable => 'false', }
-  #service { 'postfix': ensure => 'running', enable => 'true', }
   service { 'sssd': ensure => 'running', enable => 'true', require => Configfile['sssd.conf'], }
 
   k5login { '/root/.k5login':
