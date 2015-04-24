@@ -1,13 +1,24 @@
 class profiles::nmt::ldap::params {
 
+  case $::operatingsystem {
+    'Fedora': {
       $package   = [ 'openldap' ]
-            
-      $prefix    = '/etc/openldap'
-      $config    = 'ldap.conf'
-      $cacertdir = '/etc/openldap/cacerts'
+      $confdir   = 'openldap'
+    }
+    'Debian': {
+      $package   = [ 'ldap-utils' ]
+      $confdir   = 'ldap'
+    }
+  }
 
-      $owner     = 'root'
-      $group     = 'root'
+  $prefix        = "/etc/${confdir}"
+  $config        = 'ldap.conf'
+  $cacertdir     = "/etc/${confdir}/cacerts"
+  $cacertpath    = "/etc/${confdir}/cacerts/itcCA.pem"
 
-      $ssl_prefix    = '/etc/openldap/cacerts'
+  $owner         = 'root'
+  $group         = 'root'
+
+  $ssl_prefix    = "/etc/${confdir}/cacerts"
+
 }

@@ -13,4 +13,6 @@ tls_cacertdir <%= scope.lookupvar('ldap::params::cacertdir') %>
 ssl           start_tls
 tls_cacertdir <%= scope.lookupvar('ldap::params::cacertdir') %>
 <% end -%>
-
+<% if scope.lookupvar('ldap::params::confdir') == 'ldap' then -%>
+tls_cacert    <%= scope.lookupvar('ldap::params::cacertpath') %>
+<% end -%>
