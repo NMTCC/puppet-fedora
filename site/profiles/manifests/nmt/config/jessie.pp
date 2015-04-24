@@ -25,7 +25,7 @@ class profiles::nmt::config::jessie {
   configfile { 'Muttrc.local': dest => '/etc', }
   configfile { 'pine.conf': dest => '/etc', }
   configfile { 'rssh.conf': dest => '/etc', }
-  configfile { 'itcf21.png': dest => '/usr/share/backgrounds', }
+  configfile { 'itcjessie.png': dest => '/usr/share/backgrounds', }
   configfile { 'client.conf': dest => '/etc/cups', }
   #configfile { 'smartd.conf': dest => '/etc/smartmontools', }
   configfile { '65-iscan.rules': dest => '/lib/udev/rules.d', }
