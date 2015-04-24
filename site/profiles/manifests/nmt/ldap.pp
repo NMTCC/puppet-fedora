@@ -46,7 +46,7 @@ class profiles::nmt::ldap(
     exec { "ldap-update-cert":
       provider => shell,
       command =>  "certutil -A -n itcCA -t 'TCu,TCu,TCu' -i /etc/${profiles::nmt::ldap::params::confdir}/cacerts/itcCA.pem -d /etc/${profiles::nmt::ldap::params::confdir}/cacerts/",
-      onlyif => "certutil -L -d /etc/${profiles::nmt::ldap::params::confdir}/cacerts | grep itcCA; exit $?"
+      onlyif => "! certutil -L -d /etc/${profiles::nmt::ldap::params::confdir}/cacerts | grep itcCA"
     }
   }
 }
