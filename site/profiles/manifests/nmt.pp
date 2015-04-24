@@ -14,7 +14,7 @@ class profiles::nmt {
     }
     'Debian': {
       exec { 'apt-update': command => '/usr/bin/apt-get -y update', timeout => 0, unless => '/usr/bin/apt-get -y update', } ->
-      exec { 'apt-upgrade': command => '/usr/bin/apt-get -y dist-upgrade', timeout => 0, unless => 'exit $(aptitude search "~U" | wc -l)', }
+      exec { 'apt-upgrade': provider => 'shell', command => '/usr/bin/apt-get -y dist-upgrade', timeout => 0, unless => 'exit $(aptitude search "~U" | wc -l)', }
     }
   }
 
