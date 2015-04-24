@@ -10,6 +10,7 @@ class profiles::nmt {
     'Fedora': {
       exec { 'yum-makecache': command => '/bin/yum makecache', timeout => 0, unless => '/bin/yum makecache', } ->
       exec { 'yum-update': command => '/bin/yum update -y --setopt=protected_multilib=false', timeout => 0, unless => '/bin/yum check-update', }
+      class { '::selinux': mode => 'disabled', }
     }
     'Debian': {
       exec { 'apt-update': command => '/usr/bin/apt-get -y update', timeout => 0, unless => '/usr/bin/apt-get -y update', } ->
@@ -18,7 +19,5 @@ class profiles::nmt {
   }
 
   class { '::sudo': } sudo::conf { 'ucsh' : content => '%tcc ALL = (root) NOPASSWD: /usr/bin/du, /usr/bin/file, /usr/bin/ls, /usr/bin/nice, /usr/bin/renice, /usr/bin/ps, /usr/bin/mount, /usr/bin/umount, /usr/bin/kill, /usr/bin/killall, /usr/bin/wall, /usr/bin/eject, /usr/bin/chgrp, /usr/sbin/halt, /usr/sbin/poweroff, /usr/sbin/reboot, /usr/sbin/shutdown, /usr/bin/dracut, /usr/local/bin/reapply', }
-
-  class { '::selinux': mode => 'disabled', }
   
 }
