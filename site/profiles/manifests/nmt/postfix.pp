@@ -13,17 +13,9 @@ class profiles::nmt::postfix {
     group   => 'root',
   }
 
-  file { '/etc/postfix':
-    ensure  => $ensure ? {
-                  present => directory,
-                  default => absent,
-                },
-    require => Package['postfix'],
-  }
-
   file { '/etc/postfix/main.cf':
     content => template("profiles/main.cf.erb"),
-    require => File['/etc/postfix'],
+    require => Package['postfix'],
   }
 
   file { '/etc/aliases':
@@ -31,7 +23,6 @@ class profiles::nmt::postfix {
   }
 
   file { '/etc/mailname':
-    ensure  => 'file',
     content => "nmt.edu",
   }
 
