@@ -12,9 +12,9 @@ import fnmatch
 def getKernels():
 	#Obtain kernel listing:
 	kernels = []
-        for kernel in os.listdir('/boot'):
-            if fnmatch.fnmatch(kernel, 'vmlinuz-*-amd64'):
-                kernels.append(kernel)
+        for kernel in os.listdir("/boot"):
+            if fnmatch.fnmatch(kernel, "vmlinuz-*-amd64"):
+                kernels.append(kernel.replace("vmlinuz-", "")
         kernels.sort(reverse=True)
 	return kernels
 
@@ -121,14 +121,14 @@ def writeGrubConf(grubpart, hash, kernels, path):
 	grubconf.write('fi\n')
 	grubconf.write('set nmttick=""\n')
 	grubconf.write('save_env nmttick\n\n')
-	grubconf.write('menuentry "Fedora Linux x86_64" --class "fedora" --unrestricted --hotkey "l" {\n')
+	grubconf.write('menuentry "Debian Linux x86_64" --class "fedora" --unrestricted --hotkey "l" {\n')
 	grubconf.write('\tinsmod gzio\n')
 	grubconf.write('\tset root="%s"\n' % grubpart)
 	grubconf.write('\techo "Loading Linux kernel %s..."\n' % kernel)
 	# grubconf.write('\tlinux /%s root=/dev/mapper/vg_jessie-lv_root ro rd.lvm.lv=vg_jessie/lv_swap rd.lvm.lv=vg_jessie/lv_root rhgb quiet LANG=en_US.UTF-8\n' % kernel)
-	grubconf.write('\tlinux /%s root=/dev/mapper/vg_jessie-lv_root ro rd.lvm.lv=vg_jessie/lv_swap rd.lvm.lv=vg_jessie/lv_root LANG=en_US.UTF-8\n' % kernel)
+	grubconf.write('\tlinux /vmlinuz-%s root=/dev/mapper/vg_jessie-lv_root ro rd.lvm.lv=vg_jessie/lv_swap rd.lvm.lv=vg_jessie/lv_root LANG=en_US.UTF-8\n' % kernel)
 	grubconf.write('\techo "Loading initial ramdisk..."\n')
-	grubconf.write('\tinitrd /initramfs-%s.img\n' % kernel)
+	grubconf.write('\tinitrd /initrd.img-%s\n' % kernel)
 	grubconf.write('}\n\n')
 	grubconf.write('if [ "${windows}" ]; then\n')
 	grubconf.write('\tmenuentry "Windows ${winver}" --class "windows" --unrestricted --hotkey "w" {\n')
@@ -161,15 +161,15 @@ def writeUnlockedConf(grubpart, hash, kernels, path):
 	unlockedconf.write('insmod ntfs\n')
 	unlockedconf.write('insmod part_gpt\n')
 	unlockedconf.write('insmod part_msdos\n\n')
-	unlockedconf.write('submenu "Fedora options" --hotkey "l" {\n\n')
+	unlockedconf.write('submenu "Debian options" --hotkey "l" {\n\n')
 	for kernel in kernels:
-		unlockedconf.write('\tmenuentry "Fedora Linux (%s)" {\n' % kernel)
+		unlockedconf.write('\tmenuentry "Debian Linux (%s)" {\n' % kernel)
 		unlockedconf.write('\t\tinsmod gzio\n')
 		unlockedconf.write('\t\tset root="%s"\n' % grubpart)
 		unlockedconf.write('\t\techo "Loading Linux kernel %s..."\n' % kernel)
-		unlockedconf.write('\t\tlinux /%s root=/dev/mapper/vg_jessie-lv_root ro rd.lvm.lv=vg_jessie/lv_swap rd.lvm.lv=vg_jessie/lv_root rhgb quiet LANG=en_US.UTF-8\n' % kernel)
+		unlockedconf.write('\t\tlinux /vmlinuz-%s root=/dev/mapper/vg_jessie-lv_root ro rd.lvm.lv=vg_jessie/lv_swap rd.lvm.lv=vg_jessie/lv_root rhgb quiet LANG=en_US.UTF-8\n' % kernel)
 		unlockedconf.write('\t\techo "Loading initial ramdisk..."\n')
-		unlockedconf.write('\t\tinitrd /initramfs-%s.img\n' % kernel)
+		unlockedconf.write('\t\tinitrd /initrd.img-%s\n' % kernel)
 		unlockedconf.write('\t}\n\n')
 	unlockedconf.write('\tmenuentry "Fedora 21 Kickstart" {\n')
 	unlockedconf.write('\t\tinsmod gzio\n')
