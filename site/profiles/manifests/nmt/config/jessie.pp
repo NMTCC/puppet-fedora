@@ -48,6 +48,7 @@ class profiles::nmt::config::jessie {
   ln { '/boot/boot': target => '/boot', require => Configdir['boot'], }
   ln { '/usr/share/xsessions/default.desktop': target => '/usr/share/xsessions/cinnamon.desktop', }
   #ln { '/usr/bin/sqlplus': target => '/usr/lib/oracle/12.1/client64/bin/sqlplus', }
+  ln { '/usr/bin/sl': target => '/usr/games/sl', }
 
   configscript { 'peripheral_check': dest => '/etc/cron.daily', }
   configscript { 'motd': dest => '/usr/bin', }
