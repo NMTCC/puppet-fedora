@@ -14,7 +14,7 @@ def getKernels():
 	kernels = []
         for kernel in os.listdir("/boot"):
             if fnmatch.fnmatch(kernel, "vmlinuz-*-amd64"):
-                kernels.append(kernel.replace("vmlinuz-", "")
+                kernels.append(kernel[8:])
         kernels.sort(reverse=True)
 	return kernels
 
