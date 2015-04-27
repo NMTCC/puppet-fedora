@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import sys,os
-import rpm
 import socket
 import commands
 import time,random
@@ -37,10 +36,10 @@ def getHash():
 
 def getGrubRoot():
 	# ask GRUB which partition it's on
-	grubnoise = commands.getoutput('/sbin/grub2-probe -t drive /boot')
+	grubnoise = commands.getoutput('/usr/sbin/grub-probe -t drive /boot')
 	grubpart = None
 	for line in grubnoise.split('\n'):
-		if re.search('\(hd\d,\w*\d\)', line):
+		if re.search('\(hostdisk\/\/dev\/sd\w,\w*\d\)', line):
 			grubpart = line.strip()
 	return grubpart
 
@@ -80,7 +79,7 @@ def writeGrubConf(grubpart, hash, kernels, path):
 	grubconf.write('save_env nmtboot\n')
 	grubconf.write('set gfxmode="1280x800x32;1280x720x32;1024x786x32"\n')
 	grubconf.write('set gfxpayload="keep"\n')
-	grubconf.write('set theme="/grub2/themes/nmt/theme.txt"\n')
+	grubconf.write('set theme="/grub/themes/nmt/theme.txt"\n')
 	grubconf.write('set superusers="itc"\n')
 	grubconf.write('password_pbkdf2 itc %s\n' % hash)
 	grubconf.write('insmod ext2\n')
@@ -90,10 +89,10 @@ def writeGrubConf(grubpart, hash, kernels, path):
 	grubconf.write('insmod part_msdos\n')
 	grubconf.write('insmod png\n')
 	grubconf.write('insmod vbe\n')
-	grubconf.write('loadfont /grub2/themes/nmt/dejavu_sans_mono_regular_36.pf2\n')
-	grubconf.write('loadfont /grub2/themes/nmt/dejavu_sans_mono_bold_36.pf2\n')
-	grubconf.write('loadfont /grub2/themes/nmt/dejavu_sans_regular_12.pf2\n')
-	grubconf.write('loadfont /grub2/themes/nmt/perfect_dos_vga_437_regular_16.pf2\n')
+	grubconf.write('loadfont /grub/themes/nmt/dejavu_sans_mono_regular_36.pf2\n')
+	grubconf.write('loadfont /grub/themes/nmt/dejavu_sans_mono_bold_36.pf2\n')
+	grubconf.write('loadfont /grub/themes/nmt/dejavu_sans_regular_12.pf2\n')
+	grubconf.write('loadfont /grub/themes/nmt/perfect_dos_vga_437_regular_16.pf2\n')
 	grubconf.write('terminal_output gfxterm\n\n')
 	grubconf.write('set timeout="30"\n')
 	grubconf.write('search --file --no-floppy --set=windows /bootmgr\n')
@@ -140,7 +139,7 @@ def writeGrubConf(grubpart, hash, kernels, path):
 	grubconf.write('\t}\n')
 	grubconf.write('fi\n\n')
 	grubconf.write('menuentry "System Maintenance" --class "locked" --users "itc" --hotkey "m" {\n')
-	grubconf.write('\tconfigfile /grub2/grub.unlocked\n')
+	grubconf.write('\tconfigfile /grub/grub.unlocked\n')
 	grubconf.write('}\n\n')
 	grubconf.write('play 480 932 1\n')
 	grubconf.close()
@@ -205,7 +204,7 @@ def writeUnlockedConf(grubpart, hash, kernels, path):
 	unlockedconf.write('\tboot\n')
 	unlockedconf.write('}\n\n')
 	unlockedconf.write('menuentry "Previous menu..." --hotkey "backspace" {\n')
-	unlockedconf.write('\tconfigfile /grub2/grub.cfg\n')
+	unlockedconf.write('\tconfigfile /grub/grub.cfg\n')
 	unlockedconf.write('}\n')
 	unlockedconf.close()
 
@@ -224,11 +223,11 @@ if __name__ == '__main__':
 
 	# set paths for configuration files
 	if cmdlineopts.test:
-		cpath = "/boot/grub2/grub.cfg.test"
-		upath = "/boot/grub2/grub.unlocked.test"
+		cpath = "/boot/grub/grub.cfg.test"
+		upath = "/boot/grub/grub.unlocked.test"
 	else:
-		cpath = "/boot/grub2/grub.cfg"
-		upath = "/boot/grub2/grub.unlocked"
+		cpath = "/boot/grub/grub.cfg"
+		upath = "/boot/grub/grub.unlocked"
 
 	# get GRUB root partition
 	grubpart = getGrubRoot()
