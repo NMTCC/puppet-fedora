@@ -21,7 +21,7 @@ class profiles::nmt::config::jessie {
   configdir { 'boot': dest => '', }
 
   configfile { '00-keyboard.conf': dest => '/etc/X11/xorg.conf.d', }
-  configfile { 'nmt.cron': dest => '/etc/cron.d', }
+  configfile { 'nmt-crons': dest => '/etc/cron.d', }
   configfile { 'Muttrc.local': dest => '/etc', }
   configfile { 'pine.conf': dest => '/etc', }
   configfile { 'rssh.conf': dest => '/etc', }
