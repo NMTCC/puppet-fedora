@@ -9,3 +9,4 @@ HOME=/
 #01 * * * * root /usr/local/bin/grub2
 # Stagger puppet agent
 10,40 * * * * root sleep $((RANDOM \% 1500)) && puppet agent -t > /dev/null 2>&1
+
