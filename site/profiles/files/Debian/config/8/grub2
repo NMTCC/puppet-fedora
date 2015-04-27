@@ -6,16 +6,16 @@ import commands
 import time,random
 import re
 import argparse
+import fnmatch
 
 
 def getKernels():
-	#Obtain kernel RPM listing:
-	mi = rpm.TransactionSet().dbMatch('name', 'kernel')
+	#Obtain kernel listing:
 	kernels = []
-	for hdr in mi:
-		line = hdr['version'] + "-" + hdr['release'] + "." + hdr['arch']
-		kernels.append(line)
-	kernels.reverse()
+        for kernel in os.listdir('/boot'):
+            if fnmatch.fnmatch(kernel, 'vmlinuz-*-amd64'):
+                kernels.append(kernel)
+        kernels.sort(reverse=True)
 	return kernels
 
 
@@ -125,8 +125,8 @@ def writeGrubConf(grubpart, hash, kernels, path):
 	grubconf.write('\tinsmod gzio\n')
 	grubconf.write('\tset root="%s"\n' % grubpart)
 	grubconf.write('\techo "Loading Linux kernel %s..."\n' % kernel)
-	# grubconf.write('\tlinux /vmlinuz-%s root=/dev/mapper/vg_f21-lv_root ro rd.lvm.lv=vg_f21/lv_swap rd.lvm.lv=vg_f21/lv_root rhgb quiet LANG=en_US.UTF-8\n' % kernel)
-	grubconf.write('\tlinux /vmlinuz-%s root=/dev/mapper/vg_f21-lv_root ro rd.lvm.lv=vg_f21/lv_swap rd.lvm.lv=vg_f21/lv_root LANG=en_US.UTF-8\n' % kernel)
+	# grubconf.write('\tlinux /%s root=/dev/mapper/vg_jessie-lv_root ro rd.lvm.lv=vg_jessie/lv_swap rd.lvm.lv=vg_jessie/lv_root rhgb quiet LANG=en_US.UTF-8\n' % kernel)
+	grubconf.write('\tlinux /%s root=/dev/mapper/vg_jessie-lv_root ro rd.lvm.lv=vg_jessie/lv_swap rd.lvm.lv=vg_jessie/lv_root LANG=en_US.UTF-8\n' % kernel)
 	grubconf.write('\techo "Loading initial ramdisk..."\n')
 	grubconf.write('\tinitrd /initramfs-%s.img\n' % kernel)
 	grubconf.write('}\n\n')
@@ -167,7 +167,7 @@ def writeUnlockedConf(grubpart, hash, kernels, path):
 		unlockedconf.write('\t\tinsmod gzio\n')
 		unlockedconf.write('\t\tset root="%s"\n' % grubpart)
 		unlockedconf.write('\t\techo "Loading Linux kernel %s..."\n' % kernel)
-		unlockedconf.write('\t\tlinux /vmlinuz-%s root=/dev/mapper/vg_f21-lv_root ro rd.lvm.lv=vg_f21/lv_swap rd.lvm.lv=vg_f21/lv_root rhgb quiet LANG=en_US.UTF-8\n' % kernel)
+		unlockedconf.write('\t\tlinux /%s root=/dev/mapper/vg_jessie-lv_root ro rd.lvm.lv=vg_jessie/lv_swap rd.lvm.lv=vg_jessie/lv_root rhgb quiet LANG=en_US.UTF-8\n' % kernel)
 		unlockedconf.write('\t\techo "Loading initial ramdisk..."\n')
 		unlockedconf.write('\t\tinitrd /initramfs-%s.img\n' % kernel)
 		unlockedconf.write('\t}\n\n')
