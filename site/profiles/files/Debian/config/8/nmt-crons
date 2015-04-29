@@ -6,7 +6,7 @@ HOME=/
 #15 0 * * * root /usr/local/bin/reboot_to_win 
 #45 6 * * * root /usr/local/bin/random_machine_reboot
 # GRUB conf updater
-#01 * * * * root /usr/local/bin/grub2
+01 * * * * root /usr/local/bin/grub2
 # Stagger puppet agent
 10,40 * * * * root sleep $((RANDOM \% 1500)) && puppet agent -t > /dev/null 2>&1
 
