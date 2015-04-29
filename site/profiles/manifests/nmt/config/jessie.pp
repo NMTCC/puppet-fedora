@@ -31,7 +31,7 @@ class profiles::nmt::config::jessie {
   configfile { '65-iscan.rules': dest => '/lib/udev/rules.d', }
   #configfile { 'apcupsd.conf': dest => '/etc/apcupsd', }
   configfile { 'extlinux.conf': dest => '/boot/extlinux', mode => '0640', }
-  configfile { 'user@.service': dest => '/usr/lib/systemd/system', }
+  configfile { 'user@.service': dest => '/lib/systemd/system', }
   configfile { 'lightdm-tcc.conf': dest => '/etc/lightdm/lightdm.conf.d', }
   configfile { 'gnome-software-service.desktop': dest => '/etc/xdg/autostart', }
   configfile { 'media-winpart.mount': dest => '/etc/systemd/system', }
