@@ -20,6 +20,7 @@ class profiles::nmt::rsync {
     }
     '8': {
       include profiles::nmt::rsync::f19::logo
+      include profiles::nmt::rsync::jessie::extlinux
     }
     default: {
       warning('No rsync paths for this release version.')
