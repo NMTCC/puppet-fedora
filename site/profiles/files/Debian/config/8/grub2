@@ -121,7 +121,7 @@ def writeGrubConf(grubpart, hash, kernels, path):
 	grubconf.write('fi\n')
 	grubconf.write('set nmttick=""\n')
 	grubconf.write('save_env nmttick\n\n')
-	grubconf.write('menuentry "Debian Linux x86_64" --class "fedora" --unrestricted --hotkey "l" {\n')
+	grubconf.write('menuentry "Debian Linux x86_64" --class "debian" --unrestricted --hotkey "l" {\n')
 	grubconf.write('\tinsmod gzio\n')
 	grubconf.write('\tset root="%s"\n' % grubpart)
 	grubconf.write('\techo "Loading Linux kernel %s..."\n' % kernel)
