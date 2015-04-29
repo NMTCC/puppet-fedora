@@ -42,12 +42,12 @@ class profiles::nmt::config::jessie {
   configfile { 'krb5.conf': dest => '/etc', }
   configfile { 'sssd.conf': dest => '/etc/sssd', mode => '0600', }
   configfile { 'sshd_config': dest => '/etc/ssh', }
+  configfile { 'lightdm-xsession.desktop': dest => '/usr/share/xsessions', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
   ln { '/usr/local/bin/python': target => '/usr/bin/python', }
   ln { '/boot/boot': target => '/boot', require => Configdir['boot'], }
-  ln { '/usr/share/xsessions/default.desktop': target => '/usr/share/xsessions/cinnamon.desktop', }
   #ln { '/usr/bin/sqlplus': target => '/usr/lib/oracle/12.1/client64/bin/sqlplus', }
   ln { '/usr/bin/sl': target => '/usr/games/sl', }
 
