@@ -36,12 +36,12 @@ def getHash():
 
 def getGrubRoot():
 	# ask GRUB which partition it's on
-	grubnoise = commands.getoutput('/usr/sbin/grub-probe -t drive /boot')
+	grubnoise = commands.getoutput('/usr/sbin/grub-probe -t compatibility_hint /boot')
 	grubpart = None
 	for line in grubnoise.split('\n'):
-		if re.search('\(hostdisk\/\/dev\/sd\w,\w*\d\)', line):
+		if re.search('hd\d,\w*\d', line):
 			grubpart = line.strip()
-	return grubpart
+	return "(" + grubpart + ")"
 
 
 def splitDrive(grubdrive):
