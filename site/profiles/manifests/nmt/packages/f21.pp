@@ -58,6 +58,7 @@ class profiles::nmt::packages::f21 {
     'fpc',
     'freeglut-devel',
     'fuse-sshfs',
+    'fuseiso',
     'fvwm',
     'gcc-gnat',
     'gconf-editor',
