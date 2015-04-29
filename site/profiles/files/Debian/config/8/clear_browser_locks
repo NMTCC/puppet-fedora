@@ -1,0 +1,12 @@
+#!/bin/bash
+
+function zap {
+	echo "  $1"
+	rm -f $1 > /dev/null 2>&1
+}
+
+echo "Removing:"
+zap ~/.mozilla/firefox/*.default/lock
+zap ~/.mozilla/firefox/*.default/.parentlock
+zap ~/.mozilla/default/*.slt/lock
+zap ~/.config/google-chrome/SingletonLock
