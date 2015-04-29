@@ -11,13 +11,13 @@ class profiles::nmt::rsync::jessie::extlinux {
   exec { 'extlinux-modules':
     provider => shell,
     command  => 'rsync -aqc /usr/lib/syslinux/modules/bios/ /boot/extlinux/',
-    onlyif   => 'rsync -avnc /usr/lib/syslinux/modules/bios/ /boot/extlinux/ | grep c32 | wc -l',
+    onlyif   => 'exit $(rsync -avnc /usr/lib/syslinux/modules/bios/ /boot/extlinux/ | grep c32 | wc -l)',
   }
 
   exec { 'memdisk':
     provider => shell,
     command  => 'rsync -aqc /usr/lib/syslinux/memdisk /boot/extlinux/',
-    onlyif   => 'diff /usr/lib/syslinux/memdisk /boot/extlinux/memdisk | wc -l',
+    onlyif   => 'exit $(diff /usr/lib/syslinux/memdisk /boot/extlinux/memdisk | wc -l)',
   }
 
 }
