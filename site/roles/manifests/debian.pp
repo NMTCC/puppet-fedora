@@ -11,4 +11,6 @@ class roles::debian {
   include profiles::nmt::remctl
   include profiles::nmt::rsync
 
+  Package { allowcdrom => true, }
+
 }
