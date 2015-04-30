@@ -19,6 +19,11 @@ class profiles::nmt::config::jessie {
 
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
+  configdir { 'libexec': dest => '/usr/local', }
+  configdir { 'lightdm': dest => '/etc', }
+  configdir { 'scripts': dest => '/etc/lightdm', }
+  configdir { 'lightdm.conf.d': dest => '/etc/lightdm', }
+  configdir { 'auto.master.d': dest => '/etc', }
 
   configfile { '00-keyboard.conf': dest => '/etc/X11/xorg.conf.d', }
   configfile { 'nmt-crons': dest => '/etc/cron.d', }
