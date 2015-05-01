@@ -13,6 +13,9 @@ class profiles::nmt::config::jessie {
       Exec['kinit']
     ]
   }
+  file { '/etc/lightdm/scripts': ensure => 'directory', }
+  file { '/etc/lightdm/lightdm.conf.d': ensure => 'directory', }
+  file { '/etc/X11/xorg.conf.d': ensure => 'directory', }
 
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
@@ -20,7 +23,6 @@ class profiles::nmt::config::jessie {
   configdir { 'lightdm': dest => '/etc', }
   configdir { 'scripts': dest => '/etc/lightdm', }
   configdir { 'lightdm.conf.d': dest => '/etc/lightdm', }
-  configdir { 'xorg.conf.d': dest => '/etc/X11', }
   configdir { 'auto.master.d': dest => '/etc', }
 
   configfile { '00-keyboard.conf': dest => '/etc/X11/xorg.conf.d', }
