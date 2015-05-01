@@ -13,17 +13,15 @@ class profiles::nmt::config::jessie {
       Exec['kinit']
     ]
   }
+  file { '/etc/lightdm': ensure => 'directory', }
   file { '/etc/lightdm/scripts': ensure => 'directory', }
   file { '/etc/lightdm/lightdm.conf.d': ensure => 'directory', }
   file { '/etc/X11/xorg.conf.d': ensure => 'directory', }
+  file { '/usr/local/libexec': ensure => 'directory', }
+  file { '/etc/auto.master.d': ensure => 'directory', }
 
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
-  configdir { 'libexec': dest => '/usr/local', }
-  configdir { 'lightdm': dest => '/etc', }
-  configdir { 'scripts': dest => '/etc/lightdm', }
-  configdir { 'lightdm.conf.d': dest => '/etc/lightdm', }
-  configdir { 'auto.master.d': dest => '/etc', }
 
   configfile { '00-keyboard.conf': dest => '/etc/X11/xorg.conf.d', }
   configfile { 'nmt-crons': dest => '/etc/cron.d', }
