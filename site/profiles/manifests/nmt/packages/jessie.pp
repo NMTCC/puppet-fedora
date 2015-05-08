@@ -58,7 +58,6 @@ class profiles::nmt::packages::jessie {
     'festival',
     'filezilla',
     'firewalld',
-    'fish',
     'flex',
     'fluxbox',
     'fonts-dejavu',
@@ -296,8 +295,13 @@ class profiles::nmt::packages::jessie {
   $removelist = [
   ]
 
+  $backportlist = [
+    'fish',
+  ]
+
   Package { ensure => 'installed', require => Exec['apt-update'], }
   package { $packlist : provider => 'apt', }
   package { $removelist : ensure => 'absent', provider => 'apt', }
+  package { $backportlist : provider => 'apt', install_options => { '-t' => 'jessie-backports' }, }
 
 }
