@@ -93,7 +93,6 @@ class profiles::nmt::packages::jessie {
     'hexchat',
     'htop',
     'hunspell',
-    'iceape',
     'icedax',
     'icedove',
     'icedtea-plugin',
