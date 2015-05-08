@@ -6,7 +6,7 @@ class profiles::nmt::ldap::params {
       $confdir   = 'openldap'
     }
     'Debian': {
-      $package   = [ 'ldap-utils' ]
+      $package   = [ 'libldap-2.4-2' ]
       $confdir   = 'ldap'
     }
   }
