@@ -188,7 +188,6 @@ class profiles::nmt::packages::jessie {
     'plymouth',
     'poppler-utils',
     'postgresql',
-    'postfix',
     'puppet',
     'puppet-lint',
     'pv',
