@@ -244,7 +244,6 @@ class profiles::nmt::packages::jessie {
     'ssss',
     'strace',
     'subversion',
-    'sudo',
     'synfig',
     'syslinux-common',
     'sysvbanner',
