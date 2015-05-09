@@ -30,9 +30,9 @@ class profiles::nmt::config::jessie {
   configfile { 'rssh.conf': dest => '/etc', }
   configfile { 'itcjessie.png': dest => '/usr/share/backgrounds', }
   configfile { 'client.conf': dest => '/etc/cups', }
-  #configfile { 'smartd.conf': dest => '/etc/smartmontools', }
+  configfile { 'smartd.conf': dest => '/etc/smartmontools', }
   configfile { '65-iscan.rules': dest => '/lib/udev/rules.d', }
-  #configfile { 'apcupsd.conf': dest => '/etc/apcupsd', }
+  configfile { 'apcupsd.conf': dest => '/etc/apcupsd', }
   configfile { 'extlinux.conf': dest => '/boot/extlinux', mode => '0640', }
   configfile { 'user@.service': dest => '/lib/systemd/system', }
   configfile { 'lightdm-tcc.conf': dest => '/etc/lightdm/lightdm.conf.d', }
@@ -40,8 +40,6 @@ class profiles::nmt::config::jessie {
   configfile { 'media-winpart.mount': dest => '/etc/systemd/system', }
   configfile { 'lightdm-gtk-greeter.conf': dest => '/etc/lightdm', }
   #configfile { 'pcscfg.cfg': dest => '/usr/lib/oracle/12.1/client64/lib/precomp/admin', require => Package['oracle-instantclient12.1-precomp'], }
-  #configfile { 'main.cf': dest => '/etc/postfix', }
-  #configfile { 'defaults.list': dest => '/usr/share/applications', }
   configfile { 'krb5.conf': dest => '/etc', }
   configfile { 'sssd.conf': dest => '/etc/sssd', mode => '0600', }
   configfile { 'sshd_config': dest => '/etc/ssh', }
@@ -70,7 +68,7 @@ class profiles::nmt::config::jessie {
   configscript { 'make_bootusb': dest => '/usr/local/bin', }
   configscript { 'PostLogout': dest => '/etc/lightdm/scripts', }
   configscript { 'sfdisk2parted': dest => '/usr/local/bin', }
-  #configscript { 'killpower': dest => '/etc/apcupsd', }
+  configscript { 'killpower': dest => '/etc/apcupsd', }
   configscript { 'reseed': dest => '/usr/local/bin', }
   configscript { 'remreboot': dest => '/usr/local/bin', }
   configscript { 'xorg_user': dest => '/usr/local/bin', }
