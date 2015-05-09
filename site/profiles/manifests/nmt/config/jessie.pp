@@ -79,6 +79,8 @@ class profiles::nmt::config::jessie {
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
   service { 'puppet': ensure => 'stopped', enable => 'false', }
   service { 'sssd': ensure => 'running', enable => 'true', require => Configfile['sssd.conf'], }
+  service { 'clamav-freshclam': ensure => 'stopped', enable => 'false', }
+  service { 'spamassassin': ensure => 'stopped', enable => 'false', }
 
   k5login { '/root/.k5login':
     ensure     => 'present',
