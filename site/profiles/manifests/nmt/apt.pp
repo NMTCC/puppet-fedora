@@ -21,9 +21,11 @@ class profiles::nmt::apt {
   }
 
   define aptkeyfromweb ($uri) {
-    provider => 'shell',
-    command  => "wget -q -O- ${uri} | apt-key --keyring /etc/apt/trusted.gpg.d/${title}.gpg add -",
-    unless   => "test -e /etc/apt/trusted.gpg.d/${title}.gpg",
+    exec { "add-${title}-key":
+      provider => 'shell',
+      command  => "wget -q -O- ${uri} | apt-key --keyring /etc/apt/trusted.gpg.d/${title}.gpg add -",
+      unless   => "test -e /etc/apt/trusted.gpg.d/${title}.gpg",
+    }
   }
 
   case $::operatingsystemmajrelease {
