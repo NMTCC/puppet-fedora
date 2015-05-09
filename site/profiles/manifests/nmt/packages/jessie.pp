@@ -8,6 +8,7 @@ class profiles::nmt::packages::jessie {
     'alpine',
     'alsamixergui',
     'apcupsd',
+    'apt-transport-https',
     'aria2',
     'audacious',
     'audacious-plugins',
