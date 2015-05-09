@@ -19,8 +19,13 @@ class profiles::nmt::rsync {
       include profiles::nmt::rsync::f19::vmd
     }
     '8': {
-      include profiles::nmt::rsync::f19::logo
+      include profiles::nmt::rsync::f19::anaconda
+      include profiles::nmt::rsync::f21::comsol
       include profiles::nmt::rsync::jessie::extlinux
+      include profiles::nmt::rsync::f19::logo
+      include profiles::nmt::rsync::f21::maple
+      include profiles::nmt::rsync::f21::matlab
+      include profiles::nmt::rsync::f19::vmd
     }
     default: {
       warning('No rsync paths for this release version.')
