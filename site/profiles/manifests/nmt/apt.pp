@@ -3,9 +3,10 @@
 class profiles::nmt::apt {
 
   define aptsource ($type, $uri, $suite, $comp) {
+    $scomp = join($comp, ' ')
     file { "/etc/apt/sources.list.d/${title}.list" :
       ensure  => 'file',
-      content => "${type} ${uri} ${suite} " + join($comp, ' '),
+      content => "${type} ${uri} ${suite} ${scomp}",
       group   => 'root',
       mode    => '0644',
       owner   => 'root',
