@@ -84,6 +84,7 @@ class profiles::nmt::packages::jessie {
     'gpick',
     'gnugo',
     'gnuplot',
+    'google-chrome-stable',
     'grace',
     'graphviz',
     'gsl-bin',
