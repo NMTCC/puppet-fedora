@@ -58,6 +58,7 @@ class profiles::nmt::packages::jessie {
     'festival',
     'filezilla',
     'firewalld',
+    'flashplugin-nonfree',
     'flex',
     'fluxbox',
     'fonts-dejavu',
