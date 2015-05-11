@@ -30,7 +30,7 @@ class profiles::nmt::apt::jessie {
 
   aptsource { 'nmt-debian':
     type  => 'deb',
-    uri   => 'http://duplicon.nmt.edu/nmt/',
+    uri   => 'http://duplicon.nmt.edu/nmt/debian/',
     suite => 'jessie',
     comp  => ['main'],
   }
