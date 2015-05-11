@@ -24,7 +24,7 @@ class profiles::nmt::rsync::f21::iris {
   }
 
   rsync::get { 'iris-csh':
-    source => 'update.nmt.edu::F21-matlab/iris.csh',
+    source => 'update.nmt.edu::F21-iris/iris.csh',
     path => '/etc/profile.d/',
     times => true,
     require => [ Rsync::Get['cwp'], Rsync::Get['oss'] ],
