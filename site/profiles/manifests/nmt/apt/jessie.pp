@@ -10,6 +10,10 @@ class profiles::nmt::apt::jessie {
     uri => 'https://apt.puppetlabs.com/pubkey.gpg',
   }
 
+  aptkeyfromweb { 'nmtkey':
+    uri => 'http://duplicon.nmt.edu/nmt/nmt.gpg.key',
+  }
+
   aptsource { 'google-chrome':
     type  => 'deb',
     uri   => 'http://dl.google.com/linux/chrome/deb/',
@@ -22,6 +26,13 @@ class profiles::nmt::apt::jessie {
     uri   => 'https://apt.puppetlabs.com/',
     suite => 'jessie',
     comp  => ['main', 'dependencies'],
+  }
+
+  aptsource { 'nmt-debian':
+    type  => 'deb',
+    uri   => 'http://duplicon.nmt.edu/nmt/',
+    suite => 'jessie',
+    comp  => ['main'],
   }
 
 }
