@@ -44,6 +44,7 @@ class profiles::nmt::config::jessie {
   configfile { 'sssd.conf': dest => '/etc/sssd', mode => '0600', }
   configfile { 'sshd_config': dest => '/etc/ssh', }
   configfile { 'lightdm-xsession.desktop': dest => '/usr/share/xsessions', }
+  configfile { 'eth0.nmt': dest => '/etc/network/interfaces.d', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
@@ -81,6 +82,11 @@ class profiles::nmt::config::jessie {
   service { 'sssd': ensure => 'running', enable => 'true', require => Configfile['sssd.conf'], }
   service { 'clamav-freshclam': ensure => 'stopped', enable => 'false', }
   service { 'spamassassin': ensure => 'stopped', enable => 'false', }
+  service { 'ModemManager': ensure => 'stopped', enable => 'false', }
+  service { 'NetworkManager': ensure => 'stopped', enable => 'false', require => Configfile['eth0.nmt'], }
+  service { 'transmission-daemon': enable => 'false', }
+  service { 'openvpn': ensure => 'stopped', enable => 'false', }
+  service { 'pppd-dns': ensure => 'stopped', enable => 'false', }
 
   k5login { '/root/.k5login':
     ensure     => 'present',
