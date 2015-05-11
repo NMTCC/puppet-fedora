@@ -45,6 +45,7 @@ class profiles::nmt::config::jessie {
   configfile { 'sshd_config': dest => '/etc/ssh', }
   configfile { 'lightdm-xsession.desktop': dest => '/usr/share/xsessions', }
   configfile { 'eth0.nmt': dest => '/etc/network/interfaces.d', }
+  configfile { 'xinit-compat.desktop': dest => '/usr/share/xsessions', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
@@ -76,6 +77,7 @@ class profiles::nmt::config::jessie {
   configscript { 'grub2': dest => '/usr/local/bin', }
   configscript { 'fail2log': dest => '/etc/cron.daily', }
   configscript { 'smartdnotify': dest => '/usr/local/libexec', }
+  configscript { 'xinit-compat': dest => '/usr/local/libexec', }
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
   service { 'puppet': ensure => 'stopped', enable => 'false', }
