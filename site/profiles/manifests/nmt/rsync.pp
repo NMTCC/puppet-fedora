@@ -12,6 +12,7 @@ class profiles::nmt::rsync {
       include profiles::nmt::rsync::f19::anaconda
       include profiles::nmt::rsync::f21::comsol
       include profiles::nmt::rsync::f21::extlinux
+      include profiles::nmt::rsync::f21::iris
       include profiles::nmt::rsync::f21::isolinux
       include profiles::nmt::rsync::f19::logo
       include profiles::nmt::rsync::f21::maple
