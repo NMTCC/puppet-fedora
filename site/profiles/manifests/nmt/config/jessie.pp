@@ -89,7 +89,6 @@ class profiles::nmt::config::jessie {
       'dgraham@NMT.EDU',
       'dylan@NMT.EDU',
       'wopr@NMT.EDU',
-      'kaiba@NMT.EDU',
     ]
   }
 

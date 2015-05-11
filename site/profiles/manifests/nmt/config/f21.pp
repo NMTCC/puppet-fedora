@@ -104,7 +104,6 @@ class profiles::nmt::config::f21 {
       'dgraham@NMT.EDU',
       'dylan@NMT.EDU',
       'wopr@NMT.EDU',
-      'kaiba@NMT.EDU',
     ]
   }
 
