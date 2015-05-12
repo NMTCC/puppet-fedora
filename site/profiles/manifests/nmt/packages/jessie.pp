@@ -310,6 +310,10 @@ class profiles::nmt::packages::jessie {
   ]
 
   $removelist = [
+    'python-wicd',
+    'wicd',
+    'wicd-daemon',
+    'wicd-gkt',
   ]
 
   $backportlist = [
