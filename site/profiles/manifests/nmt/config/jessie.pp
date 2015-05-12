@@ -45,6 +45,7 @@ class profiles::nmt::config::jessie {
   configfile { 'sshd_config': dest => '/etc/ssh', }
   configfile { 'lightdm-xsession.desktop': dest => '/usr/share/xsessions', }
   configfile { 'eth0.nmt': dest => '/etc/network/interfaces.d', }
+  configfile { 'eth1.nmt': dest => '/etc/network/interfaces.d', }
   configfile { 'xinit-compat.desktop': dest => '/usr/share/xsessions', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
