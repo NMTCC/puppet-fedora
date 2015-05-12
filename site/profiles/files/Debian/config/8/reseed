@@ -7,7 +7,7 @@ export LIBSYNC="http://update.nmt.edu/preseed/jessie/libsync"
 export SYNCPRE="http://replicon.nmt.edu/images/Spring2015"
 export BTHASH="6e4bec907c8efb58c62b108dc0fec9a62aee4ef1"
 export OLDBTHASH="b5a12aa9e171547202864d7235d22a9b4526568d"
-export WINMODE="Normal"
+export WINMODE="Post"
 
 download_libsync() {
 
