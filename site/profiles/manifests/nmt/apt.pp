@@ -11,6 +11,11 @@ class profiles::nmt::apt {
       mode    => '0644',
       owner   => 'root',
     }
+    exec { "${title}.repo":
+      command => '/usr/bin/apt-get -y update',
+      timeout => 0,
+      subscribe => File["/etc/apt/sources.list.d/${title}.list"],
+    }
   }
 
   define rmaptsource {

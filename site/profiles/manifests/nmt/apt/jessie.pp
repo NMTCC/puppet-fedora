@@ -15,24 +15,27 @@ class profiles::nmt::apt::jessie {
   }
 
   aptsource { 'google-chrome':
-    type  => 'deb',
-    uri   => 'http://dl.google.com/linux/chrome/deb/',
-    suite => 'stable',
-    comp  => ['main'],
+    type    => 'deb',
+    uri     => 'http://dl.google.com/linux/chrome/deb/',
+    suite   => 'stable',
+    comp    => ['main'],
+    require => Aptkeyfromweb['google-linux'],
   }
 
   aptsource { 'puppet-labs':
-    type  => 'deb',
-    uri   => 'https://apt.puppetlabs.com/',
-    suite => 'jessie',
-    comp  => ['main', 'dependencies'],
+    type    => 'deb',
+    uri     => 'https://apt.puppetlabs.com/',
+    suite   => 'jessie',
+    comp    => ['main', 'dependencies'],
+    require => Aptkeyfromweb['puppetlabs'],
   }
 
   aptsource { 'nmt-debian':
-    type  => 'deb',
-    uri   => 'http://duplicon.nmt.edu/nmt/debian/',
-    suite => 'jessie',
-    comp  => ['main'],
+    type    => 'deb',
+    uri     => 'http://duplicon.nmt.edu/nmt/debian/',
+    suite   => 'jessie',
+    comp    => ['main'],
+    require => Aptkeyfromweb['nmtkey'],
   }
 
 }
