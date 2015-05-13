@@ -34,7 +34,6 @@ class profiles::nmt::packages::jessie {
     'claws-mail-extra-plugins',
     'claws-mail-plugins',
     'clearlooks-phenix-theme',
-    'cryptkeeper',
     'cups',
     'curl',
     'cvs',
