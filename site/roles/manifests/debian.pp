@@ -14,7 +14,7 @@ class roles::debian {
   include profiles::nmt::remctl
   include profiles::nmt::rsync
 
-  Class[profiles::nmt::apt] -> Class[profiles::nmt::packages] -> Class[profiles::nmt::localizations]
+  Class[profiles::nmt::apt] -> Class[profiles::nmt] -> Class[profiles::nmt::packages] -> Class[profiles::nmt::localizations]
 
   # this because we run before d-i cleans up
   Package { allowcdrom => true, }
