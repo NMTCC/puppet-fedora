@@ -105,7 +105,7 @@ class profiles::nmt::config::jessie {
 
   exec { 'plymouth-update':
     command     => '/usr/sbin/update-initramfs -u',
-    subscribe   => [ Configfile['modules'], Configfile['plymouthd.conf'], ]
+    subscribe   => [ Configfile['modules'], Configfile['plymouthd.conf'], ],
     refreshonly => true,
   }
 
