@@ -200,7 +200,7 @@ class profiles::nmt::packages::jessie {
     'pdfshuffler',
     'pep8',
     'pidgin',
-    'plymouth',
+    'plymouth-themes',
     'poppler-utils',
     'postgresql-client',
     'puppet',

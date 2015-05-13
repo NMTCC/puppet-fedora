@@ -47,6 +47,8 @@ class profiles::nmt::config::jessie {
   configfile { 'eth0.nmt': dest => '/etc/network/interfaces.d', }
   configfile { 'eth1.nmt': dest => '/etc/network/interfaces.d', }
   configfile { 'xinit-compat.desktop': dest => '/usr/share/xsessions', }
+  configfile { 'modules': dest => '/etc/initramfs-tools', }
+  configfile { 'plymouthd.conf': dest => '/etc/plymouth', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
@@ -99,6 +101,12 @@ class profiles::nmt::config::jessie {
       'dylan@NMT.EDU',
       'wopr@NMT.EDU',
     ]
+  }
+
+  exec { 'plymouth-update':
+    command     => '/usr/sbin/update-initramfs -u',
+    subscribe   => [ Configfile['modules'], Configfile['plymouthd.conf'], ]
+    refreshonly => true,
   }
 
 }
