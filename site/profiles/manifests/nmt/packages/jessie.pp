@@ -40,6 +40,7 @@ class profiles::nmt::packages::jessie {
     'darktable',
     'dconf-editor',
     'debconf-utils',
+    'devscripts',
     'dia',
     'dialog',
     'diffutils',
