@@ -28,6 +28,7 @@ class profiles::nmt::rsync {
       include profiles::nmt::rsync::f21::matlab
       include profiles::nmt::rsync::f19::vmd
       include profiles::nmt::rsync::jessie::mozilla
+      include profiles::nmt::rsync::jessie::xep
     }
     default: {
       warning('No rsync paths for this release version.')
