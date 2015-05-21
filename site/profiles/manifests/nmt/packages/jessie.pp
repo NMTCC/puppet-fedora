@@ -265,6 +265,7 @@ class profiles::nmt::packages::jessie {
     'subversion',
     'synfig',
     'syslinux-common',
+    'syslinux-utils',
     'sysvbanner',
     'tccmotd',
     'tcl',
