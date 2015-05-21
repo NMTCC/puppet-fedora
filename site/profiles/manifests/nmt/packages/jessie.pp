@@ -121,6 +121,7 @@ class profiles::nmt::packages::jessie {
     'iscan',
     'iscan-data',
     'iscan-plugin-gt-x750',
+    'isomd5sum',
     'k3b',
     'kbd',
     'kdenlive',
