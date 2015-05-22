@@ -95,6 +95,7 @@ class profiles::nmt::packages::jessie {
     'gnome-themes',
     'gnome-tweak-tool',
     'gpick',
+    'gpm',
     'gnugo',
     'gnuplot',
     'google-chrome-stable',
