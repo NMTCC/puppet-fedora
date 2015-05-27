@@ -11,7 +11,7 @@ class profiles::nmt::rsync::jessie::mozilla {
 
   rsync::get { 'firefox-desktop':
     source => 'update.nmt.edu::Jessie-mozilla/firefox.desktop',
-    path   => '/usr/local/share/applications/',
+    path   => '/usr/share/applications/',
     times  => true,
   }
 
@@ -26,7 +26,7 @@ class profiles::nmt::rsync::jessie::mozilla {
 
   rsync::get { 'thunderbird-desktop':
     source => 'update.nmt.edu::Jessie-mozilla/thunderbird.desktop',
-    path   => '/usr/local/share/applications/',
+    path   => '/usr/share/applications/',
     times  => true,
   }
 
