@@ -32,12 +32,12 @@ class profiles::nmt::rsync::jessie::mozilla {
 
   define stupidicontricks {
     rsync::get { "firefox-${title}":
-      source => "update.nmt.edu::Jessie-mozilla/icons/hicolor/${title}/apps/firefox.png",
+      source => "update.nmt.edu::Jessie-mozilla/icons/${title}/firefox-official.png",
       path   => "/usr/share/icons/hicolor/${title}/apps/",
       times  => true,
     }
     rsync::get { "thunderbird-${title}":
-      source => "update.nmt.edu::Jessie-mozilla/icons/hicolor/${title}/apps/thunderbird.png",
+      source => "update.nmt.edu::Jessie-mozilla/icons/${title}/thunderbird-official.png",
       path   => "/usr/share/icons/hicolor/${title}/apps/",
       times  => true,
     }
