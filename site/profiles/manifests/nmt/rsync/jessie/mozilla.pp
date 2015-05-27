@@ -43,11 +43,11 @@ class profiles::nmt::rsync::jessie::mozilla {
     }
   }
 
-  stupidicontricks { '16x16' }
-  stupidicontricks { '22x22' }
-  stupidicontricks { '24x24' }
-  stupidicontricks { '32x32' }
-  stupidicontricks { '48x48' }
-  stupidicontricks { '256x256' }
+  stupidicontricks { '16x16': }
+  stupidicontricks { '22x22': }
+  stupidicontricks { '24x24': }
+  stupidicontricks { '32x32': }
+  stupidicontricks { '48x48': }
+  stupidicontricks { '256x256': }
 
 }
