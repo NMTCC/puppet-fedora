@@ -1,6 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Name=Default Xsession
-Exec=cinnamon
+Exec=cinnamon-session-cinnamon
+TryExec=/usr/bin/cinnamon
 Icon=
 Type=Application
+
