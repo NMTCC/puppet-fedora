@@ -42,6 +42,7 @@ class profiles::nmt::packages::f21 {
     'dia',
     'dialog',
     'ecryptfs-utils',
+    'emacs',
     'emacs-docbook-rng',
     'engrampa',
     'eom',
