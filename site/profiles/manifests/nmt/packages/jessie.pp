@@ -220,6 +220,7 @@ class profiles::nmt::packages::jessie {
     'python-markdown',
     'python-matplotlib',
     'python-mechanize',
+    'python-molmod',
     'python-mysqldb',
     'python-openssl',
     'python-pexpect',
