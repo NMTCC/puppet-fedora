@@ -49,6 +49,7 @@ class profiles::nmt::config::jessie {
   configfile { 'xinit-compat.desktop': dest => '/usr/share/xsessions', }
   configfile { 'modules': dest => '/etc/initramfs-tools', }
   configfile { 'plymouthd.conf': dest => '/etc/plymouth', }
+  configfile { 'dhclient.conf': dest => '/etc/dhcp', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
