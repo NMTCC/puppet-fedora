@@ -2,8 +2,8 @@ class profiles::nmt::rsync::jessie::matlab {
 
   exec { 'matlab-2014a':
     path => '/bin:/usr/bin/',
-    command => 'rm -rf /usr/local/matlab-2014a',
-    onlyif => 'test -e /usr/local/matlab-2014a',
+    command => 'rm -rf /usr/local/matlab-r2014a',
+    onlyif => 'test -e /usr/local/matlab-r2014a',
   }
 
   rsync::get { 'matlab':
