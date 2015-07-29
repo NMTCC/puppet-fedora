@@ -29,6 +29,7 @@ class profiles::nmt::rsync {
       include profiles::nmt::rsync::f19::vmd
       include profiles::nmt::rsync::jessie::mozilla
       include profiles::nmt::rsync::jessie::xep
+      include profiles::nmt::rsync::jessie::oracle
     }
     default: {
       warning('No rsync paths for this release version.')
