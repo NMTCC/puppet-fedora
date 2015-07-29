@@ -1,7 +1,7 @@
 class profiles::nmt::rsync::jessie::maple {
 
   exec { 'maple18':
-    path => '/usr/bin/',
+    path => '/bin:/usr/bin/',
     command => 'rm -rf /usr/local/maple18',
     onlyif => 'test -e /usr/local/maple18',
   }
