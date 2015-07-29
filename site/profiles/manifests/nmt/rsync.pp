@@ -24,8 +24,8 @@ class profiles::nmt::rsync {
       include profiles::nmt::rsync::f21::comsol
       include profiles::nmt::rsync::jessie::extlinux
       include profiles::nmt::rsync::f19::logo
-      include profiles::nmt::rsync::f21::maple
-      include profiles::nmt::rsync::f21::matlab
+      include profiles::nmt::rsync::jessie::maple
+      include profiles::nmt::rsync::jessie::matlab
       include profiles::nmt::rsync::f19::vmd
       include profiles::nmt::rsync::jessie::mozilla
       include profiles::nmt::rsync::jessie::xep
