@@ -1,7 +1,7 @@
 class profiles::nmt::rsync::jessie::extlinux {
 
   rsync::get { 'extlinux':
-    source => 'update.nmt.edu::Jessie-extlinux',
+    source => 'duplicon.nmt.edu::Jessie-extlinux',
     path => '/boot/extlinux/',
     recursive => true,
     links => true,

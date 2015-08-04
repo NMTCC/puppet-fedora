@@ -7,7 +7,7 @@ class profiles::nmt::rsync::jessie::matlab {
   }
 
   rsync::get { 'matlab':
-    source => 'update.nmt.edu::Jessie-matlab/matlab-r2015a',
+    source => 'duplicon.nmt.edu::Jessie-matlab/matlab-r2015a',
     path => '/usr/local/',
     recursive => true,
     links => true,
@@ -15,20 +15,20 @@ class profiles::nmt::rsync::jessie::matlab {
   }
 
   rsync::get { 'matlab-desktop':
-    source => 'update.nmt.edu::Jessie-matlab/matlab.desktop',
+    source => 'duplicon.nmt.edu::Jessie-matlab/matlab.desktop',
     path => '/usr/local/share/applications/',
     times => true,
   }
 
   rsync::get { 'matlab-sh':
-    source => 'update.nmt.edu::Jessie-matlab/matlab.sh',
+    source => 'duplicon.nmt.edu::Jessie-matlab/matlab.sh',
     path => '/etc/profile.d/',
     times => true,
     require => Rsync::Get['matlab'],
   }
 
   rsync::get { 'matlab-csh':
-    source => 'update.nmt.edu::Jessie-matlab/matlab.csh',
+    source => 'duplicon.nmt.edu::Jessie-matlab/matlab.csh',
     path => '/etc/profile.d/',
     times => true,
     require => Rsync::Get['matlab'],

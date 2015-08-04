@@ -7,7 +7,7 @@ class profiles::nmt::rsync::jessie::maple {
   }
 
   rsync::get { 'maple':
-    source => 'update.nmt.edu::Jessie-maple/maple2015',
+    source => 'duplicon.nmt.edu::Jessie-maple/maple2015',
     path => '/usr/local/',
     recursive => true,
     links => true,
@@ -15,7 +15,7 @@ class profiles::nmt::rsync::jessie::maple {
   }
 
   rsync::get { 'maple-desktop':
-    source => 'update.nmt.edu::Jessie-maple/maple.desktop',
+    source => 'duplicon.nmt.edu::Jessie-maple/maple.desktop',
     path => '/usr/local/share/applications/',
     times => true,
   }

@@ -1,7 +1,7 @@
 class profiles::nmt::rsync::jessie::oracle {
 
   rsync::get { 'instantclient':
-    source    => 'update.nmt.edu::Jessie-oracle/instantclient_12_1',
+    source    => 'duplicon.nmt.edu::Jessie-oracle/instantclient_12_1',
     path      => '/usr/local/',
     recursive => true,
     links     => true,
@@ -9,14 +9,14 @@ class profiles::nmt::rsync::jessie::oracle {
   }
 
   rsync::get { 'oracle-sqlplus-sh':
-    source  => 'update.nmt.edu::Jessie-oracle/oracle-sqlplus.sh',
+    source  => 'duplicon.nmt.edu::Jessie-oracle/oracle-sqlplus.sh',
     path    => '/etc/profile.d/',
     times   => true,
     require => Rsync::Get['instantclient'],
   }
 
   rsync::get { 'oracle-sqlplus-csh':
-    source  => 'update.nmt.edu::Jessie-oracle/oracle-sqlplus.csh',
+    source  => 'duplicon.nmt.edu::Jessie-oracle/oracle-sqlplus.csh',
     path    => '/etc/profile.d/',
     times   => true,
     require => Rsync::Get['instantclient'],
