@@ -21,7 +21,7 @@ class profiles::nmt::rsync {
     }
     '8': {
       include profiles::nmt::rsync::f19::anaconda
-      include profiles::nmt::rsync::f21::comsol
+      include profiles::nmt::rsync::jessie::comsol
       include profiles::nmt::rsync::jessie::extlinux
       include profiles::nmt::rsync::f19::logo
       include profiles::nmt::rsync::jessie::maple
