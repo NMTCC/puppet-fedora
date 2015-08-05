@@ -1,7 +1,7 @@
 class profiles::nmt::rsync::jessie::comsol {
 
   exec { 'comsol44':
-    path => '/usr/bin/',
+    path => '/bin:/usr/bin/',
     command => 'rm -rf /usr/local/comsol44',
     onlyif => 'test -e /usr/local/comsol44',
   }
