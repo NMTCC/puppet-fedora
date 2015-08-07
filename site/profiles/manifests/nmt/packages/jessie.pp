@@ -210,6 +210,7 @@ class profiles::nmt::packages::jessie {
     'puppet',
     'puppet-lint',
     'pv',
+    'pymol',
     'python-apptools',
     'python-ase',
     'python-beautifulsoup',
