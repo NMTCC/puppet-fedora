@@ -40,6 +40,27 @@ ntfs_check() {
 
 }
 
+preunroll() {
+
+	systemctl start media-winpart.mount
+	if [ -e "$UNATTEND" ]
+	then
+		sed -i -e "s/reference1/$(hostname -s)/" $UNATTEND
+	fi
+	if [ -e "$WPCONF" ]
+	then
+		echo "certname=$(hostname -s).tcc7" >> $WPCONF
+	fi
+	systemctl stop media-winpart.mount
+
+}
+
+if [ "$1" == "--preunroll" ]
+then
+	preunroll
+	exit 0
+fi
+
 dialog --backtitle "ITC $SEMESTER Debian install" --title "SYNC" --radiolist "Re-image Windows" 0 0 0 "Local" "Use locally stored copy of template" on "Network" "Unicast a new copy of the template" off 2> /tmp/reapply.$$
 
 case "$(cat /tmp/reapply.$$)" in
@@ -65,20 +86,11 @@ esac
 rm -f /tmp/libsync
 
 remctl puppet-win.nmt.edu puppet cert clean "$(hostname -s).tcc7"
-systemctl start media-winpart.mount
-if [ -e "$UNATTEND" ]
-then
-        sed -i -e "s/reference1/$(hostname -s)/" $UNATTEND
-fi
-if [ -e "$WPCONF" ]
-then
-        echo "certname=$(hostname -s).tcc7" >> $WPCONF
-fi
-systemctl stop media-winpart.mount
+preunroll
 
 if [ "$1" != "--reboot" ]
 then
-        echo "Windows is ready to unroll. Reboot to continue."
+	echo "Windows is ready to unroll. Reboot to continue."
 else
-        systemctl reboot
+	systemctl reboot
 fi
