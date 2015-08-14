@@ -1,12 +1,13 @@
 #!/bin/bash
 
-export SEMESTER="Spring2015"
+export SEMESTER="Fall2015"
 export BRANCH="master"
 export BUILD="1"
 export LIBSYNC="http://update.nmt.edu/preseed/jessie/libsync"
-export SYNCPRE="http://replicon.nmt.edu/images/Spring2015"
+export WPCONF="http://update.nmt.edu/preseed/jessie/winpuppet.conf"
+export SYNCPRE="http://replicon.nmt.edu/images/Fall2015"
 export UNATTEND="/media/winpart/Windows/Panther/unattend.xml"
-export WPCONF="/media/winpart/ProgramData/PuppetLabs/puppet/etc/puppet.conf"
+export WPCONFDIR="/media/winpart/ProgramData/PuppetLabs/puppet/etc"
 
 download_libsync() {
 
@@ -16,6 +17,19 @@ download_libsync() {
 		return
 	fi
 	dialog --backtitle "ITC $SEMESTER Debian install" --title "SYNC" --msgbox "Could not retrieve SYNC library!" 5 36
+	clear
+	exit 69 # EX_UNAVAILABLE from sysexits.h
+
+}
+
+download_wpconf() {
+
+	wget -P /tmp $WPCONF > /dev/null 2>&1
+	if [ -s "/tmp/winpuppet.conf" ]
+	then
+		return
+	fi
+	dialog --backtitle "ITC $SEMESTER Debian install" --title "SYNC" --msgbox "Could not retrieve puppet configuration!" 5 44
 	clear
 	exit 69 # EX_UNAVAILABLE from sysexits.h
 
@@ -47,9 +61,11 @@ preunroll() {
 	then
 		sed -i -e "s/reference1/$(hostname -s)/" $UNATTEND
 	fi
-	if [ -e "$WPCONF" ]
+	if [ -d "$WPCONFDIR" ]
 	then
-		echo "certname=$(hostname -s).tcc7" >> $WPCONF
+		rm -rf $WPCONFDIR/ssl > /dev/null 2>&1
+		echo "certname=$(hostname -s).tcc7" >> /tmp/winpuppet.conf
+		cat /tmp/winpuppet.conf > $WPCONFDIR/puppet.conf
 	fi
 	systemctl stop media-winpart.mount
 
@@ -69,12 +85,14 @@ case "$(cat /tmp/reapply.$$)" in
 		if [ ! -e "/var/lib/transmission/downloads/$SEMESTER-$BRANCH.$BUILD/$SEMESTER-$BRANCH.$BUILD.vhd1" ]; then nofile; fi
 		if [ ! -e "/var/lib/transmission/downloads/$SEMESTER-$BRANCH.$BUILD/$SEMESTER-$BRANCH.$BUILD.vhd2.bz2" ]; then nofile; fi
 		download_libsync
+		download_wpconf
 		source /tmp/libsync
 		apply_image
 		;;
 	Network)
 		ntfs_check
 		download_libsync
+		download_wpconf
 		source /tmp/libsync
 		unicast
 		;;
