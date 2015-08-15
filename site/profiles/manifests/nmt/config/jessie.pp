@@ -13,12 +13,13 @@ class profiles::nmt::config::jessie {
       Exec['kinit']
     ]
   }
-  file { '/etc/lightdm': ensure => 'directory', }
-  file { '/etc/lightdm/scripts': ensure => 'directory', }
-  file { '/etc/lightdm/lightdm.conf.d': ensure => 'directory', }
-  file { '/etc/X11/xorg.conf.d': ensure => 'directory', }
-  file { '/usr/local/libexec': ensure => 'directory', }
-  file { '/etc/auto.master.d': ensure => 'directory', }
+  file { '/etc/lightdm': ensure                  => 'directory', }
+  file { '/etc/lightdm/scripts': ensure          => 'directory', }
+  file { '/etc/lightdm/lightdm.conf.d': ensure   => 'directory', }
+  file { '/etc/X11/xorg.conf.d': ensure          => 'directory', }
+  file { '/usr/local/libexec': ensure            => 'directory', }
+  file { '/etc/auto.master.d': ensure            => 'directory', }
+  file { '/usr/local/share/applications': ensure => 'directory', }
 
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }

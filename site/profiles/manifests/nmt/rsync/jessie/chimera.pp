@@ -10,7 +10,7 @@ class profiles::nmt::rsync::jessie::chimera {
 
   rsync::get { 'chimera-desktop':
     source  => 'duplicon.nmt.edu::Jessie-chimera/UCSF-Chimera64-1.10.2.desktop',
-    path    => '/usr/local/share/applications',
+    path    => '/usr/local/share/applications/',
     times   => true,
     require => Rsync::Get['chimera'],
   }
