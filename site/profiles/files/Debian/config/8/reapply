@@ -82,8 +82,8 @@ dialog --backtitle "ITC $SEMESTER Debian install" --title "SYNC" --radiolist "Re
 case "$(cat /tmp/reapply.$$)" in
 	Local)
 		ntfs_check
-		if [ ! -e "/var/lib/transmission/downloads/$SEMESTER-$BRANCH.$BUILD/$SEMESTER-$BRANCH.$BUILD.vhd1" ]; then nofile; fi
-		if [ ! -e "/var/lib/transmission/downloads/$SEMESTER-$BRANCH.$BUILD/$SEMESTER-$BRANCH.$BUILD.vhd2.bz2" ]; then nofile; fi
+		if [ ! -e "/var/lib/transmission-daemon/downloads/$SEMESTER-$BRANCH.$BUILD/$SEMESTER-$BRANCH.$BUILD.vhd1" ]; then nofile; fi
+		if [ ! -e "/var/lib/transmission-daemon/downloads/$SEMESTER-$BRANCH.$BUILD/$SEMESTER-$BRANCH.$BUILD.vhd2.bz2" ]; then nofile; fi
 		download_libsync
 		download_wpconf
 		source /tmp/libsync
