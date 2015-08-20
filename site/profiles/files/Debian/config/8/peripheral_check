@@ -34,8 +34,8 @@ if [ "$room" == "library208" ]; then staff="FALSE"; fi
 
 if [ "$staff" == "FALSE" ]
 then
-	mouse=$(lsusb | grep Mouse | wc -l)
-	kbd=$(lsusb | grep Keyboard | wc -l)
+	mouse=$(lsusb | grep "Mouse\|Logitech" | wc -l)
+	kbd=$(lsusb | grep "Keyboard\|Cherry" | wc -l)
 	odd=$(lsblk -ln | grep rom | wc -l)
 	case $mouse in
 		"0" )
