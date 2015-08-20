@@ -17,7 +17,7 @@ class profiles::nmt::rsync::jessie::extlinux {
   exec { 'memdisk':
     provider => shell,
     command  => 'rsync -aqc /usr/lib/syslinux/memdisk /boot/extlinux/',
-    unless   => 'exit $(diff /usr/lib/syslinux/memdisk /boot/extlinux/memdisk | wc -l)',
+    unless   => 'exit $(diff /usr/lib/syslinux/memdisk /boot/extlinux/memdisk 2>&1 | wc -l)',
   }
 
 }
