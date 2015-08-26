@@ -104,6 +104,7 @@ class profiles::nmt::packages::jessie {
     'gsl-bin',
     'gtkterm',
     'gtk3-engines-xfce',
+    'gwrite',
     'haskell-platform',
     'hexchat',
     'htop',
