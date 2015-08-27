@@ -24,7 +24,7 @@ class profiles::nmt {
       exec { 'apt-update': command => '/usr/bin/apt-get -y update', timeout => 0, unless => '/usr/bin/apt-get -y update', } ->
       exec { 'apt-upgrade': provider => 'shell', command => '/usr/bin/apt-get -y dist-upgrade', timeout => 0, unless => 'exit $(aptitude search "~U" | wc -l)', }
 
-      class { '::sudo': } sudo::conf { 'ucsh' : content => '%tcc ALL = (root) NOPASSWD: /usr/bin/du, /usr/bin/file, /bin/ls, /usr/bin/nice, /usr/bin/renice, /bin/ps, /bin/mount, /bin/umount, /bin/kill, /usr/bin/killall, /usr/bin/wall, /usr/bin/eject, /bin/chgrp, /bin/systemctl, /usr/local/bin/reapply', }
+      class { '::sudo': } sudo::conf { 'ucsh' : content => '%tape ALL = (root) NOPASSWD: /usr/bin/du, /usr/bin/file, /bin/ls, /usr/bin/nice, /usr/bin/renice, /bin/ps, /bin/mount, /bin/umount, /bin/kill, /usr/bin/killall, /usr/bin/wall, /usr/bin/eject, /bin/chgrp, /bin/systemctl, /usr/local/bin/reapply', }
 
       exec { 'disable sss sudo':
         path    => '/bin:/usr/bin',
