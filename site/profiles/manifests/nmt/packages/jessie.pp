@@ -28,7 +28,7 @@ class profiles::nmt::packages::jessie {
     'ca-certificates',
     'cabal-install',
     'caja-open-terminal',
-    'cinnamon',
+    'cinnamon-desktop-environment',
     'clang',
     'claws-mail',
     'claws-mail-extra-plugins',
