@@ -5,8 +5,10 @@ class profiles::nmt::ooffice {
   define oolink ($flag) {
     file { "/usr/local/bin/${title}":
       ensure  => 'file',
-      content => "#!/bin/sh\nexec libreoffice ${flag} \"$@\"",
+      content => "#!/bin/sh\nexec libreoffice ${flag} \"$@\"\n",
       mode    => '0755',
+      owner   => 'root',
+      group   => 'root',
     }
   }
 
