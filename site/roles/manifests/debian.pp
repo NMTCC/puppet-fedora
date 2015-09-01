@@ -9,6 +9,7 @@ class roles::debian {
   include profiles::nmt::ldap
   include profiles::nmt::localizations
   include profiles::nmt::localtime
+  include profiles::nmt::ooffice
   include profiles::nmt::packages
   include profiles::nmt::passwd
   include profiles::nmt::postfix
