@@ -2,15 +2,15 @@
 
 while :
 do
+	users=$(loginctl --no-legend list-users | grep -v "lightdm\|root" | wc -l)
+	if [ "$users" -gt "0" ]
+	then
+		printf "ldmagain: active user sessions\n"
+		break
+	fi
 	lastlog=$(journalctl -u lightdm -n 1 -o cat)
 	if [[ "$lastlog" =~ "pam_krb5".*"logname=  ".* ]]
 	then
-		users=$(loginctl --no-legend list-users | grep -v "lightdm\|root" | wc -l)
-		if [ "$users" -gt "0" ]
-		then
-			"ldmagain: active user sessions\n"
-			break
-		fi
 		printf "ldmagain: restarting lightdm\n"
 		systemctl restart lightdm
 	fi
