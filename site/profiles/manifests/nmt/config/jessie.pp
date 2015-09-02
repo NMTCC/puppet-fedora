@@ -51,6 +51,7 @@ class profiles::nmt::config::jessie {
   configfile { 'modules': dest => '/etc/initramfs-tools', }
   configfile { 'plymouthd.conf': dest => '/etc/plymouth', }
   configfile { 'dhclient.conf': dest => '/etc/dhcp', }
+  configfile { 'ldmagain.service': dest => '/etc/systemd/system', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
@@ -83,6 +84,7 @@ class profiles::nmt::config::jessie {
   configscript { 'fail2log': dest => '/etc/cron.daily', }
   configscript { 'smartdnotify': dest => '/usr/local/libexec', }
   configscript { 'xinit-compat': dest => '/usr/local/libexec', }
+  configscript { 'ldmagain': dest => '/usr/local/bin', }
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
   service { 'puppet': ensure => 'stopped', enable => 'false', }

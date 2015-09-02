@@ -1,0 +1,22 @@
+#!/bin/bash
+
+while :
+do
+	lastlog=$(journalctl -u lightdm -n 1 -o cat)
+	if [[ "$lastlog" =~ "pam_krb5".*"logname=  ".* ]]
+	then
+		users=$(loginctl --no-legend list-users | grep -v "lightdm\|root" | wc -l)
+		if [ "$users" -gt "0" ]
+			"ldmagain: active user sessions\n"
+			break
+		fi
+		printf "ldmagain: restarting lightdm\n"
+		systemctl restart lightdm
+	fi
+	if [[ "$lastlog" =~ "pam_unix".*"session opened".*"lightdm".* ]]
+	then
+		printf "ldmagain: lightdm running properly\n"
+		break
+	fi
+	sleep 10
+done
