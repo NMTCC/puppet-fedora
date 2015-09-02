@@ -1,4 +1,10 @@
+[Unit]
+Description=Make sure lightdm really starts
+
 [Service]
 Type=simple
 ExecStart=/usr/local/bin/ldmagain
 Restart=no
+
+[Install]
+WantedBy=default.target
