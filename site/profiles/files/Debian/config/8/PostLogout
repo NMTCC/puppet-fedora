@@ -2,9 +2,10 @@
 
 # Terminate current user session
 /bin/loginctl terminate-session $XDG_SESSION_ID
-/usr/bin/killall --user $USER -TERM gnome-keyring-daemon
-/usr/bin/killall --user $USER -TERM ssh-agent
+/usr/bin/killall --user $USER gnome-keyring-daemon
+/usr/bin/killall --user $USER ssh-agent
 /usr/bin/pax11publish -r
+/usr/bin/killall --user $USER pulseaudio
 
 # Reset LightDM session settings
 /bin/rm -f /var/lib/lightdm/.cache/lightdm-gtk-greeter/state
