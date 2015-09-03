@@ -67,6 +67,7 @@ class profiles::nmt::packages::jessie {
     'fonts-wqy-zenhei',
     'fortune-mod',
     'fpc',
+    'fping',
     'freeglut3-dev',
     'fuseiso',
     'fvwm',
