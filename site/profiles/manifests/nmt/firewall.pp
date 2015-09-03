@@ -10,7 +10,7 @@ class profiles::nmt::firewall {
   }
 
   define firewalldclose ($zone) {
-    exec { "open port ${title}":
+    exec { "close port ${title}":
       command => "/usr/bin/firewall-cmd --zone=${zone} --remove-port ${title} --permanent && /usr/bin/firewall-cmd --reload",
       onlyif => "/usr/bin/firewall-cmd --zone=${zone} --list-ports | grep ${title}",
     }
