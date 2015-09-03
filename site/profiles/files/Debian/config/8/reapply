@@ -3,9 +3,9 @@
 export SEMESTER="Fall2015"
 export BRANCH="master"
 export BUILD="1"
-export LIBSYNC="http://update.nmt.edu/preseed/jessie/libsync"
-export WPCONF="http://update.nmt.edu/preseed/jessie/winpuppet.conf"
-export SYNCPRE="http://replicon.nmt.edu/images/Fall2015"
+export LIBSYNC="http://duplicon.nmt.edu/preseed/jessie/libsync"
+export WPCONF="http://duplicon.nmt.edu/preseed/jessie/winpuppet.conf"
+export SYNCPRE="http://template.nmt.edu/images/Fall2015"
 export UNATTEND="/media/winpart/Windows/Panther/unattend.xml"
 export WPCONFDIR="/media/winpart/ProgramData/PuppetLabs/puppet/etc"
 
