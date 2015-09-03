@@ -9,15 +9,15 @@ do
 		break
 	fi
 	lastlog=$(journalctl -u lightdm -n 1 -o cat)
-	if [[ "$lastlog" =~ "pam_krb5".*"logname=  ".* ]]
-	then
-		printf "ldmagain: restarting lightdm\n"
-		systemctl restart lightdm
-	fi
 	if [[ "$lastlog" =~ "pam_unix".*"session opened".*"lightdm".* ]]
 	then
 		printf "ldmagain: lightdm running properly\n"
 		break
+	fi
+	if [[ "$lastlog" =~ "pam_krb5".*"logname=  ".* ]]
+	then
+		printf "ldmagain: restarting lightdm\n"
+		systemctl restart lightdm
 	fi
 	sleep 10
 done
