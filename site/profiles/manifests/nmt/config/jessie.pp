@@ -52,6 +52,7 @@ class profiles::nmt::config::jessie {
   configfile { 'plymouthd.conf': dest => '/etc/plymouth', }
   configfile { 'dhclient.conf': dest => '/etc/dhcp', }
   configfile { 'ldmagain.service': dest => '/etc/systemd/system', }
+  configfile { 'lightdm-greeter': dest => '/etc/pam.d', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
