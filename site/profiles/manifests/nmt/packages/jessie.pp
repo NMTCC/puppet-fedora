@@ -295,6 +295,7 @@ class profiles::nmt::packages::jessie {
     'unrar',
     'unzip',
     'vacation',
+    'valgrind',
     'vim-addon-manager',
     'vim-gtk',
     'vim-puppet',
