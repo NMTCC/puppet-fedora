@@ -8,13 +8,13 @@ do
 		printf "ldmagain: active user sessions\n"
 		break
 	fi
-	lastlog=$(journalctl -u lightdm -n 1 -o cat)
-	if [[ "$lastlog" =~ "pam_unix".*"session opened".*"lightdm".* ]]
+	lastlog=$(journalctl --no-pager -u lightdm -o cat | grep "^pam" | tail -n 1)
+	if [[ "$lastlog" =~ "pam".*"session opened".*"lightdm".* ]]
 	then
 		printf "ldmagain: lightdm running properly\n"
 		break
 	fi
-	if [[ "$lastlog" =~ "pam_krb5".*"logname=  ".* ]]
+	if [[ "$lastlog" =~ "pam".*"logname= ".* ]]
 	then
 		printf "ldmagain: restarting lightdm\n"
 		systemctl restart lightdm
