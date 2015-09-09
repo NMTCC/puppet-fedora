@@ -235,6 +235,7 @@ class profiles::nmt::packages::jessie {
     'python-psycopg2',
     'python-remctl',
     'python-stdeb',
+    'python-tamkin',
     'python-traitsui',
     'python-scipy',
     'python-setproctitle',
