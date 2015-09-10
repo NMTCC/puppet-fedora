@@ -4,8 +4,8 @@ class profiles::nmt::fix82 {
 
   exec { 'enablesplay':
     provider => shell,
-    command  => 'printf "splay=true\n" >> /etc/puppet/puppet.conf'
-    unless   => 'grep splay /etc/puppet/puppet.conf'
+    command  => 'printf "splay=true\n" >> /etc/puppet/puppet.conf',
+    unless   => 'grep splay /etc/puppet/puppet.conf',
   }
 
   service { 'puppet':
