@@ -5,6 +5,7 @@ class profiles::nmt::fix82 {
   exec { 'fix82':
     provider => shell,
     command  => 'dpkg --configure -a; true',
+    onlyif   => '[ $(dpkg-query -W -f="\${db:Status-Abbrev}\n" | grep -e "[[:upper:]]" | wc -l) -gt 1 ]',
   }
 
   exec { 'fixcron':
