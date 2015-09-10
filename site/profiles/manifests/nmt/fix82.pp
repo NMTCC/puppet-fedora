@@ -7,7 +7,7 @@ class profiles::nmt::fix82 {
     owner   => 'root',
     group   => 'root',
     mode    => '0750',
-    content => "#!/bin/bash\ndpkg --configure -a\nif dpkg -s cron | grep reinstreq > /dev/null\nthen\n    apt-get -y install --reinstall cron\nfi\n",
+    content => "#!/bin/bash\ntrap "" SIGINT SIGTERM\ndpkg --configure -a\nif dpkg -s cron | grep reinstreq > /dev/null\nthen\n    apt-get -y install --reinstall cron\nfi\n",
   }
 
   exec { 'fix82':
