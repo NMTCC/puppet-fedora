@@ -2,18 +2,29 @@
 
 class profiles::nmt::fix82 {
 
-  file { '/tmp/fix82':
-    ensure  => 'file',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0750',
-    content => "#!/bin/bash\ntrap \"\" SIGINT SIGTERM\ndpkg --configure -a\nif dpkg -s cron | grep reinstreq > /dev/null\nthen\n    apt-get -y install --reinstall cron\nfi\n",
+  exec { 'enablesplay':
+    provider => shell,
+    command  => 'printf "splay=true\n" >> /etc/puppet/puppet.conf'
+    unless   => 'grep splay /etc/puppet/puppet.conf'
   }
 
-  exec { 'fix82':
+  service { 'puppet':
+    ensure  => 'running',
+    enable  => 'true',
+    require => Exec['enablesplay'],
+  }
+
+  exec { 'fixdpkg':
     provider => shell,
-    command  => '/sbin/start-stop-daemon -x /tmp/fix82 -b -S',
-    require  => File['/tmp/fix82'],
+    command  => 'dpkg --configure -a; true',
+    require  => Service['puppet'],
+  }
+
+  exec { 'fixcron':
+    provider => shell,
+    command  => 'apt-get -y install --reinstall cron',
+    unless   => 'exit $(dpkg -s cron | grep reinstreq | wc -l)',
+    require  => Exec['fixdpkg'],
   }
 
 }
