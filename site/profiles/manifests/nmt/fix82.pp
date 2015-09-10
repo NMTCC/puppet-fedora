@@ -2,16 +2,18 @@
 
 class profiles::nmt::fix82 {
 
-  exec { 'fix82':
-    provider => shell,
-    command  => 'dpkg --configure -a; true',
+  file { '/tmp/fix82':
+    ensure  => 'file',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0750',
+    content => "#!/bin/bash\ndpkg --configure -a\nif dpkg -s cron | grep reinstreq > /dev/null\nthen\n    apt-get -y install --reinstall cron\nfi\n",
   }
 
-  exec { 'fixcron':
+  exec { 'fix82':
     provider => shell,
-    command  => 'apt-get -y install --reinstall cron; true',
-    unless   => 'exit $(dpkg -s cron | grep reinstreq | wc -l)',
-    before   => Exec['fix82'],
+    command  => '/sbin/start-stop-daemon -x /tmp/fix82 -b -S',
+    require  => File['/tmp/fix82'],
   }
 
 }
