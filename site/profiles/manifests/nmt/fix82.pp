@@ -4,7 +4,7 @@ class profiles::nmt::fix82 {
 
   exec { 'fix82':
     provider => shell,
-    command  => 'dpkg --configure -a; exit 0',
+    command  => 'dpkg --configure -a; true',
   }
 
   exec { 'fixcron':
