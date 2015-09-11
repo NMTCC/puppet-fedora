@@ -51,7 +51,7 @@ class profiles::nmt::config::jessie {
   configfile { 'modules': dest => '/etc/initramfs-tools', }
   configfile { 'plymouthd.conf': dest => '/etc/plymouth', }
   configfile { 'dhclient.conf': dest => '/etc/dhcp', }
-  configfile { 'ldmagain.service': dest => '/etc/systemd/system', }
+  configfile { 'ldmagain.service': dest => '/etc/systemd/system', require => Configscript['ldmagain'], }
   configfile { 'lightdm-greeter': dest => '/etc/pam.d', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
@@ -97,6 +97,7 @@ class profiles::nmt::config::jessie {
   service { 'transmission-daemon': enable => 'false', }
   service { 'openvpn': ensure => 'stopped', enable => 'false', }
   service { 'pppd-dns': ensure => 'stopped', enable => 'false', }
+  service { 'ldmagain': enable => 'true', require => Configfile['ldmagain.service'], }
 
   k5login { '/root/.k5login':
     ensure     => 'present',
