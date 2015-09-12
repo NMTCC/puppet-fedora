@@ -88,7 +88,7 @@ class profiles::nmt::config::jessie {
   configscript { 'ldmagain': dest => '/usr/local/bin', }
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
-  #service { 'puppet': ensure => 'stopped', enable => 'false', }
+  service { 'puppet': ensure => 'running', enable => 'true', require => Exec['enablesplay'], }
   service { 'sssd': ensure => 'running', enable => 'true', require => Configfile['sssd.conf'], }
   service { 'clamav-freshclam': ensure => 'stopped', enable => 'false', }
   service { 'spamassassin': ensure => 'stopped', enable => 'false', }
@@ -113,6 +113,12 @@ class profiles::nmt::config::jessie {
     command     => '/usr/sbin/update-initramfs -u',
     subscribe   => [ Configfile['modules'], Configfile['plymouthd.conf'], ],
     refreshonly => true,
+  }
+
+  exec { 'enablesplay':
+    provider => shell,
+    command  => 'printf "splay=true\n" >> /etc/puppet/puppet.conf',
+    unless   => 'grep splay /etc/puppet/puppet.conf',
   }
 
 }
