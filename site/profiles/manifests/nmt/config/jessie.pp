@@ -53,6 +53,8 @@ class profiles::nmt::config::jessie {
   configfile { 'dhclient.conf': dest => '/etc/dhcp', }
   configfile { 'ldmagain.service': dest => '/etc/systemd/system', require => Configscript['ldmagain'], }
   configfile { 'lightdm-greeter': dest => '/etc/pam.d', }
+  configfile { 'org.freedesktop.Accounts.service': dest => '/usr/share/dbus-1/system-services', }
+  configfile { 'users.conf': dest => '/etc/lightdm', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
@@ -98,6 +100,7 @@ class profiles::nmt::config::jessie {
   service { 'openvpn': ensure => 'stopped', enable => 'false', }
   service { 'pppd-dns': ensure => 'stopped', enable => 'false', }
   service { 'ldmagain': enable => 'true', require => Configfile['ldmagain.service'], }
+  service { 'accounts-daemon': ensure => 'stopped', enable => 'false', }
 
   k5login { '/root/.k5login':
     ensure     => 'present',
