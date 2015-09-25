@@ -31,7 +31,7 @@ class profiles::nmt::config::jessie {
   configfile { 'rssh.conf': dest => '/etc', }
   configfile { 'itcjessie.png': dest => '/usr/share/backgrounds', }
   configfile { 'client.conf': dest => '/etc/cups', }
-  configfile { 'smartd.conf': dest => '/etc/smartmontools', }
+  configfile { 'smartd.conf': dest => '/etc', }
   configfile { '65-iscan.rules': dest => '/lib/udev/rules.d', }
   configfile { 'apcupsd.conf': dest => '/etc/apcupsd', }
   configfile { 'extlinux.conf': dest => '/boot/extlinux', mode => '0640', }
