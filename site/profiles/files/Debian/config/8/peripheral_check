@@ -19,6 +19,10 @@ check_winpart() {
 
 }
 
+date > /var/log/peripherals.log
+lsblk -ln >> /var/log/peripherals.log 2>&1
+lsusb >> /var/log/peripherals.log 2>&1
+
 host=$(hostname --short)
 base="ou=clients,ou=machines,dc=tcc,dc=nmt,dc=edu"
 staff=$(ldapsearch -xZZLLL -b ${base} cn=${host} tccOfficeMachine | sed -n -e '2p' | cut -d ":" -f 2)
