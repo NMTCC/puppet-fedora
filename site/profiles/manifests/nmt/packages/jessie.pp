@@ -122,6 +122,7 @@ class profiles::nmt::packages::jessie {
     'icewm-gnome-support',
     'imagemagick',
     'inkscape',
+    'iotop',
     'ipython',
     'irssi',
     'iscan',
