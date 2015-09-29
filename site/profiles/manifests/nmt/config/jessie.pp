@@ -100,7 +100,7 @@ class profiles::nmt::config::jessie {
   service { 'openvpn': ensure => 'stopped', enable => 'false', }
   service { 'pppd-dns': ensure => 'stopped', enable => 'false', }
   service { 'ldmagain': enable => 'true', require => Configfile['ldmagain.service'], }
-  service { 'accounts-daemon': ensure => 'stopped', enable => 'false', }
+  service { 'accounts-daemon': ensure => 'running', enable => 'true', }
 
   k5login { '/root/.k5login':
     ensure     => 'present',
