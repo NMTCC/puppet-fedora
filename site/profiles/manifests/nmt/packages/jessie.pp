@@ -109,6 +109,7 @@ class profiles::nmt::packages::jessie {
     'guake',
     'gwrite',
     'haskell-platform',
+    'heirloom-mailx',
     'hexchat',
     'htop',
     'hunspell',
@@ -330,20 +331,21 @@ class profiles::nmt::packages::jessie {
     'zsh',
   ]
 
+  $backportlist = [
+    'fish',
+  ]
+
   $removelist = [
+    'bsd-mailx',
     'python-wicd',
     'wicd',
     'wicd-daemon',
     'wicd-gkt',
   ]
 
-  $backportlist = [
-    'fish',
-  ]
-
-  Package { ensure => 'installed', require => Exec['apt-update'], }
-  package { $packlist : provider => 'apt', }
+  Package { ensure => 'installed', require => Exec['apt-update'], } ->
+  package { $packlist : provider => 'apt', } ->
+  package { $backportlist : provider => 'apt', install_options => { '-t' => 'jessie-backports' }, } ->
   package { $removelist : ensure => 'absent', provider => 'apt', }
-  package { $backportlist : provider => 'apt', install_options => { '-t' => 'jessie-backports' }, }
 
 }
