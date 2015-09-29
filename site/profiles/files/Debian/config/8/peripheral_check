@@ -1,6 +1,7 @@
 #!/bin/bash
 
 MAILTO="tcc-maint@nmt.edu, tcc-uc@nmt.edu"
+ATTACH="/var/log/peripherals.log"
 
 check_winpart() {
 
@@ -43,35 +44,35 @@ then
 	odd=$(lsblk -ln | grep rom | wc -l)
 	case $mouse in
 		"0" )
-			echo "$host does not have a USB mouse attached." | mail -s "$host: missing mouse" $MAILTO
+			echo "$host does not have a USB mouse attached." | mail -s "$host: missing mouse" -a $ATTACH $MAILTO
 			;;
 		"1" )
 			#these are not the droids you're looking for
 			;;
 		* )
-			echo "$host has too many USB mice attached." | mail -s "$host: extra mouse" $MAILTO
+			echo "$host has too many USB mice attached." | mail -s "$host: extra mouse" -a $ATTACH $MAILTO
 			;;
 	esac
 	case $kbd in
 		"0" )
-			echo "$host does not have a USB keyboard attached." | mail -s "$host: missing keyboard" $MAILTO
+			echo "$host does not have a USB keyboard attached." | mail -s "$host: missing keyboard" -a $ATTACH $MAILTO
 			;;
 		"1" )
 			#he can go about his business
 			;;
 		* )
-			echo "$host has too many USB keyboards attached." | mail -s "$host: extra keyboard" $MAILTO
+			echo "$host has too many USB keyboards attached." | mail -s "$host: extra keyboard" -a $ATTACH $MAILTO
 			;;
 	esac
 	case $odd in
 		"0" )
-			echo "$host does not have an optical drive installed." | mail -s "$host: missing ODD" $MAILTO
+			echo "$host does not have an optical drive installed." | mail -s "$host: missing ODD" -a $ATTACH $MAILTO
 			;;
 		"1" )
 			#move along
 			;;
 		* )
-			echo "$host has too many optical drives installed." | mail -s "$host: extra ODD" $MAILTO
+			echo "$host has too many optical drives installed." | mail -s "$host: extra ODD" -a $ATTACH $MAILTO
 			;;
 	esac
 
