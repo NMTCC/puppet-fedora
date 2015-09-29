@@ -110,6 +110,7 @@ class profiles::nmt::packages::jessie {
     'gwrite',
     'haskell-platform',
     'hexchat',
+    'heirloom-mailx',
     'htop',
     'hunspell',
     'icedax',
@@ -331,6 +332,7 @@ class profiles::nmt::packages::jessie {
   ]
 
   $removelist = [
+    'bsd-mailx',
     'python-wicd',
     'wicd',
     'wicd-daemon',
@@ -345,5 +347,7 @@ class profiles::nmt::packages::jessie {
   package { $packlist : provider => 'apt', }
   package { $removelist : ensure => 'absent', provider => 'apt', }
   package { $backportlist : provider => 'apt', install_options => { '-t' => 'jessie-backports' }, }
+
+  Package['heirloom-mailx'] -> Package['bsd-mailx']
 
 }
