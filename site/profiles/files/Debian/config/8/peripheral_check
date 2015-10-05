@@ -6,6 +6,7 @@ ATTACH="/var/log/peripherals.log"
 check_winpart() {
 
 	systemctl start media-winpart.mount
+	rm -f /media/winpart/ProgramData/PuppetLabs/puppet/var/state/agent_catalog_run.lock
 	if [ -d "/media/winpart/Windows" ]
 	then
 		winfree=$(df --output=avail /media/winpart | sed -e '1d')
