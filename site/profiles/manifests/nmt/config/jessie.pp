@@ -53,7 +53,6 @@ class profiles::nmt::config::jessie {
   configfile { 'dhclient.conf': dest => '/etc/dhcp', }
   configfile { 'ldmagain.service': dest => '/etc/systemd/system', require => Configscript['ldmagain'], }
   configfile { 'lightdm-greeter': dest => '/etc/pam.d', }
-  configfile { 'org.freedesktop.Accounts.service': dest => '/usr/share/dbus-1/system-services', }
   configfile { 'users.conf': dest => '/etc/lightdm', }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
