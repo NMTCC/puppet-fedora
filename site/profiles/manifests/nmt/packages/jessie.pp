@@ -248,6 +248,7 @@ class profiles::nmt::packages::jessie {
     'python3-examples',
     'python3-lxml',
     'python3-matplotlib',
+    'python3-pygame',
     'quota',
     'r-base',
     'rcs',
