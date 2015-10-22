@@ -3,10 +3,17 @@
 MAILTO="tcc-maint@nmt.edu, tcc-uc@nmt.edu"
 ATTACH="/var/log/peripherals.log"
 
+lockfile="/media/winpart/ProgramData/PuppetLabs/puppet/var/state/agent_catalog_run.lock"
+chococonf="/media/winpart/ProgramData/chocolatey/config/chocolatey.config"
+
 check_winpart() {
 
 	systemctl start media-winpart.mount
-	rm -f /media/winpart/ProgramData/PuppetLabs/puppet/var/state/agent_catalog_run.lock
+	rm -f $lockfile
+	if [ -e "$chococonf" ] && [ "$(file -b $chococonf)" == "data" ]
+	then
+		rm -f $chococonf
+	fi
 	if [ -d "/media/winpart/Windows" ]
 	then
 		winfree=$(df --output=avail /media/winpart | sed -e '1d')
