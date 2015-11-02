@@ -104,6 +104,7 @@ class profiles::nmt::config::jessie {
   k5login { '/root/.k5login':
     ensure     => 'present',
     principals => [
+      'jluster@NMT.EDU',
       'ken@NMT.EDU',
       'dgraham@NMT.EDU',
       'dylan@NMT.EDU',
