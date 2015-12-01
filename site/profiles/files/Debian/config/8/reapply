@@ -73,6 +73,7 @@ preunroll() {
 
 if [ "$1" == "--preunroll" ]
 then
+	download_wpconf
 	preunroll
 	exit 0
 fi
