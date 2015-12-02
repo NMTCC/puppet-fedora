@@ -18,6 +18,13 @@ if [ "$winpart" == "" ]; then
 	exit 1
 fi
 
+# Don't ruin apt-get's day
+if lslocks -n -o COMMAND | grep apt-get > /dev/null 2>&1
+then
+	msg="No reboot attempted: apt-get doing something."
+	oops "$1" "$msg"
+fi
+
 # Check for any logged in users.
 users=$(loginctl --no-legend list-users | grep -v "lightdm\|root" | wc -l)
 if [ "$users" -gt "0" ]; then
