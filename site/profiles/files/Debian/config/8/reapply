@@ -78,6 +78,10 @@ then
 	exit 0
 fi
 
+echo "You must authenticate as an ITC employee in order to clear this host's Puppet certificate."
+read -p "Username: " login
+kinit $login
+
 dialog --backtitle "ITC $SEMESTER Debian install" --title "SYNC" --radiolist "Re-image Windows" 0 0 0 "Local" "Use locally stored copy of template" on "Network" "Unicast a new copy of the template" off 2> /tmp/reapply.$$
 
 case "$(cat /tmp/reapply.$$)" in
@@ -106,6 +110,7 @@ rm -f /tmp/libsync
 
 remctl puppet-win.nmt.edu puppet cert clean "$(hostname -s).tcc7"
 preunroll
+kdestroy -A
 
 if [ "$1" != "--reboot" ]
 then
