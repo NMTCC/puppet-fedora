@@ -87,6 +87,8 @@ class profiles::nmt::config::jessie {
   configscript { 'smartdnotify': dest => '/usr/local/libexec', }
   configscript { 'xinit-compat': dest => '/usr/local/libexec', }
   configscript { 'ldmagain': dest => '/usr/local/bin', }
+  configscript { 'remote_reapply': dest => '/usr/local/libexec', }
+  configscript { 'rrapp': dest => '/usr/local/bin', }
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
   service { 'puppet': ensure => 'running', enable => 'true', require => Exec['enablesplay'], }

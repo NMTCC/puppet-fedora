@@ -63,6 +63,24 @@ class profiles::nmt::remctl {
     ],
   }
 
+  remctl::command { 'rrapp':
+    commands => [
+      {
+        'command'    => 'rrapp',
+        'subcommand' => 'ALL',
+        'executable' => '/usr/local/bin/rrapp',
+        'acl'        => '/etc/remctl/acl/rrapp',
+      },
+    ],
+  }
+
+  remctl::acl { 'rrapp':
+    principals => [
+      'dgraham@NMT.EDU',
+      'dylan@NMT.EDU',
+    ],
+  }
+
   remctl::command { 'cupholder':
     commands        => [
       {

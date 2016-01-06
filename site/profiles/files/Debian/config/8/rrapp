@@ -1,0 +1,13 @@
+#!/usr/bin/ruby
+
+Dir['/proc/[0-9]*/cmdline'].each do |p|
+  if File.include?('reapply')
+    puts 'Another reapply is in progress!'
+    exit 75
+  end
+end
+
+puts 'Starting reapply...'
+Process.daemon
+sleep(2)
+system('/usr/local/libexec/remote_reboot')
