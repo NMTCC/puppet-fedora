@@ -78,6 +78,10 @@ class profiles::nmt::remctl {
     principals => [
       'dgraham@NMT.EDU',
       'dylan@NMT.EDU',
+      'jluster@NMT.EDU',
+      'eric@NMT.EDU',
+      'turnerb@NMT.EDU',
+      'chip@NMT.EDU',
     ],
   }
 
