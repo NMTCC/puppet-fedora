@@ -10,6 +10,8 @@ if [ "$winpart" == "" ]; then
         exit 1
 fi
 
+date1="$(date)"
+
 res1="null"
 res2="null"
 if [ -d "$DATA/$RELEASE" ]
@@ -22,4 +24,6 @@ fi
 
 /usr/local/bin/reapply --preunroll
 
-printf "I completed the template application process with $RELEASE.\n\n * NTFS boot partition return code was: $res1\n * NTFS main partition return code was: $res2\n\nDon't forget to clean my old Puppet certificates!\n\nSincerely,\n$ME" | mail -r "$ME@nmt.edu" -s "$ME reapply" tcc-triage@nmt.edu
+date2="$(date)"
+
+printf "I completed the template application process with $RELEASE.\n\n * Started at: $date1\n * Finished at: $date2\n\n * NTFS boot partition return code was: $res1\n * NTFS main partition return code was: $res2\n\nDon't forget to clean my old Puppet certificates!\n\nSincerely,\n$ME" | mail -r "$ME@nmt.edu" -s "$ME reapply" tcc-triage@nmt.edu
