@@ -5,7 +5,7 @@ class profiles::nmt::spring2016 {
     exec { 'reseed':
       provider => shell,
       command  => '/usr/local/bin/reseed',
-      unless   => 'pgrep transmission-daemon',
+      unless   => 'pgrep transmission',
     }
 
   }
