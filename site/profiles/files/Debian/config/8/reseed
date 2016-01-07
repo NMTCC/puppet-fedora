@@ -25,6 +25,9 @@ download_libsync
 source /tmp/libsync
 start_transmission
 transmission-remote -t $OLDBTHASH --remove-and-delete
+sleep 2
+transmission-remote -t $BTHASH --remove
+sleep 2
 torrent_image
 rm -f /tmp/libsync
 rm -f /tmp/$SEMESTER-$BRANCH.$BUILD.torrent
