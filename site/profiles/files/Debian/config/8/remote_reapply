@@ -4,6 +4,12 @@ export ME="$(hostname -s)"
 export RELEASE="Fall2015-master.1"
 export DATA="/var/lib/transmission-daemon/downloads"
 
+winpart=$(/sbin/blkid -o device -t TYPE=ntfs)
+if [ "$winpart" == "" ]; then
+	printf "No NTFS partitions were found!\n"
+        exit 1
+fi
+
 res1="null"
 res2="null"
 if [ -d "$DATA/$RELEASE" ]
