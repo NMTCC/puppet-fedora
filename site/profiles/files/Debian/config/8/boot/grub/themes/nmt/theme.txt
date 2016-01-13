@@ -1,4 +1,4 @@
-title-text: "Fall 2015"
+title-text: "Spring 2016"
 title-font: "DejaVu Sans Regular 12"
 title-color: "gray"
 message-font: "Perfect DOS VGA 437 Regular 16"
