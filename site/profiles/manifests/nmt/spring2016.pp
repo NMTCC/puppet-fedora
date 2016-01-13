@@ -1,6 +1,6 @@
 class profiles::nmt::spring2016 {
 
-  if ($::template == 'dual-boot') {
+  if ($::template == 'dual-boot') and ($::blockdevice_sda_size > 500107862016) {
 
     exec { 'reseed':
       provider => shell,
