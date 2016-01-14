@@ -21,6 +21,21 @@ class profiles::nmt::config::jessie {
   file { '/etc/auto.master.d': ensure            => 'directory', }
   file { '/usr/local/share/applications': ensure => 'directory', }
 
+  file { '/var/lib/transmission-daemon/downloads':
+    mode    => '0755',
+    owner   => 'debian-transmission',
+    group   => 'debian-transmission',
+    ensure  => 'directory',
+    require => Package['transmission-daemon'],
+  }
+  file { '/var/lib/transmission-daemon/downloads/incomplete':
+    mode   => '0755',
+    owner  => 'debian-transmission',
+    group  => 'debian-transmission',
+    ensure => 'directory',
+    require => Package['transmission-daemon'],
+  }
+
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
 
