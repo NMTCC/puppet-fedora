@@ -82,6 +82,7 @@ class profiles::nmt::remctl {
       'eric@NMT.EDU',
       'turnerb@NMT.EDU',
       'chip@NMT.EDU',
+      'scooter@NMT.EDU',
     ],
   }
 
