@@ -16,7 +16,6 @@ class roles::debian {
   include profiles::nmt::remctl
   include profiles::nmt::rsync
   include profiles::nmt::firewall
-  include profiles::nmt::spring2016
 
   Class[profiles::nmt::apt] -> Class[profiles::nmt] -> Class[profiles::nmt::packages] -> Class[profiles::nmt::localizations]
 
