@@ -124,7 +124,6 @@ class profiles::nmt::config::jessie {
       'ken@NMT.EDU',
       'dgraham@NMT.EDU',
       'dylan@NMT.EDU',
-      'wopr@NMT.EDU',
     ]
   }
 

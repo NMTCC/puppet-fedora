@@ -93,9 +93,6 @@ class profiles::nmt::config::f19 {
       'ken@NMT.EDU',
       'dgraham@NMT.EDU',
       'dylan@NMT.EDU',
-      'wopr@NMT.EDU',
-      'odo@NMT.EDU',
-      'kaiba@NMT.EDU',
     ]
   }
 

@@ -103,7 +103,6 @@ class profiles::nmt::config::f21 {
       'ken@NMT.EDU',
       'dgraham@NMT.EDU',
       'dylan@NMT.EDU',
-      'wopr@NMT.EDU',
     ]
   }
 
