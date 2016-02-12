@@ -206,6 +206,7 @@ class profiles::nmt::packages::jessie {
     'paraview',
     'pax',
     'parole',
+    'pavucontrol',
     'pbzip2',
     'pdfshuffler',
     'pep8',
