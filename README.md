@@ -1,4 +1,4 @@
-puppet-fedora
+puppet-linux
 =============
 
-ITC Fedora Puppet Configuration
+ITC Linux Puppet Configuration
