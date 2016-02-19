@@ -18,6 +18,12 @@ class profiles::nmt::loginsrv {
         require => Package['fail2ban'],
       }
 
+      exec { 'pam_tally2':
+        path    => '/bin/',
+        unless  => 'grep pam_tally2.so /etc/pam.d/sshd',
+        command => 'sed -i -e "2iauth       required     pam_tally2.so" /etc/pam.d/sshd',
+      }
+
     }
 
     default: { $dummy = [ 'Not a login server.', ] }
