@@ -18,6 +18,12 @@ class profiles::nmt::loginsrv {
         require => Package['fail2ban'],
       }
 
+      service { 'fail2ban':
+        ensure    => 'running',
+        enable    => 'true',
+        subscribe => File['/etc/fail2ban/jail.d/local.conf'],
+      }
+
       exec { 'pam_tally2':
         path    => '/bin/',
         unless  => 'grep pam_tally2.so /etc/pam.d/sshd',
