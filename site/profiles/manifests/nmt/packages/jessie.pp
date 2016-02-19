@@ -123,6 +123,7 @@ class profiles::nmt::packages::jessie {
     'imagemagick',
     'inkscape',
     'iotop',
+    'ipset',
     'ipython',
     'irssi',
     'iscan',
