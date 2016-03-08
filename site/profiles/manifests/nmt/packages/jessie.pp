@@ -190,6 +190,7 @@ class profiles::nmt::packages::jessie {
     'mjpegtools',
     'mklibs-copy',
     'mutt',
+    'mysql-client',
     'nasm',
     'nautilus-open-terminal',
     'ncl-ncarg',
