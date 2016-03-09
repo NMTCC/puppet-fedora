@@ -9,6 +9,7 @@ class profiles::nmt::packages::jessie {
     'alsamixergui',
     'apcupsd',
     'apt-transport-https',
+    'arduino',
     'aria2',
     'audacious',
     'audacious-plugins',
