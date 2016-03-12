@@ -26,4 +26,10 @@ class profiles::nmt::postfix {
     content => "nmt.edu",
   }
 
+  service { 'postfix':
+    ensure    => 'running',
+    enable    => 'true',
+    subscribe => File['/etc/postfix/main.cf'],
+  }
+
 }
