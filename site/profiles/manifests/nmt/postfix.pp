@@ -26,10 +26,15 @@ class profiles::nmt::postfix {
     content => "nmt.edu",
   }
 
-  service { 'postfix':
-    ensure    => 'running',
-    enable    => 'true',
-    subscribe => File['/etc/postfix/main.cf'],
+  if $::chroot {
+    warning('Skipped starting postfix because we are chrooted.')
+  }
+  else {
+    service { 'postfix':
+      ensure    => 'running',
+      enable    => 'true',
+      subscribe => File['/etc/postfix/main.cf'],
+    }
   }
 
 }
