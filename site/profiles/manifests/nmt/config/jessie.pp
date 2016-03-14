@@ -115,7 +115,12 @@ class profiles::nmt::config::jessie {
   service { 'transmission-daemon': enable => 'false', }
   service { 'openvpn': ensure => 'stopped', enable => 'false', }
   service { 'pppd-dns': ensure => 'stopped', enable => 'false', }
-  service { 'ldmagain': enable => 'true', require => Configfile['ldmagain.service'], }
+  if $::chroot {
+    warning('Skipping ldmagain because we are chrooted.')
+  }
+  else {
+    service { 'ldmagain': enable => 'true', require => Configfile['ldmagain.service'], }
+  }
 
   k5login { '/root/.k5login':
     ensure     => 'present',
