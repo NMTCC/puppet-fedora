@@ -10,6 +10,7 @@ class profiles::nmt::apt {
       group   => 'root',
       mode    => '0644',
       owner   => 'root',
+      before  => Exec['apt-update'],
     }
   }
 
@@ -18,6 +19,7 @@ class profiles::nmt::apt {
       ensure => 'absent',
       force  => 'true',
       backup => 'false',
+      before  => Exec['apt-update'],
     }
   }
 
