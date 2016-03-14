@@ -349,14 +349,11 @@ class profiles::nmt::packages::jessie {
     'fish',
   ]
 
-  if $::chroot {
-    warning('Skipping packages because we are chrooted.')
-  }
-  else {
-    Package { ensure => 'installed', require => Exec['apt-update'], }
-    package { $packlist : provider => 'apt', }
-    package { $removelist : ensure => 'absent', provider => 'apt', }
-    package { $backportlist : provider => 'apt', install_options => { '-t' => 'jessie-backports' }, }
-  }
+  Package { ensure => 'installed', require => Exec['apt-update'], }
+  package { $packlist : provider => 'apt', }
+  package { $removelist : ensure => 'absent', provider => 'apt', }
+  package { $backportlist : provider => 'apt', install_options => { '-t' => 'jessie-backports' }, }
+
+  Package['heirloom-mailx'] -> Package['bsd-mailx']
 
 }

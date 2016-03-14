@@ -31,13 +31,8 @@ class profiles::nmt::localizations::jessie {
 
   $removelist = []
 
-  if $::chroot {
-    warning('Skipping localizations because we are chrooted.')
-  }
-  else {
-    Package { ensure => 'installed', require => Exec['apt-update'], }
-    package { $packlist : provider => 'apt', }
-    package { $removelist : provider => 'apt', ensure => 'absent', }
-  }
+  Package { ensure => 'installed', require => Exec['apt-update'], }
+  package { $packlist : provider => 'apt', }
+  package { $removelist : provider => 'apt', ensure => 'absent', }
 
 }
