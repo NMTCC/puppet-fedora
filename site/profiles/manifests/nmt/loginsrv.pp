@@ -19,7 +19,7 @@ class profiles::nmt::loginsrv {
         notify  => Service['fail2ban'],
       }
 
-      file { '/etc/fail2ban/fail2ban.d/local/conf':
+      file { '/etc/fail2ban/fail2ban.d/local.conf':
         ensure  => 'file',
         owner   => 'root',
         group   => 'root',
