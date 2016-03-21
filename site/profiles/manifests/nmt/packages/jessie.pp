@@ -275,6 +275,7 @@ class profiles::nmt::packages::jessie {
     'sox',
     'sound-juicer',
     'spamassassin',
+    'sqlite3',
     'sshfs',
     'sshpass',
     'sssd',
