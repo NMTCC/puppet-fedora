@@ -14,7 +14,7 @@ class profiles::nmt::loginsrv {
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        content => "[DEFAULT]\nsender = fail2ban@nmt.edu\ndestemail = tcc-fail2ban@nmt.edu\nignoreip = 127.0.0.1/8 129.138.0.0/16\naction = %(action_mwl)s\nusedns = no\n\n[sshd]\nbanaction = firewallcmd-ipset\nbackend = systemd\nenabled = true\nbantime = 86400\nmaxretry = 10\n\n[recidive]\nbanaction = iptables-allports\nenabled = true\nbantime = 604800\nfindtime = 604800\nmaxretry = 2\n",
+        content => "[DEFAULT]\nsender = fail2ban@nmt.edu\ndestemail = tcc-fail2ban@nmt.edu\nignoreip = 127.0.0.1/8 129.138.0.0/16\naction = %(action_mwl)s\nusedns = no\n\n[sshd]\nenabled = true\nbackend = systemd\nbanaction = firewallcmd-ipset\nbantime = 86400\nmaxretry = 10\n\n[recidive]\nenabled = true\nbanaction = iptables-allports\nbantime = 604800\nfindtime = 604800\nmaxretry = 2\n",
         require => Package['fail2ban'],
         notify  => Service['fail2ban'],
       }
