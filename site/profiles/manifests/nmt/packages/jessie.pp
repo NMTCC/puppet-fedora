@@ -50,6 +50,7 @@ class profiles::nmt::packages::jessie {
     'docbook-utils',
     'easytag',
     'eclipse',
+    'eclipse-cdt',
     'ecryptfs-utils',
     'elinks',
     'emacs',
