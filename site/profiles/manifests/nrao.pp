@@ -4,11 +4,20 @@
 
 class profiles::nrao {
 
-  file { '/var/nrao':
-    ensure => 'directory',
-    owner  => 'demo1',
-    mode   => '0777',
-  }
+  case $::hostname {
 
+    'rainbow', 'login': {
+      notice("Skipped NRAO conf on login server.")
+    }
+
+    default: {
+      file { '/var/nrao':
+        ensure => 'directory',
+        owner  => 'demo1',
+        mode   => '0777',
+      }
+    }
+
+  }
 
 }
