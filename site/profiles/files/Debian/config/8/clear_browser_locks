@@ -10,3 +10,5 @@ zap ~/.mozilla/firefox/*.default/lock
 zap ~/.mozilla/firefox/*.default/.parentlock
 zap ~/.mozilla/default/*.slt/lock
 zap ~/.config/google-chrome/SingletonLock
+zap ~/.thunderbird/*.default/lock
+zap ~/.thunderbird/*.default/.parentlock
