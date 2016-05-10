@@ -31,6 +31,7 @@ class profiles::nmt::rsync {
       include profiles::nmt::rsync::jessie::xep
       include profiles::nmt::rsync::jessie::oracle
       include profiles::nmt::rsync::jessie::chimera
+      include profiles::nmt::rsync::jessie::iris
     }
     default: {
       warning('No rsync paths for this release version.')
