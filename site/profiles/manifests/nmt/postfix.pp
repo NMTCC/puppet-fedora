@@ -23,7 +23,7 @@ class profiles::nmt::postfix {
   }
 
   file { '/etc/mailname':
-    content => "nmt.edu",
+    content => ::fqdn,
   }
 
   if $::chroot {
