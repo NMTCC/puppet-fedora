@@ -28,6 +28,8 @@ check_winpart() {
 
 }
 
+sleep $((RANDOM % 60))
+
 date > /var/log/peripherals.log
 lsblk -ln >> /var/log/peripherals.log 2>&1
 lsusb >> /var/log/peripherals.log 2>&1
