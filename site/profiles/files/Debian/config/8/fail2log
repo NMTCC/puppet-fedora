@@ -47,7 +47,7 @@ message += "\n\nThe failed login log has been cleared."
 
 # Send an email
 msg = MIMEText(message)
-msg["To"] = "root@nmt.edu"
+msg["To"] = "itc-eng@nmt.edu"
 msg["Subject"] = "Failed login report (" + shortname + ")"
 p = Popen(["/usr/sbin/sendmail", "-t"], stdin=PIPE)
 p.communicate(msg.as_string())

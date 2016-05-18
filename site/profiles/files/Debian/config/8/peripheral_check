@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MAILTO="tcc-maint@nmt.edu, tcc-uc@nmt.edu"
+MAILTO="itc-pcr@nmt.edu, itc-uc@nmt.edu"
 ATTACH="/var/log/peripherals.log"
 
 lockfile="/media/winpart/ProgramData/PuppetLabs/puppet/var/state/agent_catalog_run.lock"
