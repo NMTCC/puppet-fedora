@@ -5,7 +5,7 @@
 
 function oops() {
 	if [ "$1" != "--force" ]; then
-		echo "$2"
+		echo "$(date) $2"
 		exit 1
 	fi
 	return
@@ -14,7 +14,7 @@ function oops() {
 # Check for any NTFS partitions.
 winpart=$(/sbin/blkid -o device -t TYPE=ntfs)
 if [ "$winpart" == "" ]; then
-	echo "No reboot attempted: no NTFS partitions found."
+	echo "$(date) No reboot attempted: no NTFS partitions found."
 	exit 1
 fi
 
