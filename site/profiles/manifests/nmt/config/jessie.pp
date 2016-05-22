@@ -104,6 +104,7 @@ class profiles::nmt::config::jessie {
   configscript { 'ldmagain': dest => '/usr/local/bin', }
   configscript { 'remote_reapply': dest => '/usr/local/libexec', }
   configscript { 'rrapp': dest => '/usr/local/bin', }
+  configscript { 'mail_sudo_logs': dest => '/usr/local/libexec', }
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
   service { 'puppet': ensure => 'running', enable => 'true', require => Exec['enablesplay'], }

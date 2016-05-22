@@ -1,0 +1,10 @@
+#!/bin/bash
+
+log="/var/log/auth.log"
+dat="$(date '+%b %d')"
+sub="** SECURITY information for $(hostname -f) **"
+
+if cat $log.1 $log | grep -e "$dat.*sudoers" >> /dev/null 2>&1
+then
+	cat $log.1 $log | grep -e "$dat.*sudoers" | mail -s "$sub" itc-eng@nmt.edu
+fi
