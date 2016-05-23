@@ -4,7 +4,7 @@
 ###############################################################################
 
 # /etc/aliases
-mailer-daemon: root
+mailer-daemon: postmaster
 postmaster: root
 nobody: root
 hostmaster: root
