@@ -11,10 +11,15 @@ class profiles::nrao {
     }
 
     default: {
-      file { '/var/nrao':
-        ensure => 'directory',
-        owner  => 'demo1',
-        mode   => '0777',
+#      file { '/var/nrao':
+#        ensure => 'directory',
+#        owner  => 'demo1',
+#        mode   => '0777',
+#      }
+      exec {
+        path    => '/bin:/usr/bin',
+        command => 'rm -rf /var/nrao',
+        onlyif  => 'test -e /var/nrao',
       }
     }
 
