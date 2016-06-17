@@ -16,7 +16,7 @@ class profiles::nrao {
 #        owner  => 'demo1',
 #        mode   => '0777',
 #      }
-      exec {
+      exec { '/var/nrao':
         path    => '/bin:/usr/bin',
         command => 'rm -rf /var/nrao',
         onlyif  => 'test -e /var/nrao',
