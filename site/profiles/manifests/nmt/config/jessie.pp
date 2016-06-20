@@ -72,8 +72,8 @@ class profiles::nmt::config::jessie {
   case $::hostname {
     'speare5-1-20': {
       configfile { 'kitten-greeter.conf': dest => '/etc/lightdm', }
-      ln { '/etc/lightdm/kitten-greeter.conf':
-        target  => '/etc/lightdm/lightdm-gtk-greeter.conf',
+      ln { '/etc/lightdm/lightdm-gtk-greeter.conf':
+        target  => '/etc/lightdm/kitten-greeter.conf',
         require => Configfile['kitten-greeter.conf'],
       }
     }
