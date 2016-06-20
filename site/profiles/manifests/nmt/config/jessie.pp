@@ -74,7 +74,7 @@ class profiles::nmt::config::jessie {
       $kittenloc = "puppet:///modules/profiles/${operatingsystem}/config/${operatingsystemmajrelease}"
       file { 'kitten-greeter.conf' :
         mode   => '0644',
-        source => "${kittenloc}/${$title}",
+        source => "${profiles::nmt::config::kittenloc}/${$title}",
         path   => '/etc/lightdm/lightdm-gtk-greeter.conf',
       }
     }
