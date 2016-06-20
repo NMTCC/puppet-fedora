@@ -71,9 +71,10 @@ class profiles::nmt::config::jessie {
 
   case $::hostname {
     'speare5-1-20': {
-      configfile { 'kitten-greeter.conf':
-        dest => '/etc/lightdm',
-        path => '/etc/lightdm/lightdm-gtk-greeter.conf',
+      file { 'kitten-greeter.conf' :
+        mode   => '0644',
+        source => "${profiles::nmt::config::moduleloc}/${$title}",
+        path   => '/etc/lightdm/lightdm-gtk-greeter.conf',
       }
     }
     default: {
