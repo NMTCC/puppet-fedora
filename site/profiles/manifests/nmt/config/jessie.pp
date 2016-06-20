@@ -54,7 +54,6 @@ class profiles::nmt::config::jessie {
   configfile { 'lightdm-tcc.conf': dest => '/etc/lightdm/lightdm.conf.d', }
   configfile { 'gnome-software-service.desktop': dest => '/etc/xdg/autostart', }
   configfile { 'media-winpart.mount': dest => '/etc/systemd/system', }
-  configfile { 'lightdm-gtk-greeter.conf': dest => '/etc/lightdm', }
   #configfile { 'pcscfg.cfg': dest => '/usr/lib/oracle/12.1/client64/lib/precomp/admin', require => Package['oracle-instantclient12.1-precomp'], }
   configfile { 'krb5.conf': dest => '/etc', }
   configfile { 'sssd.conf': dest => '/etc/sssd', mode => '0600', }
@@ -69,6 +68,18 @@ class profiles::nmt::config::jessie {
   configfile { 'ldmagain.service': dest => '/etc/systemd/system', require => Configscript['ldmagain'], }
   configfile { 'lightdm-greeter': dest => '/etc/pam.d', }
   configfile { 'users.conf': dest => '/etc/lightdm', }
+
+  case $::hostname {
+    'speare5-1-20': {
+      configfile { 'kitten-greeter.conf':
+        dest => '/etc/lightdm',
+        path => '/etc/lightdm/lightdm-gtk-greeter.conf',
+      }
+    }
+    default: {
+      configfile { 'lightdm-gtk-greeter.conf': dest => '/etc/lightdm', }
+    }
+  }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }
