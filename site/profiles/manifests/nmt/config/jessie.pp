@@ -71,11 +71,10 @@ class profiles::nmt::config::jessie {
 
   case $::hostname {
     'speare5-1-20': {
-      $kittenloc = "puppet:///modules/profiles/${operatingsystem}/config/${operatingsystemmajrelease}"
-      file { 'kitten-greeter.conf' :
-        mode   => '0644',
-        source => "${profiles::nmt::config::kittenloc}/${$title}",
-        path   => '/etc/lightdm/lightdm-gtk-greeter.conf',
+      configfile { 'kitten-greeter.conf': dest => '/etc/lightdm', }
+      ln { '/etc/lightdm/kitten-greeter.conf':
+        target  => '/etc/lightdm/lightdm-gtk-greeter.conf',
+        require => Configfile['kitten-greeter.conf'],
       }
     }
     default: {
