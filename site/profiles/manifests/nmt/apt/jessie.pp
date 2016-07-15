@@ -14,6 +14,10 @@ class profiles::nmt::apt::jessie {
     uri => 'http://duplicon.nmt.edu/nmt/nmt.gpg.key',
   }
 
+  aptkeyfromweb { 'obspy':
+    uri => 'https://raw.github.com/obspy/obspy/master/misc/debian/public.key',
+  }
+
   aptsource { 'google-chrome':
     type    => 'deb',
     uri     => 'http://dl.google.com/linux/chrome/deb/',
@@ -36,6 +40,14 @@ class profiles::nmt::apt::jessie {
     suite   => 'jessie',
     comp    => ['main'],
     require => Aptkeyfromweb['nmtkey'],
+  }
+
+  aptsource { 'obspy':
+    type    => 'deb',
+    uri     => 'http://deb.obspy.org',
+    suite   => 'jessie',
+    comp    => ['main'],
+    require => Aptkeyfromweb['obspy'],
   }
 
 }
