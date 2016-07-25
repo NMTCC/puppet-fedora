@@ -18,6 +18,7 @@ class profiles::nmt::rsync::jessie::matlab {
     source => 'duplicon.nmt.edu::Jessie-matlab/matlab-r2016a.desktop',
     path => '/usr/local/share/applications/matlab.desktop',
     times => true,
+    require => Rsync::Get['matlab'],
   }
 
   rsync::get { 'matlab-sh':
