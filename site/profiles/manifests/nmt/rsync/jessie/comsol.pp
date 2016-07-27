@@ -1,13 +1,13 @@
 class profiles::nmt::rsync::jessie::comsol {
 
-  exec { 'comsol44':
+  exec { 'comsol51':
     path => '/bin:/usr/bin/',
-    command => 'rm -rf /usr/local/comsol44',
-    onlyif => 'test -e /usr/local/comsol44',
+    command => 'rm -rf /usr/local/comsol51',
+    onlyif => 'test -e /usr/local/comsol51',
   }
 
   rsync::get { 'comsol':
-    source => 'duplicon.nmt.edu::Jessie-comsol/comsol51',
+    source => 'duplicon.nmt.edu::Jessie-comsol/comsol52a',
     path => '/usr/local/',
     recursive => true,
     links => true,
@@ -15,15 +15,17 @@ class profiles::nmt::rsync::jessie::comsol {
   }
 
   rsync::get { 'comsol-desktop':
-    source => 'duplicon.nmt.edu::Jessie-comsol/comsol.desktop',
-    path => '/usr/local/share/applications/',
+    source => 'duplicon.nmt.edu::Jessie-comsol/comsol52a.desktop',
+    path => '/usr/local/share/applications/comsol.desktop',
     times => true,
+    require => Rsync::Get['comsol'],
   }
 
   rsync::get { 'comsolsh':
-    source => 'duplicon.nmt.edu::Jessie-comsol/comsol',
-    path => '/usr/local/bin/',
-    times => true,
+    source  => 'duplicon.nmt.edu::Jessie-comsol/comsol_52a',
+    path    => '/usr/local/bin/comsol',
+    times   => true,
+    require => Rsync::Get['comsol'],
   }
 
 }
