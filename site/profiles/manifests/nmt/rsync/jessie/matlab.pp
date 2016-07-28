@@ -1,13 +1,13 @@
 class profiles::nmt::rsync::jessie::matlab {
 
-  exec { 'matlab-2014a':
+  exec { 'matlab-r2015a':
     path => '/bin:/usr/bin/',
-    command => 'rm -rf /usr/local/matlab-r2014a',
-    onlyif => 'test -e /usr/local/matlab-r2014a',
+    command => 'rm -rf /usr/local/matlab-r2015a',
+    onlyif => 'test -e /usr/local/matlab-r2015a',
   }
 
   rsync::get { 'matlab':
-    source => 'duplicon.nmt.edu::Jessie-matlab/matlab-r2015a',
+    source => 'duplicon.nmt.edu::Jessie-matlab/matlab-r2016a',
     path => '/usr/local/',
     recursive => true,
     links => true,
@@ -15,21 +15,22 @@ class profiles::nmt::rsync::jessie::matlab {
   }
 
   rsync::get { 'matlab-desktop':
-    source => 'duplicon.nmt.edu::Jessie-matlab/matlab.desktop',
-    path => '/usr/local/share/applications/',
+    source => 'duplicon.nmt.edu::Jessie-matlab/matlab-r2016a.desktop',
+    path => '/usr/local/share/applications/matlab.desktop',
     times => true,
+    require => Rsync::Get['matlab'],
   }
 
   rsync::get { 'matlab-sh':
-    source => 'duplicon.nmt.edu::Jessie-matlab/matlab.sh',
-    path => '/etc/profile.d/',
+    source => 'duplicon.nmt.edu::Jessie-matlab/matlab-r2016a.sh',
+    path => '/etc/profile.d/matlab.sh',
     times => true,
     require => Rsync::Get['matlab'],
   }
 
   rsync::get { 'matlab-csh':
-    source => 'duplicon.nmt.edu::Jessie-matlab/matlab.csh',
-    path => '/etc/profile.d/',
+    source => 'duplicon.nmt.edu::Jessie-matlab/matlab-r2016a.csh',
+    path => '/etc/profile.d/matlab.csh',
     times => true,
     require => Rsync::Get['matlab'],
   }
