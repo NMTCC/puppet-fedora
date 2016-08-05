@@ -36,7 +36,7 @@ class profiles::nmt::config::jessie {
     require => Package['transmission-daemon'],
   }
 
-  file { '/usr/bin/wall': mode => '755', }
+  file { '/usr/bin/wall': group => 'tty', mode => '755', }
 
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
