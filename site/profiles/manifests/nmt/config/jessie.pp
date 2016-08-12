@@ -38,6 +38,11 @@ class profiles::nmt::config::jessie {
 
   file { '/usr/bin/wall': group => 'tty', mode => '755', }
 
+  file { '/etc/lightdm/lightdm-gtk-greeter.conf':
+    content => template('profiles/lightdm-gtk-greeter.conf.erb'),
+    require => File['/etc/lightdm'],
+  }
+
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
 
@@ -70,12 +75,6 @@ class profiles::nmt::config::jessie {
   configfile { 'ldmagain.service': dest => '/etc/systemd/system', require => Configscript['ldmagain'], }
   configfile { 'lightdm-greeter': dest => '/etc/pam.d', }
   configfile { 'users.conf': dest => '/etc/lightdm', }
-  configfile { 'lightdm-gtk-greeter.conf': dest => '/etc/lightdm', }
-
-  ln { '/usr/share/backgrounds/mysplash':
-    target  => '/usr/share/backgrounds/itcjessie.png',
-    require => Configfile['lightdm-gtk-greeter.conf'],
-  }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
   ln { '/usr/local/bin/perl': target => '/usr/bin/perl', }

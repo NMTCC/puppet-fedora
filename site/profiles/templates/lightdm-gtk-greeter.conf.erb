@@ -1,3 +1,7 @@
+###############################################################################
+# << FILE MANAGED BY PUPPET >>
+# Manual changes are likely to be overwritten
+###############################################################################
 #
 # background = Background file to use, either an image path or a color (e.g. #772953)
 # theme-name = GTK+ theme to use
@@ -16,7 +20,7 @@
 # screensaver-timeout = Timeout (in seconds) until the screen blanks when the greeter is called as lockscreen
 # 
 [greeter]
-background=/usr/share/backgrounds/mysplash
+background=<%= scope.lookupvar('::splashscreen') %>
 #theme-name=Greybird
 #icon-theme-name=
 #font-name=
