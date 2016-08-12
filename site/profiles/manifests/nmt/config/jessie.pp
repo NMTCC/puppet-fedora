@@ -70,18 +70,11 @@ class profiles::nmt::config::jessie {
   configfile { 'ldmagain.service': dest => '/etc/systemd/system', require => Configscript['ldmagain'], }
   configfile { 'lightdm-greeter': dest => '/etc/pam.d', }
   configfile { 'users.conf': dest => '/etc/lightdm', }
+  configfile { 'lightdm-gtk-greeter.conf': dest => '/etc/lightdm', }
 
-  case $::hostname {
-    'speare5-1-20': {
-      configfile { 'kitten-greeter.conf': dest => '/etc/lightdm', }
-      ln { '/etc/lightdm/lightdm-gtk-greeter.conf':
-        target  => '/etc/lightdm/kitten-greeter.conf',
-        require => Configfile['kitten-greeter.conf'],
-      }
-    }
-    default: {
-      configfile { 'lightdm-gtk-greeter.conf': dest => '/etc/lightdm', }
-    }
+  ln { '/usr/share/backgrounds/mysplash':
+    target  => '/usr/share/backgrounds/itcjessie.png',
+    require => Configfile['lightdm-gtk-greeter.conf'],
   }
 
   ln { '/usr/local/bin/pine': target => '/usr/bin/alpine', }
