@@ -77,12 +77,12 @@ class profiles::nmt::remctl {
   remctl::acl { 'rrapp':
     principals => [
       'dgraham@NMT.EDU',
-      'dylan@NMT.EDU',
       'jluster@NMT.EDU',
-      'eric@NMT.EDU',
       'turnerb@NMT.EDU',
       'chip@NMT.EDU',
-      'scooter@NMT.EDU',
+      'cj@NMT.EDU',
+      'milagrec@NMT.EDU',
+      'travis@NMT.EDU',
     ],
   }
 
