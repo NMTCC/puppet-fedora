@@ -1,4 +1,4 @@
-class profiles::nmt::spring2016 {
+class profiles::nmt::deployment {
 
   if $::blockdevice_sda_size {
 
