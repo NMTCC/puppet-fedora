@@ -8,6 +8,7 @@ class profiles::nmt::deployment {
         provider => shell,
         command  => '/usr/local/bin/reseed',
         unless   => 'pgrep transmission',
+        require  => Configscript['reapply'],
       }
 
     }
