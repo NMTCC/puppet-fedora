@@ -21,7 +21,7 @@ class profiles::nmt::deployment {
 #        command  => '/usr/local/bin/reseed',
 #        unless   => 'pgrep transmission',
 #        require  => File['reseed'],
-      }
+#      }
 
     }
 
