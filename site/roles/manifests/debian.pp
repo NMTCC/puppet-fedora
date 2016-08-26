@@ -18,6 +18,7 @@ class roles::debian {
   include profiles::nmt::remctl
   include profiles::nmt::firewall
   include profiles::nmt::loginsrv
+  include profiles::nmt::deployment
   include profiles::nrao
 
   if ($hour == '03') or ($hour == '04') or ($hour == '05') or $::chroot {
