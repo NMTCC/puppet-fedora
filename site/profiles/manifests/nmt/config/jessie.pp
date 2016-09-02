@@ -115,6 +115,7 @@ class profiles::nmt::config::jessie {
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
   service { 'puppet': ensure => 'running', enable => 'true', require => Exec['enablesplay'], }
   service { 'sssd': ensure => 'running', enable => 'true', require => Configfile['sssd.conf'], }
+  service { 'cron': ensure => 'running', enable => 'true', }
   service { 'clamav-freshclam': ensure => 'stopped', enable => 'false', }
   service { 'spamassassin': ensure => 'stopped', enable => 'false', }
   service { 'ModemManager': ensure => 'stopped', enable => 'false', }
