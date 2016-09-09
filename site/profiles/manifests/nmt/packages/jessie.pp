@@ -183,6 +183,7 @@ class profiles::nmt::packages::jessie {
     'lsb',
     'lvm2',
     'lynx',
+    'lyx',
     'manpages-dev',
     'mate-desktop-environment',
     'mc',
