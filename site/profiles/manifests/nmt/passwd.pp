@@ -10,9 +10,21 @@ class profiles::nmt::passwd {
   }
 
   user { 'nmtgrub':
+    ensure => 'absent',
+    name   => 'nmtgrub',
+  }
+
+  user { 'nmtgrubitc':
     ensure   => 'present',
-    name     => 'nmtgrub',
+    name     => 'nmtgrubitc',
     password => hiera('grubpasswd'),
+    system   => true,
+  }
+
+  user { 'nmtgrubact':
+    ensure   => 'present',
+    name     => 'nmtgrubact',
+    password => hiera('actgrubpasswd'),
     system   => true,
   }
 
