@@ -12,10 +12,10 @@ import fnmatch
 def getKernels():
     #Obtain kernel listing:
     kernels = []
-        for kernel in os.listdir("/boot"):
-            if fnmatch.fnmatch(kernel, "vmlinuz-*-amd64"):
-                kernels.append(kernel[8:])
-        kernels.sort(reverse=True)
+    for kernel in os.listdir("/boot"):
+        if fnmatch.fnmatch(kernel, "vmlinuz-*-amd64"):
+            kernels.append(kernel[8:])
+    kernels.sort(reverse=True)
     return kernels
 
 
