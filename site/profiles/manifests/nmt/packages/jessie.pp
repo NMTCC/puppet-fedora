@@ -150,6 +150,7 @@ class profiles::nmt::packages::jessie {
     'libany-moose-perl',
     'libav-tools',
     'libbsd-dev',
+    'libc++-dev',
     'libc6-dev',
     'libcsfml-dev',
     'libfftw3-bin',
