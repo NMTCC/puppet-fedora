@@ -152,11 +152,12 @@ class profiles::nmt::config::jessie {
     unless   => 'grep splay /etc/puppet/puppet.conf',
   }
 
-  rsync::get { 'mywallpaper':
-    source => "userhost.nmt.edu::wallpapers/${::hostname}.*",
-    path   => '/usr/share/backgrounds/',
-    times  => true,
-    onlyif => "rsync --list-only userhost.nmt.edu::wallpapers | grep ${::hostname}",
+  rsync::get { 'wallpapers':
+    source    => "userhost.nmt.edu::wallpapers",
+    path      => '/usr/share/backgrounds/itc',
+    recursive => true,
+    links     => true,
+    times     => true,
   }
 
 }
