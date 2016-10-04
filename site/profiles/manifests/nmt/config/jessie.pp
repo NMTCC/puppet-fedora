@@ -43,6 +43,9 @@ class profiles::nmt::config::jessie {
     require => File['/etc/lightdm'],
   }
 
+  nofile { '/etc/network/interfaces.d/eth0.nmt': }
+  nofile { '/etc/network/interfaces.d/eth1.nmt': }
+
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
 
@@ -66,8 +69,6 @@ class profiles::nmt::config::jessie {
   configfile { 'sssd.conf': dest => '/etc/sssd', mode => '0600', }
   configfile { 'sshd_config': dest => '/etc/ssh', }
   configfile { 'lightdm-xsession.desktop': dest => '/usr/share/xsessions', }
-  configfile { 'eth0.nmt': dest => '/etc/network/interfaces.d', }
-  configfile { 'eth1.nmt': dest => '/etc/network/interfaces.d', }
   configfile { 'xinit-compat.desktop': dest => '/usr/share/xsessions', }
   configfile { 'modules': dest => '/etc/initramfs-tools', }
   configfile { 'plymouthd.conf': dest => '/etc/plymouth', }
@@ -119,7 +120,7 @@ class profiles::nmt::config::jessie {
   service { 'clamav-freshclam': ensure => 'stopped', enable => 'false', }
   service { 'spamassassin': ensure => 'stopped', enable => 'false', }
   service { 'ModemManager': ensure => 'stopped', enable => 'false', }
-  service { 'NetworkManager': ensure => 'stopped', enable => 'false', require => Configfile['eth0.nmt'], }
+  service { 'NetworkManager': ensure => 'stopped', enable => 'false', require => Package['dhcpcd5'], }
   service { 'transmission-daemon': enable => 'false', }
   service { 'openvpn': ensure => 'stopped', enable => 'false', }
   service { 'pppd-dns': ensure => 'stopped', enable => 'false', }
