@@ -120,7 +120,7 @@ class profiles::nmt::config::jessie {
   service { 'clamav-freshclam': ensure => 'stopped', enable => 'false', }
   service { 'spamassassin': ensure => 'stopped', enable => 'false', }
   service { 'ModemManager': ensure => 'stopped', enable => 'false', }
-  service { 'NetworkManager': ensure => 'stopped', enable => 'false', require => Configfile['eth0.nmt'], }
+  service { 'NetworkManager': ensure => 'stopped', enable => 'false', require => Package['dhcpcd5'], }
   service { 'transmission-daemon': enable => 'false', }
   service { 'openvpn': ensure => 'stopped', enable => 'false', }
   service { 'pppd-dns': ensure => 'stopped', enable => 'false', }
