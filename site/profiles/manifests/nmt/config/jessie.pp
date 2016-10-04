@@ -43,8 +43,8 @@ class profiles::nmt::config::jessie {
     require => File['/etc/lightdm'],
   }
 
-  nofile { '/etc/network/interfaces.d/eth0.nmt', }
-  nofile { '/etc/network/interfaces.d/eth1.nmt', }
+  nofile { '/etc/network/interfaces.d/eth0.nmt': }
+  nofile { '/etc/network/interfaces.d/eth1.nmt': }
 
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
