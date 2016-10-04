@@ -43,6 +43,9 @@ class profiles::nmt::config::jessie {
     require => File['/etc/lightdm'],
   }
 
+  nofile { '/etc/network/interfaces.d/eth0.nmt', }
+  nofile { '/etc/network/interfaces.d/eth1.nmt', }
+
   configdir { 'profile.d': dest => '/etc', }
   configdir { 'boot': dest => '', }
 
@@ -66,8 +69,6 @@ class profiles::nmt::config::jessie {
   configfile { 'sssd.conf': dest => '/etc/sssd', mode => '0600', }
   configfile { 'sshd_config': dest => '/etc/ssh', }
   configfile { 'lightdm-xsession.desktop': dest => '/usr/share/xsessions', }
-  configfile { 'eth0.nmt': dest => '/etc/network/interfaces.d', }
-  configfile { 'eth1.nmt': dest => '/etc/network/interfaces.d', }
   configfile { 'xinit-compat.desktop': dest => '/usr/share/xsessions', }
   configfile { 'modules': dest => '/etc/initramfs-tools', }
   configfile { 'plymouthd.conf': dest => '/etc/plymouth', }

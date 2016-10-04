@@ -43,6 +43,7 @@ class profiles::nmt::packages::jessie {
     'dconf-editor',
     'debconf-utils',
     'devscripts',
+    'dhcpcd5',
     'dia',
     'dialog',
     'diffutils',
