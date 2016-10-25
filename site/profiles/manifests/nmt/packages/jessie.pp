@@ -194,6 +194,7 @@ class profiles::nmt::packages::jessie {
     'mono-devel',
     'mjpegtools',
     'mklibs-copy',
+    'most',
     'mutt',
     'mysql-client',
     'nasm',
