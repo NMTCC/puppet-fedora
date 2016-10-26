@@ -267,6 +267,7 @@ class profiles::nmt::packages::jessie {
     'remctl-client',
     'retext',
     'rnc-mode',
+    'roxterm',
     'rssh',
     'ruby-gtk2',
     'ruby-gnome2',
