@@ -267,6 +267,7 @@ class profiles::nmt::packages::jessie {
     'rcs',
     'rdesktop',
     'remctl-client',
+    'resolvconf',
     'retext',
     'rnc-mode',
     'rssh',
