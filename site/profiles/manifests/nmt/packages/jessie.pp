@@ -267,7 +267,6 @@ class profiles::nmt::packages::jessie {
     'rcs',
     'rdesktop',
     'remctl-client',
-    'resolvconf',
     'retext',
     'rnc-mode',
     'rssh',
@@ -361,10 +360,21 @@ class profiles::nmt::packages::jessie {
     'fish',
   ]
 
+  $nochroot = [
+    'resolvconf',
+  ]
+
   Package { ensure => 'installed', require => Exec['apt-update'], }
   package { $packlist : provider => 'apt', }
   package { $removelist : ensure => 'absent', provider => 'apt', }
   package { $backportlist : provider => 'apt', install_options => { '-t' => 'jessie-backports' }, }
+  if $::chroot {
+    warning('Skipping some packages because we are chrooted.')
+  }
+  else {
+    package { $nochroot : provider => 'apt', }
+  }
+
 
   Package['heirloom-mailx'] -> Package['bsd-mailx']
 
