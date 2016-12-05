@@ -298,6 +298,7 @@ class profiles::nmt::packages::jessie {
     'sysvbanner',
     'tccmotd',
     'tcl',
+    'terminology',
     'texlive',
     'texlive-font-utils',
     'tf',
