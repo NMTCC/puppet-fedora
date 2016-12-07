@@ -22,7 +22,7 @@ class profiles::nmt::rsync::jessie::comsol {
   }
 
   rsync::get { 'comsolsh':
-    source  => 'duplicon.nmt.edu::Jessie-comsol/comsol_52a',
+    source  => 'duplicon.nmt.edu::Jessie-comsol/comsol52a.sh',
     path    => '/usr/local/bin/comsol',
     times   => true,
     require => Rsync::Get['comsol'],
