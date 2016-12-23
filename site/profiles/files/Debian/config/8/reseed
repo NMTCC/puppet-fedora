@@ -1,31 +1,34 @@
 #!/bin/bash
 
-export SEMESTER="Fall2016"
+export SEMESTER="Spring2017"
 export BRANCH="master"
 export BUILD="1"
 export LIBSYNC="http://duplicon.nmt.edu/preseed/jessie/libsync"
-export SYNCPRE="http://template.nmt.edu/images/Fall2016"
-export BTHASH="65d0a33272f8de9effa8ab9adf77ca107659d14a"
-export OLDBTHASH="959af43d3db63709fff5db6d01259109fbd899b9"
+export SYNCPRE="http://template.nmt.edu/images/Spring2017"
+export BTHASH="c51a49547a5122c8f73c322b63fdf4c851f2ff05"
+export OLDBTHASHES="65d0a33272f8de9effa8ab9adf77ca107659d14a 6b10051ff0fd733544fae8e2ebce4d55ce733ece"
 export WINMODE="Post"
 
 download_libsync() {
 
-	wget -P /tmp $LIBSYNC > /dev/null 2>&1
-	if [ -s "/tmp/libsync" ]
-	then
-		return
-	fi
-	echo "Could not retrieve SYNC library!"
-	exit 69 # EX_UNAVAILABLE from sysexits.h
+    wget -P /tmp $LIBSYNC > /dev/null 2>&1
+    if [ -s "/tmp/libsync" ]
+    then
+        return
+    fi
+    echo "Could not retrieve SYNC library!"
+    exit 69 # EX_UNAVAILABLE from sysexits.h
 
 }
 
 download_libsync
 source /tmp/libsync
 start_transmission
-transmission-remote -t $OLDBTHASH --remove-and-delete
-sleep 2
+for hash in $OLDBTHASHES
+do
+    transmission-remote -t $hash --remove-and-delete
+    sleep 2
+done
 transmission-remote -t $BTHASH --remove
 sleep 2
 torrent_image

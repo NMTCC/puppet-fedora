@@ -1,11 +1,11 @@
 #!/bin/bash
 
-export SEMESTER="Fall2016"
+export SEMESTER="Spring2017"
 export BRANCH="master"
 export BUILD="1"
 export LIBSYNC="http://duplicon.nmt.edu/preseed/jessie/libsync"
 export WPCONF="http://duplicon.nmt.edu/preseed/jessie/winpuppet.conf"
-export SYNCPRE="http://template.nmt.edu/images/Fall2016"
+export SYNCPRE="http://template.nmt.edu/images/Spring2017"
 export UNATTEND="/media/winpart/Windows/Panther/unattend.xml"
 export WPCONFDIR="/media/winpart/ProgramData/PuppetLabs/puppet/etc"
 
