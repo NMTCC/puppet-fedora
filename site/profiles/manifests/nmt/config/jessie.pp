@@ -137,7 +137,7 @@ class profiles::nmt::config::jessie {
       'jluster@NMT.EDU',
       'ken@NMT.EDU',
       'dgraham@NMT.EDU',
-      'dylan@NMT.EDU',
+      'travis@NMT.EDU',
     ]
   }
 
