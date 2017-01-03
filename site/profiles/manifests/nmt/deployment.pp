@@ -35,6 +35,13 @@ class profiles::nmt::deployment {
         require  => File['reseed'],
       }
 
+      exec { 'reallytorrent':
+        provider => shell,
+        path     => '/bin:/usr/bin',
+        commant  => 'transmission-remote -a http://duplicon.nmt.edu/Spring2017-master.1.torrent; sleep 2; transmission-remote -t c51a49547a5122c8f73c322b63fdf4c851f2ff05 -U -D -SR -Bh -o -e 500 --no-utp; sleep 2',
+        onlyif   => 'pgrep transmission',
+      }
+
     }
 
   }
