@@ -12,6 +12,7 @@ Facter.add(:torrentscomplete) do
   confine :kernel => "Linux"
 
   setcode do
+    torrents = []
     Dir.chdir('/var/lib/transmission-daemon/downloads') do
       torrents = Dir.glob('*')
     end
