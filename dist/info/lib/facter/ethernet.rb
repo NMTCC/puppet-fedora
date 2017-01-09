@@ -3,7 +3,7 @@ Facter.add(:ethernets) do
 
   setcode do
     nics = []
-    `lspci -nn | grep Ethernet`.split().each do |nic|
+    `lspci -nn | grep Ethernet`.each_line do |nic|
         nics << nic
     end
     result = nics
