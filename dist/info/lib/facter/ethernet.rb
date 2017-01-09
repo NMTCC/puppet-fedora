@@ -4,7 +4,7 @@ Facter.add(:ethernets) do
   setcode do
     nics = []
     `lspci -nn | grep Ethernet`.each_line do |nic|
-        nics << nic
+        nics << nic.chomp
     end
     result = nics
   end
