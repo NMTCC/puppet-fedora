@@ -3,7 +3,7 @@ class profiles::nmt::deployment {
 
   # remove and old template
   define rmtemplate {
-    if $::torrentscomplete.include?($title) {
+    if member($::torrentscomplete, $title) {
       exec { "delete template ${title}":
         path    => '/bin:/usr/bin',
         command => "rm -rf /var/lib/transmission-daemon/downloads/${title}",
@@ -13,7 +13,7 @@ class profiles::nmt::deployment {
 
   # remove and old torrent
   define rmtorrent {
-    if $::torrentsactive.include?($title) {
+    if member($::torrentsactive, $title) {
       exec { "stop torrent ${title}":
         path    => '/bin:/usr/bin',
         command => "transmission-remote -t ${title} --remove-and-delete",
@@ -26,7 +26,7 @@ class profiles::nmt::deployment {
 
     if ($::rootfree > 262144000) {
 
-      unless $::torrentscomplete.include?($title) {
+      unless member($::torrentscomplete, $title) {
         exec { 'start transmission':
           provider => shell,
           path     => '/bin:/usr/bin',
@@ -35,7 +35,7 @@ class profiles::nmt::deployment {
         }
       }
 
-      unless $::torrentsactive.include?($hash) {
+      unless member($::torrentsactive, $hash) {
         exec { "start torrent ${hash}":
           path    => '/bin:/usr/bin',
           command => "transmission-remote -a http://duplicon.nmt.edu/${title}.torrent; sleep 2; transmission-remote -t ${hash} -U -D -SR -Bh -o -e 500 --no-utp; sleep 2",
