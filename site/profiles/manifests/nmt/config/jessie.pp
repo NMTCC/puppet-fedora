@@ -153,6 +153,12 @@ class profiles::nmt::config::jessie {
     unless   => 'grep splay /etc/puppet/puppet.conf',
   }
 
+  exec { 'disablestringify':
+    provider => shell,
+    command  => 'printf "stringify_facts=false\n" >> /etc/puppet/puppet.conf',
+    unless   => 'grep stringify /etc/puppet/puppet.conf',
+  }
+
   rsync::get { 'wallpapers':
     source    => "userhost.nmt.edu::wallpapers",
     path      => '/usr/share/backgrounds/itc',
