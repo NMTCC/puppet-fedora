@@ -29,7 +29,7 @@ class profiles::nmt::deployment {
       unless member($::torrentscomplete, $title) {
         exec { 'start transmission':
           provider => shell,
-          path     => '/bin:/usr/bin',
+          path     => '/bin:/usr/bin:/sbin',
           command  => 'runuser debian-transmission -s /bin/bash -c "/usr/bin/transmission-daemon -T -g /var/lib/transmission-daemon/.config/transmission-daemon --incomplete-dir /var/lib/transmission-daemon/downloads/incomplete"',
           unless   => 'pgrep transmission',
         }
