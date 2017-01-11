@@ -1,3 +1,4 @@
+# deployment for Jessie
 class profiles::nmt::deployment::jessie {
 
   $oldtemplates = [

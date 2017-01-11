@@ -1,7 +1,9 @@
+# manage torrent and template data
 class profiles::nmt::deployment {
 
+  # remove and old template
   define rmtemplate {
-    if $::torrentscomplete.include?("${title}") {
+    if $::torrentscomplete.include?($title) {
       exec { "delete template ${title}":
         path    => '/bin:/usr/bin',
         command => "rm -rf /var/lib/transmission-daemon/downloads/${title}",
@@ -9,8 +11,9 @@ class profiles::nmt::deployment {
     }
   }
 
+  # remove and old torrent
   define rmtorrent {
-    if $::torrentsactive.include?("${title}") {
+    if $::torrentsactive.include?($title) {
       exec { "stop torrent ${title}":
         path    => '/bin:/usr/bin',
         command => "transmission-remote -t ${title} --remove-and-delete",
@@ -18,20 +21,21 @@ class profiles::nmt::deployment {
     }
   }
 
+  # torrent updated templates
   define gettorrent ($hash) {
 
     if ($::rootfree > 262144000) {
 
-      unless $::torrentscomplete.include?("${title}") {
+      unless $::torrentscomplete.include?($title) {
         exec { 'start transmission':
           provider => shell,
-          path    => '/bin:/usr/bin',
+          path     => '/bin:/usr/bin',
           command  => 'runuser debian-transmission -s /bin/bash -c "/usr/bin/transmission-daemon -T -g /var/lib/transmission-daemon/.config/transmission-daemon --incomplete-dir /var/lib/transmission-daemon/downloads/incomplete"',
           unless   => 'pgrep transmission',
         }
       }
 
-      unless $::torrentsactive.include?("${hash}") {
+      unless $::torrentsactive.include?($hash) {
         exec { "start torrent ${hash}":
           path    => '/bin:/usr/bin',
           command => "transmission-remote -a http://duplicon.nmt.edu/${title}.torrent; sleep 2; transmission-remote -t ${hash} -U -D -SR -Bh -o -e 500 --no-utp; sleep 2",
@@ -45,7 +49,7 @@ class profiles::nmt::deployment {
 
   case $::operatingsystemmajrelease {
     '8': {
-      class { 'profiles::nmt::deployment::jessie': }
+      include profiles::nmt::deployment::jessie
     }
     default: {
       warning('No deployment configuration for this release version.')
