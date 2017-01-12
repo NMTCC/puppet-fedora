@@ -1,6 +1,7 @@
 #!/bin/bash
 
 if [ -e "/usr/local/etc/template.conf"]
+then
 	. /usr/local/etc/template.conf
 else
 	printf "Could not read deployment configuration!\n"
