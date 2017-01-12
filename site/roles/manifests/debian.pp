@@ -20,7 +20,12 @@ class roles::debian {
   include profiles::nmt::loginsrv
   include profiles::nrao
 
-  if $::stringify { include profiles::nmt::deployment }
+  if $::chroot {
+    warning('Skipping torrent management because we are chrooted.')
+  }
+  else {
+    if $::stringify { include profiles::nmt::deployment }
+  }
 
   if ($hour == '03') or ($hour == '04') or ($hour == '05') or $::chroot {
     include profiles::nmt::rsync
