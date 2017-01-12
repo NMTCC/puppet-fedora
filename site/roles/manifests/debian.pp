@@ -20,7 +20,8 @@ class roles::debian {
   include profiles::nmt::loginsrv
   include profiles::nrao
 
-  unless $settings::stringify_facts {
+  $stringify = $settings::stringify_facts
+  unless $stringify {
     include profiles::nmt::deployment
   }
 
