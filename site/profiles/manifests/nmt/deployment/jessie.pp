@@ -20,8 +20,11 @@ class profiles::nmt::deployment::jessie {
   $template = 'Spring2017-master.2'
   $torrent = '71d1caa7d8a882ecfd3c75db7775fd24b3a2f408'
 
-  rmtemplate { $oldtemplates: }
-  rmtorrent { $oldtorrents: }
-  gettorrent { $template: hash => $torrent, }
+  rmtemplate { $oldtemplates: require => Exec['disablestringify'], }
+  rmtorrent { $oldtorrents: require => Exec['disablestringify'], }
+  gettorrent { $template:
+    hash    => $torrent,
+    require => Exec['disablestringify'],
+  }
 
 }
