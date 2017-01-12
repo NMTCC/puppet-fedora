@@ -21,7 +21,7 @@ class profiles::nmt::deployment::jessie {
   $semester = 'Spring2017'
   $branch = 'master'
   $build = '2'
-  $template = "${semester}-${branch}.${build}"
+  $release = "${semester}-${branch}.${build}"
   $torrent = '71d1caa7d8a882ecfd3c75db7775fd24b3a2f408'
   $preseed = 'http://duplicon.nmt.edu/preseed/jessie'
   $syncpre = 'http://template.nmt.edu/images/Spring2017'
