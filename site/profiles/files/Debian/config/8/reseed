@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -e "/usr/local/etc/template.conf"]
+if [ -e "/usr/local/etc/template.conf" ]
 then
 	. /usr/local/etc/template.conf
 else
