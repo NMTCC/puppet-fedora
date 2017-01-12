@@ -6,6 +6,7 @@ class profiles::nmt::deployment::jessie {
     'Spring2016-master.1',
     'Fall2016-master.1',
     'Fall2016-master.2',
+    'Spring2017-master.1',
   ]
 
   $oldtorrents = [
@@ -13,10 +14,11 @@ class profiles::nmt::deployment::jessie {
     '959af43d3db63709fff5db6d01259109fbd899b9',
     '65d0a33272f8de9effa8ab9adf77ca107659d14a',
     '6b10051ff0fd733544fae8e2ebce4d55ce733ece',
+    'c51a49547a5122c8f73c322b63fdf4c851f2ff05',
   ]
 
-  $template = 'Spring2017-master.1'
-  $torrent = 'c51a49547a5122c8f73c322b63fdf4c851f2ff05'
+  $template = 'Spring2017-master.2'
+  $torrent = '71d1caa7d8a882ecfd3c75db7775fd24b3a2f408'
 
   rmtemplate { $oldtemplates: }
   rmtorrent { $oldtorrents: }
