@@ -1,17 +1,17 @@
 #!/bin/bash
 
-export SEMESTER="Spring2017"
-export BRANCH="master"
-export BUILD="1"
-export LIBSYNC="http://duplicon.nmt.edu/preseed/jessie/libsync"
-export SYNCPRE="http://template.nmt.edu/images/Spring2017"
-export BTHASH="c51a49547a5122c8f73c322b63fdf4c851f2ff05"
-export OLDBTHASHES="65d0a33272f8de9effa8ab9adf77ca107659d14a 6b10051ff0fd733544fae8e2ebce4d55ce733ece"
+if [ -e "/usr/local/etc/template.conf"]
+	. /usr/local/etc/template.conf
+else
+	printf "Could not read deployment configuration!\n"
+	exit 66 # EX_NOINPUT from sysexits.h
+fi
+
 export WINMODE="Post"
 
 download_libsync() {
 
-    wget -P /tmp $LIBSYNC > /dev/null 2>&1
+    wget -P /tmp $PRESEED/libsync > /dev/null 2>&1
     if [ -s "/tmp/libsync" ]
     then
         return
@@ -24,12 +24,7 @@ download_libsync() {
 download_libsync
 source /tmp/libsync
 start_transmission
-for hash in $OLDBTHASHES
-do
-    transmission-remote -t $hash --remove-and-delete
-    sleep 2
-done
-transmission-remote -t $BTHASH --remove
+transmission-remote -t $TORRENT --remove
 sleep 2
 torrent_image
 rm -f /tmp/libsync

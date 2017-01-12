@@ -1,17 +1,18 @@
 #!/bin/bash
 
-export SEMESTER="Spring2017"
-export BRANCH="master"
-export BUILD="1"
-export LIBSYNC="http://duplicon.nmt.edu/preseed/jessie/libsync"
-export WPCONF="http://duplicon.nmt.edu/preseed/jessie/winpuppet.conf"
-export SYNCPRE="http://template.nmt.edu/images/Spring2017"
+if [ -e "/usr/local/etc/template.conf"]
+	. /usr/local/etc/template.conf
+else
+	printf "Could not read deployment configuration!\n"
+	exit 66 # EX_NOINPUT from sysexits.h
+fi
+
 export UNATTEND="/media/winpart/Windows/Panther/unattend.xml"
 export WPCONFDIR="/media/winpart/ProgramData/PuppetLabs/puppet/etc"
 
 download_libsync() {
 
-	wget -P /tmp $LIBSYNC > /dev/null 2>&1
+	wget -P /tmp $PRESEED/libsync > /dev/null 2>&1
 	if [ -s "/tmp/libsync" ]
 	then
 		return
@@ -24,7 +25,7 @@ download_libsync() {
 
 download_wpconf() {
 
-	wget -P /tmp $WPCONF > /dev/null 2>&1
+	wget -P /tmp $PRESEED/winpuppet.conf > /dev/null 2>&1
 	if [ -s "/tmp/winpuppet.conf" ]
 	then
 		return

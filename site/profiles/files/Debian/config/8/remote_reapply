@@ -1,7 +1,13 @@
 #!/bin/bash
 
+if [ -e "/usr/local/etc/template.conf"]
+	. /usr/local/etc/template.conf
+else
+	printf "Could not read deployment configuration!\n"
+	exit 66 # EX_NOINPUT from sysexits.h
+fi
+
 export ME="$(hostname -s)"
-export RELEASE="Spring2017-master.1"
 export DATA="/var/lib/transmission-daemon/downloads"
 
 winpart=$(/sbin/blkid -o device -t TYPE=ntfs)
@@ -14,11 +20,11 @@ date1="$(date)"
 
 res1="null"
 res2="null"
-if [ -d "$DATA/$RELEASE" ]
+if [ -d "$DATA/$TEMPLATE" ]
 then
-	cat $DATA/$RELEASE/$RELEASE.vhd1 | dd of=/dev/sda1 bs=64k > /dev/null 2>&1
+	cat $DATA/$TEMPLATE/$TEMPLATE.vhd1 | dd of=/dev/sda1 bs=64k > /dev/null 2>&1
 	res1=$?
-	pbzip2 -c -d $DATA/$RELEASE/$RELEASE.vhd2.bz2 | dd of=/dev/sda2 bs=4M > /dev/null 2>&1
+	pbzip2 -c -d $DATA/$TEMPLATE/$TEMPLATE.vhd2.bz2 | dd of=/dev/sda2 bs=4M > /dev/null 2>&1
 	res2=$?
 fi
 
@@ -26,4 +32,4 @@ fi
 
 date2="$(date)"
 
-printf "I completed the template application process with $RELEASE.\n\n * Started at: $date1\n * Finished at: $date2\n\n * NTFS boot partition return code was: $res1\n * NTFS main partition return code was: $res2\n\nDon't forget to clean my old Puppet certificates!\n\nSincerely,\n$ME" | mail -r "$ME@nmt.edu" -s "$ME reapply" itc-triage@nmt.edu
+printf "I completed the template application process with $TEMPLATE.\n\n * Started at: $date1\n * Finished at: $date2\n\n * NTFS boot partition return code was: $res1\n * NTFS main partition return code was: $res2\n\nDon't forget to clean my old Puppet certificates!\n\nSincerely,\n$ME" | mail -r "$ME@nmt.edu" -s "$ME reapply" itc-triage@nmt.edu
