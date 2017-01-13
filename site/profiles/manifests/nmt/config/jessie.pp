@@ -114,7 +114,6 @@ class profiles::nmt::config::jessie {
   configscript { 'mail_sudo_logs': dest => '/usr/local/libexec', }
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
-  service { 'puppet': ensure => 'running', enable => 'true', require => Exec['enablesplay'], }
   service { 'sssd': ensure => 'running', enable => 'true', require => Configfile['sssd.conf'], }
   service { 'cron': ensure => 'running', enable => 'true', }
   service { 'clamav-freshclam': ensure => 'stopped', enable => 'false', }
@@ -124,11 +123,25 @@ class profiles::nmt::config::jessie {
   service { 'transmission-daemon': enable => 'false', }
   service { 'openvpn': ensure => 'stopped', enable => 'false', }
   service { 'pppd-dns': ensure => 'stopped', enable => 'false', }
+
   if $::chroot {
+    service { 'puppet':
+      ensure  => 'stopped',
+      enable  => 'true',
+      require => [ Exec['enablesplay'], Exec['disablestringify'], ],
+    }
     warning('Skipping ldmagain because we are chrooted.')
   }
   else {
-    service { 'ldmagain': enable => 'true', require => Configfile['ldmagain.service'], }
+    service { 'puppet':
+      ensure  => 'running',
+      enable  => 'true',
+      require => [ Exec['enablesplay'], Exec['disablestringify'], ],
+    }
+    service { 'ldmagain':
+      enable  => 'true',
+      require => Configfile['ldmagain.service'],
+    }
   }
 
   k5login { '/root/.k5login':
