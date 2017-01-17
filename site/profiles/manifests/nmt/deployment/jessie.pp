@@ -28,7 +28,7 @@ class profiles::nmt::deployment::jessie {
 
   rmtemplate { $oldtemplates: }
   rmtorrent { $oldtorrents: }
-  gettorrent { $template: hash => $torrent, }
+  gettorrent { $release: hash => $torrent, }
 
   file { '/usr/local/etc/template.conf':
     ensure  => present,

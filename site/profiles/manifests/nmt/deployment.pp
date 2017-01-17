@@ -30,7 +30,7 @@ class profiles::nmt::deployment {
         exec { 'start transmission':
           provider => shell,
           path     => '/bin:/usr/bin:/sbin',
-          command  => 'runuser debian-transmission -s /bin/bash -c "/usr/bin/transmission-daemon -T -g /var/lib/transmission-daemon/.config/transmission-daemon --incomplete-dir /var/lib/transmission-daemon/downloads/incomplete"',
+          command  => 'runuser debian-transmission -s /bin/bash -c "/usr/bin/transmission-daemon -T -g /var/lib/transmission-daemon/.config/transmission-daemon --incomplete-dir /var/lib/transmission-daemon/downloads/incomplete"; sleep 2',
           unless   => 'pgrep transmission',
         }
       }
