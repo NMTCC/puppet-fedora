@@ -301,6 +301,7 @@ class profiles::nmt::packages::jessie {
     'terminology',
     'texlive',
     'texlive-font-utils',
+    'texlive-publishers',
     'texmaker',
     'tf',
     'tftp',

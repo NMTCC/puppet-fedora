@@ -302,6 +302,7 @@ class profiles::nmt::packages::stretch {
     'terminology',
     'texlive',
     'texlive-font-utils',
+    'texlive-publishers',
     'texmaker',
     'tf',
     'tftp',
