@@ -325,7 +325,7 @@ class profiles::nmt::packages::stretch {
     'x11-apps',
     'xaos',
     'xbomb',
-#    'xemacs21',
+    'xemacs21',
     'xfce4',
     'xfce4-goodies',
     'xfig',
