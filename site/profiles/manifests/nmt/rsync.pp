@@ -35,6 +35,10 @@ class profiles::nmt::rsync {
       include profiles::nmt::rsync::jessie::taup
       include profiles::nmt::rsync::jessie::phono3py
     }
+    '9': {
+      include profiles::nmt::rsync::stretch::mozilla
+      include profiles::nmt::rsync::stretch::phono3py
+    }
     default: {
       warning('No rsync paths for this release version.')
     }
