@@ -36,6 +36,7 @@ class profiles::nmt::rsync {
       include profiles::nmt::rsync::jessie::phono3py
     }
     '9': {
+      include profiles::nmt::rsync::stretch::anaconda
       include profiles::nmt::rsync::stretch::mozilla
       include profiles::nmt::rsync::stretch::phono3py
     }
