@@ -37,6 +37,7 @@ class profiles::nmt::rsync {
     }
     '9': {
       include profiles::nmt::rsync::stretch::anaconda
+      include profiles::nmt::rsync::stretch::chimera
       include profiles::nmt::rsync::stretch::mozilla
       include profiles::nmt::rsync::stretch::phono3py
     }
