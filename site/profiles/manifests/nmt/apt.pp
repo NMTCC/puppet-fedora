@@ -31,6 +31,14 @@ class profiles::nmt::apt {
     }
   }
 
+  file { '/etc/apt/apt.conf.d/99nmt':
+    ensure  => 'file',
+    content => 'Acquire::Languages "none";',
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+  }
+
   case $::operatingsystemmajrelease {
     '8': {
       class { "profiles::nmt::apt::jessie": }
