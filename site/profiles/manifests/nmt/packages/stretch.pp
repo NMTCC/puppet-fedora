@@ -194,6 +194,7 @@ class profiles::nmt::packages::stretch {
     'mutt',
     'nasm',
     'ncl-ncarg',
+    'neovim',
     'nethack-console',
     'netpbm',
     'nfs-common',
