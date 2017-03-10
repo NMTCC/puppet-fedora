@@ -7,6 +7,7 @@ class profiles::nmt::deployment::jessie {
     'Fall2016-master.1',
     'Fall2016-master.2',
     'Spring2017-master.1',
+    'Spring2017-master.2',
   ]
 
   $oldtorrents = [
@@ -15,14 +16,15 @@ class profiles::nmt::deployment::jessie {
     '65d0a33272f8de9effa8ab9adf77ca107659d14a',
     '6b10051ff0fd733544fae8e2ebce4d55ce733ece',
     'c51a49547a5122c8f73c322b63fdf4c851f2ff05',
+    '71d1caa7d8a882ecfd3c75db7775fd24b3a2f408',
   ]
 
   # deployment configuration
   $semester = 'Spring2017'
   $branch = 'master'
-  $build = '2'
+  $build = '3'
   $release = "${semester}-${branch}.${build}"
-  $torrent = '71d1caa7d8a882ecfd3c75db7775fd24b3a2f408'
+  $torrent = '1f75bbcc246fac018212141c14c47b28cd8073ef'
   $preseed = 'http://duplicon.nmt.edu/preseed/jessie'
   $syncpre = 'http://template.nmt.edu/images/Spring2017'
 
