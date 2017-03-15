@@ -278,6 +278,7 @@ class profiles::nmt::packages::jessie {
     'screen',
     'scribus',
     'sharutils',
+    'shellcheck',
     'sl',
     'slrn',
     'smartmontools',

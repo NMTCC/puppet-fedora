@@ -272,6 +272,7 @@ class profiles::nmt::packages::stretch {
     'screen',
     'scribus',
     'sharutils',
+    'shellcheck',
     'sl',
     'slrn',
     'smartmontools',
