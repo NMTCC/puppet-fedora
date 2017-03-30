@@ -13,15 +13,13 @@ mod "puppetlabs/firewall"
 mod "puppetlabs/apt"
 mod "puppetlabs/concat"
 mod "puppetlabs/rsync"
+mod "puppetlabs/xinetd"
 
 mod 'couchdb',
   :git => 'https://github.com/camptocamp/puppet-couchdb.git'
 
 mod 'vcsrepo',
   :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git'
-
-mod 'xinetd',
-  :git => 'https://github.com/puppetlabs/puppetlabs-xinetd.git'
 
 mod 'remctl',
   :git => 'https://github.com/NMTCC/puppet-remctl.git'
