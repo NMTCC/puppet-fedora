@@ -2,7 +2,7 @@
 
 class profiles::puppet {
   
-  class { 'puppetdb': listen_address => '0.0.0.0', }
+#  class { 'puppetdb': listen_address => '0.0.0.0', }
   class { 'puppetdb::master::config':
     restart_puppet  => false,
     puppetdb_server => 'puppetdb.nmt.edu',
