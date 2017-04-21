@@ -269,6 +269,7 @@ class profiles::nmt::packages::stretch {
     'ruby-ldap',
     'rsync',
     'rxvt-unicode',
+    'sbcl',
     'screen',
     'scribus',
     'sharutils',

@@ -275,6 +275,7 @@ class profiles::nmt::packages::jessie {
     'ruby-ldap',
     'rsync',
     'rxvt-unicode',
+    'sbcl',
     'screen',
     'scribus',
     'sharutils',
