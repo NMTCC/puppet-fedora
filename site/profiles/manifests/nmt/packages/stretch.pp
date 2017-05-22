@@ -161,6 +161,7 @@ class profiles::nmt::packages::stretch {
     'liblapacke',
     'libmatekbd4',
     'libmateweather1',
+    'libmotif-dev',
     'libncarg-dev',
     'libnet-ldap-perl',
     'libnet-remctl-perl',
