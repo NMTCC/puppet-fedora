@@ -28,6 +28,14 @@ class profiles::nmt::rsync::jessie::iris {
     times => true,
   }
 
+  rsync::get { 'xmax-2.0.7':
+    source    => 'duplicon.nmt.edu::Jessie-iris/xmax-2.0.7',
+    path      => '/usr/local/',
+    recursive => true,
+    links     => true,
+    times     => true,
+  }
+
   rsync::get { 'iris-sh':
     source => 'duplicon.nmt.edu::Jessie-iris/iris.sh',
     path => '/etc/profile.d/',
