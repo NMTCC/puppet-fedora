@@ -19,6 +19,7 @@ class roles::debian {
   include profiles::nmt::firewall
   include profiles::nmt::loginsrv
   include profiles::nrao
+  include profiles::iris
 
   if $::chroot {
     warning('Skipping torrent management because we are chrooted.')
