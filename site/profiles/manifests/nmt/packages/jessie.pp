@@ -175,6 +175,7 @@ class profiles::nmt::packages::jessie {
     'libpam-krb5',
     'libquota-perl',
     'libreoffice',
+    'libreoffice-gtk3',
     'libreoffice-help-en-us',
     'libsdl2-dev',
     'libtext-markdown-perl',
