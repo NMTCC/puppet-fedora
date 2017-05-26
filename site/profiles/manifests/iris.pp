@@ -17,6 +17,11 @@ class profiles::iris {
 
       package { $perl: provider => 'apt', ensure => 'installed', }
 
+      file { '/usr/local/pl':
+        ensure => 'link',
+        target => '/fs/scratch/iris2017/SHARED/pl',
+      }
+
       rsync::get { 'cwp-44r5':
         source => 'duplicon.nmt.edu::Jessie-iris/cwp-44r5',
         path => '/usr/local/',
