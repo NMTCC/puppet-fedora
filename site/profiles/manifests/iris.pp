@@ -68,6 +68,20 @@ class profiles::iris {
         require => [ Rsync::Get['cwp-44r5'], Rsync::Get['oss-2.03'] ],
       }
 
+      rsync::get { 'iris-bashrc':
+        source  => 'duplicon.nmt.edu::Jessie-iris/iris.bashrc',
+        path    => '/etc/',
+        times   => true,
+        require => Rsync::Get['iris-sh'],
+      }
+
+      rsync::get { 'iris-cshrc':
+        source  => 'duplicon.nmt.edu::Jessie-iris/iris.cshrc',
+        path    => '/etc/',
+        times   => true,
+        require => Rsync::Get['iris-csh'],
+      }
+
       rsync::get { 'sac-sh':
         source  => 'duplicon.nmt.edu::Jessie-iris/sac.sh',
         path    => '/etc/profile.d/',
