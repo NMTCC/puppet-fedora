@@ -2,10 +2,16 @@
 
 class profiles::nmt::firewall {
 
+  service { 'firewalld':
+    ensure => 'running',
+    enable => true,
+  }
+
   define firewalldopen ($zone) {
     exec { "open port ${title}":
       command => "/usr/bin/firewall-cmd --zone=${zone} --add-port ${title} --permanent && /usr/bin/firewall-cmd --reload",
-      unless => "/usr/bin/firewall-cmd --zone=${zone} --list-ports | grep ${title}",
+      unless  => "/usr/bin/firewall-cmd --zone=${zone} --list-ports | grep ${title}",
+      require => Service['firewalld'],
     }
   }
 
@@ -13,6 +19,7 @@ class profiles::nmt::firewall {
     exec { "close port ${title}":
       command => "/usr/bin/firewall-cmd --zone=${zone} --remove-port ${title} --permanent && /usr/bin/firewall-cmd --reload",
       onlyif => "/usr/bin/firewall-cmd --zone=${zone} --list-ports | grep ${title}",
+      require => Service['firewalld'],
     }
   }
 
