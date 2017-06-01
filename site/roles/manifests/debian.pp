@@ -29,13 +29,12 @@ class roles::debian {
 
   if ($hour == '04') {
     include profiles::nmt::apt
+    Class[profiles::nmt::apt] -> Class[profiles::nmt] -> Class[profiles::nmt::packages] -> Class[profiles::nmt::localizations]
   }
 
   if ($hour == '03') or ($hour == '04') or ($hour == '05') or $::chroot {
     include profiles::nmt::rsync
   }
-
-  Class[profiles::nmt::apt] -> Class[profiles::nmt] -> Class[profiles::nmt::packages] -> Class[profiles::nmt::localizations]
 
   # this because we run before d-i cleans up
   Package { allowcdrom => true, }
