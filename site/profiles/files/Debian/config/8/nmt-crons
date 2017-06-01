@@ -7,5 +7,7 @@ HOME=/
 #45 6 * * * root /usr/local/bin/random_machine_reboot >> /var/log/nightlyreboots.log
 59 23 * * * root /usr/local/libexec/mail_sudo_logs
 # GRUB conf updater
-01 * * * * root /usr/local/bin/grub2
+01  * * * * root /usr/local/bin/grub2
+# Update puppet w/o puppet
+02 04 * * * root /usr/local/libexec/pupdate > /dev/null
 

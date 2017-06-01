@@ -113,6 +113,7 @@ class profiles::nmt::config::jessie {
   configscript { 'rrapp': dest => '/usr/local/bin', }
   configscript { 'mail_sudo_logs': dest => '/usr/local/libexec', }
   configscript { 'kick_old_x_session': dest => '/usr/local/bin', }
+  configscript { 'pupdate': dest => '/usr/local/libexec', }
 
   service { 'cups': ensure => 'running', enable => 'true', require => Configfile['client.conf'], }
   service { 'sssd': ensure => 'running', enable => 'true', require => Configfile['sssd.conf'], }
