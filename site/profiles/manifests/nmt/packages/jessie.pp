@@ -377,7 +377,7 @@ class profiles::nmt::packages::jessie {
     'resolvconf',
   ]
 
-  Package { ensure => 'installed', require => Exec['apt-update'], }
+  Package { ensure => 'installed', }
   package { $packlist : provider => 'apt', }
   package { $removelist : ensure => 'absent', provider => 'apt', }
   package { $holdlist : ensure => 'held', provider => 'apt', }

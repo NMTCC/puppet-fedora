@@ -221,7 +221,6 @@ class profiles::nmt::packages::stretch {
     'plymouth-themes',
     'poppler-utils',
     'postgresql-client',
-    'puppet',
     'puppet-lint',
     'pv',
     'pymol',
@@ -359,6 +358,10 @@ class profiles::nmt::packages::stretch {
     'wicd-gkt',
   ]
 
+  $holdlist = [
+    'puppet',
+  ]
+
   $backportlist = [
     'fish',
   ]
@@ -367,9 +370,10 @@ class profiles::nmt::packages::stretch {
     'resolvconf',
   ]
 
-  Package { ensure => 'installed', require => Exec['apt-update'], }
+  Package { ensure => 'installed', }
   package { $packlist : provider => 'apt', }
   package { $removelist : ensure => 'absent', provider => 'apt', }
+  package { $holdlist : ensure => 'held', provider => 'apt', }
   package { $backportlist : provider => 'apt', install_options => { '-t' => 'jessie-backports' }, }
   if $::chroot {
     warning('Skipping some packages because we are chrooted.')

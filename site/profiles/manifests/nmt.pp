@@ -2,6 +2,8 @@
 
 class profiles::nmt {
 
+  $hour = generate('/usr/local/bin/puppethour')
+
   # This is a hack to make nodes report as unchanged;
   # they report as changed whenever an exec is actually run.
   exec { 'kinit': command => '/usr/bin/kinit -k', unless => '/usr/bin/klist -k; case $? in 0) exit 0;; *) /usr/bin/kinit -k;; esac', }
@@ -21,8 +23,10 @@ class profiles::nmt {
     }
     'Debian': {
 
-      exec { 'apt-update': command => '/usr/bin/apt-get -y update', timeout => 0, unless => '/usr/bin/apt-get -y update', } ->
-      exec { 'apt-upgrade': provider => 'shell', environment => ["DEBIAN_FRONTEND=noninteractive"], command => '/usr/bin/apt-get -y dist-upgrade', timeout => 0, unless => 'exit $(aptitude search "~U" | wc -l)', }
+      if ($hour == '04') {
+        exec { 'apt-update': command => '/usr/bin/apt-get -y update', timeout => 0, unless => '/usr/bin/apt-get -y update', } ->
+        exec { 'apt-upgrade': provider => 'shell', environment => ["DEBIAN_FRONTEND=noninteractive"], command => '/usr/bin/apt-get -y dist-upgrade', timeout => 0, unless => 'exit $(aptitude search "~U" | wc -l)', }
+      }
 
       class { '::sudo': } sudo::conf { 'ucsh' : content => '%tape ALL = (root) NOPASSWD: /usr/bin/du, /usr/bin/file, /bin/ls, /usr/bin/nice, /usr/bin/renice, /bin/ps, /bin/mount, /bin/umount, /bin/kill, /usr/bin/killall, /usr/bin/wall, /usr/bin/eject, /bin/chgrp, /bin/systemctl, /usr/local/bin/reapply, /usr/local/bin/reseed', }
 

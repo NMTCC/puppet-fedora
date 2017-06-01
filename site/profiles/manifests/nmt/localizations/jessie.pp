@@ -31,7 +31,7 @@ class profiles::nmt::localizations::jessie {
 
   $removelist = []
 
-  Package { ensure => 'installed', require => Exec['apt-update'], }
+  Package { ensure => 'installed', }
   package { $packlist : provider => 'apt', }
   package { $removelist : provider => 'apt', ensure => 'absent', }
 
