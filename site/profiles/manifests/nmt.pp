@@ -32,13 +32,6 @@ class profiles::nmt {
         onlyif  => 'grep "sudoers.*sss" /etc/nsswitch.conf',
       }
 
-      unless member($::apt_hold, 'puppet') {
-        exec { 'hold puppet pkg':
-          path    => '/bin:/usr/bin',
-          command => 'apt-mark hold puppet',
-        }
-      }
-
     }
   }
 
