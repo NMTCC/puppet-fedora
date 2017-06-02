@@ -23,7 +23,7 @@ class profiles::nmt {
     }
     'Debian': {
 
-      if ($hour == '04') {
+      if ($hour == '04') or $::chroot {
         exec { 'apt-update': command => '/usr/bin/apt-get -y update', timeout => 0, unless => '/usr/bin/apt-get -y update', } ->
         exec { 'apt-upgrade': provider => 'shell', environment => ["DEBIAN_FRONTEND=noninteractive"], command => '/usr/bin/apt-get -y dist-upgrade', timeout => 0, unless => 'exit $(aptitude search "~U" | wc -l)', }
       }

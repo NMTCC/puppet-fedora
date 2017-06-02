@@ -27,7 +27,7 @@ class roles::debian {
     if $::stringify { include profiles::nmt::deployment }
   }
 
-  if ($hour == '04') {
+  if ($hour == '04') or $::chroot {
     include profiles::nmt::apt
     Class[profiles::nmt::apt] -> Class[profiles::nmt] -> Class[profiles::nmt::packages] -> Class[profiles::nmt::localizations]
   }
