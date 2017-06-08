@@ -12,10 +12,10 @@ class profiles::iris {
   ]
 
   $rmlist = [
-    '/etc/profile.d/iris-sh',
-    '/etc/profile.d/iris-csh',
-    '/etc/profile.d/sac-sh',
-    '/etc/profile.d/sac-csh',
+    '/etc/profile.d/iris.sh',
+    '/etc/profile.d/iris.csh',
+    '/etc/profile.d/sac.sh',
+    '/etc/profile.d/sac.csh',
     '/usr/local/pl',
   ]
 
@@ -28,11 +28,15 @@ class profiles::iris {
 
   file { $rmlist: ensure => absent, }
 
-  exec { $rmdirlist:
-    path => '/bin:/usr/bin/',
-    command => "rm -rf $title",
-    onlyif => "test -e $title",
+  define rmdirs {
+    exec { $title:
+      path => '/bin:/usr/bin/',
+      command => "rm -rf $title",
+      onlyif => "test -e $title",
+    }
   }
+
+  rmdirs { $rmdirlist: }
 
 /*
 
