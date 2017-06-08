@@ -11,6 +11,31 @@ class profiles::iris {
     'perl-tk',
   ]
 
+  $rmlist = [
+    '/etc/profile.d/iris-sh',
+    '/etc/profile.d/iris-csh',
+    '/etc/profile.d/sac-sh',
+    '/etc/profile.d/sac-csh',
+    '/usr/local/pl',
+  ]
+
+  $rmdirlist = [
+    '/usr/local/cwp-44r5',
+    '/usr/local/oss-2.03',
+    '/usr/local/xmax-2.0.7',
+    '/usr/local/sac',
+  ]
+
+  file { $rmlist: ensure => absent, }
+
+  exec { $rmdirlist:
+    path => '/bin:/usr/bin/',
+    command => "rm -rf $title",
+    onlyif => "test -e $title",
+  }
+
+/*
+
   case $::hostname {
 
     /^speare5/: {
@@ -68,20 +93,6 @@ class profiles::iris {
         require => [ Rsync::Get['cwp-44r5'], Rsync::Get['oss-2.03'] ],
       }
 
-      rsync::get { 'iris-bashrc':
-        source  => 'duplicon.nmt.edu::Jessie-iris/iris.bashrc',
-        path    => '/etc/',
-        times   => true,
-        require => Rsync::Get['iris-sh'],
-      }
-
-      rsync::get { 'iris-cshrc':
-        source  => 'duplicon.nmt.edu::Jessie-iris/iris.cshrc',
-        path    => '/etc/',
-        times   => true,
-        require => Rsync::Get['iris-csh'],
-      }
-
       rsync::get { 'sac-sh':
         source  => 'duplicon.nmt.edu::Jessie-iris/sac.sh',
         path    => '/etc/profile.d/',
@@ -96,11 +107,27 @@ class profiles::iris {
         require => Rsync::Get['sac'],
       }
 
+      rsync::get { 'iris-bashrc':
+        source  => 'duplicon.nmt.edu::Jessie-iris/iris.bashrc',
+        path    => '/etc/bash.bashrc',
+        times   => true,
+        require => Rsync::Get['iris-sh'],
+      }
+
+      rsync::get { 'iris-cshrc':
+        source  => 'duplicon.nmt.edu::Jessie-iris/iris.cshrc',
+        path    => '/etc/csh.cshrc',
+        times   => true,
+        require => Rsync::Get['iris-csh'],
+      }
+
     }
     default: {
       warning('No IRIS configuration for this workstation.')
     }
 
   }
+
+*/
 
 }
