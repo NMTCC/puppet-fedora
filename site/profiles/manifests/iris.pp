@@ -23,7 +23,7 @@ class profiles::iris {
     '/usr/local/cwp-44r5',
     '/usr/local/oss-2.03',
     '/usr/local/xmax-2.0.7',
-    '/usr/local/sac',
+    '/usr/local/sac-101.6a',
   ]
 
   file { $rmlist: ensure => absent, }
