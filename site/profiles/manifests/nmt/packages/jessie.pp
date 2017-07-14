@@ -115,6 +115,7 @@ class profiles::nmt::packages::jessie {
     'haskell-platform',
     'hexchat',
     'heirloom-mailx',
+    'hiera-eyaml',
     'htop',
     'hunspell',
     'icedax',

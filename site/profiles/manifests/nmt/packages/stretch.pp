@@ -114,6 +114,7 @@ class profiles::nmt::packages::stretch {
     'guake',
     'haskell-platform',
     'hexchat',
+    'hiera-eyaml',
     'htop',
     'hunspell',
     'icedax',
