@@ -5,7 +5,7 @@ class profiles::nmt::passwd {
   user { 'root':
     ensure   => 'present',
     name     => 'root',
-    password => hiera('rootpasswd'),
+    password => hiera('linuxpasswd'),
     system   => true,
   }
 
