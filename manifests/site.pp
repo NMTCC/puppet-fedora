@@ -1,4 +1,6 @@
-node linux {
+File { backup => false, }
+
+node default {
 
   case $::operatingsystem {
     'Fedora': {
@@ -13,5 +15,3 @@ node linux {
   }
 
 }
-
-node default inherits linux { }
