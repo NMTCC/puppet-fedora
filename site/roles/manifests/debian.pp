@@ -2,8 +2,6 @@
 
 class roles::debian {
 
-  $hour = generate("/usr/local/bin/puppethour")
-
   include profiles::nmt
   include profiles::nmt::autofs
   include profiles::nmt::config
@@ -27,12 +25,12 @@ class roles::debian {
     if $::stringify { include profiles::nmt::deployment }
   }
 
-  if ($hour == '04') or $::chroot {
+  if ($::nodehour == '04') or $::chroot {
     include profiles::nmt::apt
     Class[profiles::nmt::apt] -> Class[profiles::nmt] -> Class[profiles::nmt::packages] -> Class[profiles::nmt::localizations]
   }
 
-  if ($hour == '03') or ($hour == '04') or ($hour == '05') or $::chroot {
+  if ($::nodehour == '03') or ($::nodehour == '04') or ($nodehour == '05') or $::chroot {
     include profiles::nmt::rsync
   }
 
