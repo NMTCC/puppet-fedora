@@ -1,7 +1,7 @@
 # Configure autofs
-class profiles::automount {
+class profile::automount {
 
-  $moduleloc = "puppet:///modules/profiles/${::operatingsystem}/${::operatingsystemmajrelease}"
+  $moduleloc = "puppet:///modules/profile/${::operatingsystem}/${::operatingsystemmajrelease}"
 
   file {
 
