@@ -2,5 +2,6 @@
 class role::stretch {
 
   include profile::automount
+  include profile::base
 
 }

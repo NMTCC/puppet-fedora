@@ -6,18 +6,20 @@ class profile::automount {
   file {
 
     '/usr/local/libexec/auto.home':
-      ensure => present,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0755',
-      source => "${moduleloc}/auto.home",;
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      source  => "${moduleloc}/auto.home",
+      require => File['libexec'],;
 
     '/usr/local/libexec/auto.fs':
       ensure => present,
       owner  => 'root',
       group  => 'root',
       mode   => '0755',
-      source => "${moduleloc}/auto.fs",;
+      source => "${moduleloc}/auto.fs",
+      require => File['libexec'],;
 
   }
 
