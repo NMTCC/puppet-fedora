@@ -3,6 +3,7 @@ class role::stretch {
 
   include profile::automount
   include profile::base
+  include profile::kerberos
   include profile::sudo
 
 }

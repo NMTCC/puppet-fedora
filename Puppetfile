@@ -1,6 +1,7 @@
 forge 'http://forge.puppetlabs.com'
 
 # Modules from Puppet Forge
+mod 'pfmooney/mit_krb5'
 mod 'puppet/autofs'
 mod 'puppetlabs/apt'
 mod 'puppetlabs/concat'
