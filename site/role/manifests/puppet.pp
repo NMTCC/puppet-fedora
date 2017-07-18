@@ -1,6 +1,6 @@
-# class roles::puppet
+# class role::puppet
 
-class roles::puppet {
+class role::puppet {
 
   include profiles::puppet
   include profiles::couchdb

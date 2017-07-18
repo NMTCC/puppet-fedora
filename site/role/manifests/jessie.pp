@@ -1,6 +1,6 @@
-# class roles::debian
+# class role::jessie
 
-class roles::debian {
+class role::jessie {
 
   include profiles::nmt
   include profiles::nmt::autofs

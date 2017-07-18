@@ -2,15 +2,12 @@ File { backup => false, }
 
 node default {
 
-  case $::operatingsystem {
-    'Fedora': {
-      include roles::fedora
-    }
-    'Debian': {
-      include roles::debian
+  case $::puppetversion {
+    '3.7.2': {
+      include role::jessie
     }
     default: {
-      warning('No role for this distribution.')
+      include role::stretch
     }
   }
 
