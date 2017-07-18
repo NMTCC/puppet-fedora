@@ -1,20 +1,22 @@
-forge "http://forge.puppetlabs.com"
+forge 'http://forge.puppetlabs.com'
 
-#Needed forge modules go here
-mod "puppetlabs/stdlib"
-mod "puppetlabs/puppetdb"
-mod "spiette/selinux"
-mod "saz/sudo"
-mod "maestrodev/wget"
-mod "puppetlabs/vcsrepo"
-mod "puppetlabs/inifile"
-mod "puppetlabs/postgresql"
-mod "puppetlabs/firewall"
-mod "puppetlabs/apt"
-mod "puppetlabs/concat"
-mod "puppetlabs/rsync"
-mod "puppetlabs/xinetd"
+# Modules from Puppet Forge
+mod 'maestrodev/wget'
+mod 'puppet/autofs'
+mod 'puppetlabs/apt'
+mod 'puppetlabs/concat'
+mod 'puppetlabs/firewall'
+mod 'puppetlabs/inifile'
+mod 'puppetlabs/postgresql'
+mod 'puppetlabs/puppetdb'
+mod 'puppetlabs/rsync'
+mod 'puppetlabs/stdlib'
+mod 'puppetlabs/vcsrepo'
+mod 'puppetlabs/xinetd'
+mod 'saz/sudo'
+mod 'spiette/selinux'
 
+# Modules from git
 mod 'couchdb',
   :git => 'https://github.com/camptocamp/puppet-couchdb.git'
 
