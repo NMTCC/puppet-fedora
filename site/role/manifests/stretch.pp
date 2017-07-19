@@ -6,8 +6,11 @@ class role::stretch {
   include profile::base
   include profile::ldap
   include profile::kerberos
+  include profile::packages
   include profile::sshd
   include profile::sssd
   include profile::sudo
+
+  Class[profile::apt] -> Class[profile::packages]
 
 }
