@@ -1,6 +1,7 @@
 # Debian workstation
 class role::stretch {
 
+  include profile::apt
   include profile::automount
   include profile::base
   include profile::ldap
