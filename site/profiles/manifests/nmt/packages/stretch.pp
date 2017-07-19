@@ -181,6 +181,7 @@ class profiles::nmt::packages::stretch {
     'lightdm-gtk-greeter',
     'linuxdoc-tools',
     'lm-sensors',
+    'lsb-release',
     'lvm2',
     'lxqt',
     'lynx',
