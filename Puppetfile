@@ -1,7 +1,9 @@
 forge 'http://forge.puppetlabs.com'
 
 # Modules from Puppet Forge
+mod 'camptocamp/openldap'
 mod 'herculesteam/augeasproviders_core'
+mod 'herculesteam/augeasproviders_shellvar'
 mod 'herculesteam/augeasproviders_ssh'
 mod 'pfmooney/mit_krb5'
 mod 'puppet/autofs'
