@@ -14,6 +14,8 @@ mod 'puppetlabs/rsync'
 mod 'puppetlabs/stdlib'
 mod 'puppetlabs/xinetd'
 mod 'saz/sudo'
+mod 'trlinkin/nsswitch'
+mod 'walkamongus/sssd'
 # deprecated
 mod 'maestrodev/wget'
 mod 'puppetlabs/firewall'
