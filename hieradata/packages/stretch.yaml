@@ -62,7 +62,6 @@ packlist:
   - 'filelight'
   - 'filezilla'
   - 'firefox-esr'
-  - 'firewalld'
   - 'flex'
   - 'fluxbox'
   - 'fonts-dejavu'
