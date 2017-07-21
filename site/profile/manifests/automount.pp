@@ -14,11 +14,11 @@ class profile::automount {
       require => File['libexec'],;
 
     '/usr/local/libexec/auto.fs':
-      ensure => present,
-      owner  => 'root',
-      group  => 'root',
-      mode   => '0755',
-      source => "${moduleloc}/auto.fs",
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      source  => "${moduleloc}/auto.fs",
       require => File['libexec'],;
 
   }

@@ -3,8 +3,14 @@ class profile::sudo {
 
   class { '::sudo': }
 
+  $disks = '/bin/mount, /bin/umount, /usr/bin/eject'
+  $files = '/bin/ls, /bin/chgrp, /usr/bin/file, /usr/bin/du'
+  $procs = '/bin/ps, /bin/kill, /usr/bin/nice, /usr/bin/renice, /usr/bin/killall'
+  $other = '/bin/systemctl, /usr/bin/wall'
+  $deploy = '/usr/local/bin/reapply, /usr/local/bin/reseed'
+
   sudo::conf { 'ucsh':
-    content => '%tape ALL = (root) NOPASSWD: /usr/bin/du, /usr/bin/file, /bin/ls, /usr/bin/nice, /usr/bin/renice, /bin/ps, /bin/mount, /bin/umount, /bin/kill, /usr/bin/killall, /usr/bin/wall, /usr/bin/eject, /bin/chgrp, /bin/systemctl, /usr/local/bin/reapply, /usr/local/bin/reseed',
+    content => "%tape ALL = (root) NOPASSWD: ${disks}, ${files}, ${procs}, ${other}, ${deploy}",
   }
 
 }
