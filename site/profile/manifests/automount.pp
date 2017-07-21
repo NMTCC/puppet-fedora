@@ -11,7 +11,7 @@ class profile::automount {
       group   => 'root',
       mode    => '0755',
       source  => "${moduleloc}/auto.home",
-      require => File['libexec'],;
+      require => File['/usr/local/libexec'],;
 
     '/usr/local/libexec/auto.fs':
       ensure  => present,
@@ -19,7 +19,7 @@ class profile::automount {
       group   => 'root',
       mode    => '0755',
       source  => "${moduleloc}/auto.fs",
-      require => File['libexec'],;
+      require => File['/usr/local/libexec'],;
 
   }
 
