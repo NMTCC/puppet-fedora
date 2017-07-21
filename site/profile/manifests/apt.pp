@@ -1,6 +1,8 @@
 # Configure apt
 class profile::apt {
 
+  package { 'apt-transport-https': }
+
   class { 'apt':
     purge  => {
       'sources.list'   => true,

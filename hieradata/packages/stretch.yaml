@@ -6,7 +6,6 @@ packlist:
   - 'alpine'
   - 'alsamixergui'
   - 'apcupsd'
-  - 'apt-transport-https'
   - 'arduino'
   - 'aria2'
   - 'audacious'
