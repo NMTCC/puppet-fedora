@@ -7,8 +7,11 @@ node default {
     '3.7.2': {
       include role::jessie
     }
-    default: {
+    '4.8.2': {
       include role::stretch
+    }
+    default: {
+      warning('No role for this Puppet Agent version.')
     }
   }
 
