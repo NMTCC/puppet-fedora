@@ -16,29 +16,74 @@ class profile::apt {
   }
 
   # import keys
-  apt::key { 'google-linux':
-    id     => '4CCA1EAF950CEE4AB83976DCA040830F7FAC5991',
-    server => 'pgp.mit.edu',
-    source => 'https://dl.google.com/linux/linux_signing_key.pub',
+  # apt-key output changed in Stretch, and apt::key
+  # currently execs every run, so we have to do this... :\
+  $keys = '/usr/local/share/apt-keys'
+
+  file { $keys:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'staff',
+    mode   => '2775',
   }
 
-  apt::key { 'puppet':
-    id     => '6F6B15509CF8E59E6E469F327F438280EF8D349F',
-    server => 'pgp.mit.edu',
-    source => 'https://apt.puppet.com/pubkey.gpg',
+  include wget
+
+  wget::fetch { 'google-linux-key':
+    source      => 'https://dl.google.com/linux/linux_signing_key.pub',
+    destination => "${keys}/",
+    require     => File[$keys],
   }
 
-  apt::key { 'nmt':
-    id     => '6B9BE830DEB754D51DA1EF5D9A316557DA217D04',
-    server => 'pgp.mit.edu',
-    source => 'http://duplicon.nmt.edu/nmt/nmt.gpg.key',
+  wget::fetch { 'puppet-key':
+    source      => 'https://apt.puppet.com/pubkey.gpg',
+    destination => "${keys}/",
+    require     => File[$keys],
   }
 
-  apt::key { 'obspy':
-    id     => 'AB88DF222C40D448E99F0F07054D40E834811F05',
-    server => 'pgp.mit.edu',
-    source =>
+  wget::fetch { 'nmt-key':
+    source      => 'http://duplicon.nmt.edu/nmt/nmt.gpg.key',
+    destination => "${keys}/",
+    require     => File[$keys],
+  }
+
+  wget::fetch { 'obspy-key':
+    source      =>
       'https://raw.githubusercontent.com/obspy/obspy/master/misc/debian/public.key',
+    destination => "${keys}/",
+    require     => File[$keys],
+  }
+
+  $gpgopts =
+    '--fingerprint --with-colons --keyring /etc/apt/trusted.gpg --no-default-keyring'
+
+  $google_fingerprint = '4CCA1EAF950CEE4AB83976DCA040830F7FAC5991'
+  $puppet_fingerprint = '6F6B15509CF8E59E6E469F327F438280EF8D349F'
+  $nmt_fingerprint = '6B9BE830DEB754D51DA1EF5D9A316557DA217D04'
+  $obspy_fingerprint = 'AB88DF222C40D448E99F0F07054D40E834811F05'
+
+  exec { 'add-google-linux-key':
+    command => "apt-key add ${keys}/linux_signing_key.pub",
+    unless  => "gpg ${gpgopts} | grep ${google_fingerprint}",
+    require => Wget::Fetch['google-linux-key'],
+  }
+
+  exec { 'add-puppet-key':
+    command => "apt-key add ${keys}/pubkey.gpg",
+    unless  => "gpg ${gpgopts} | grep ${puppet_fingerprint}",
+    require => Wget::Fetch['puppet-key'],
+  }
+
+  exec { 'add-nmt-key':
+    command => "apt-key add ${keys}/nmt.gpg.key",
+    unless  => "gpg ${gpgopts} | grep ${nmt_fingerprint}",
+    require => Wget::Fetch['nmt-key'],
+  }
+
+  exec { 'add-obspy-key':
+    command => "apt-key add ${keys}/public.key",
+    unless  => "gpg ${gpgopts} | grep ${obspy_fingerprint}",
+    require => Wget::Fetch['obspy-key'],
   }
 
   # third party repos
@@ -49,7 +94,7 @@ class profile::apt {
     include  => {
       'deb' => true,
     },
-    require  => Apt_key['google-linux'],
+    require  => Exec['add-google-linux-key'],
   }
 
 # Puppet is still signing with SHA1
@@ -62,7 +107,7 @@ class profile::apt {
 #      'deb' => true,
 #    },
 #    require  => [
-#      Apt_key['puppet'],
+#      Exec['add-puppet-key'],
 #      Package['apt-transport-https'],
 #    ],
 #  }
@@ -74,7 +119,7 @@ class profile::apt {
     include  => {
       'deb' => true,
     },
-    require  => Apt_key['nmt'],
+    require  => Exec['add-nmt-key'],
   }
 
 # 20170719 - ObsPy has no stretch builds available
@@ -85,7 +130,7 @@ class profile::apt {
 #    include  => {
 #      'deb' => true,
 #    },
-#    require  => Apt_key['obspy'],
+#    require  => Exec['add-obspy-key'],
 #  }
 
   # standard repos

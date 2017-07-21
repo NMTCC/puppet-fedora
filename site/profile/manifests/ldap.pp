@@ -23,7 +23,6 @@ class profile::ldap {
   }
 
   exec { 'cahashlink':
-    path        => '/bin:/usr/bin',
     command     => 'c_rehash /etc/ssl/certs',
     require     => File['/etc/ssl/certs/itcCA.pem'],
     subscribe   => File['/usr/share/ca-certificates/nmt/itcCA.pem'],

@@ -328,7 +328,7 @@ packlist:
   - 'vim-gtk'
   - 'vlc'
   - 'w3m-img'
-  - 'wget'
+#  - 'wget'
   - 'wine'
   - 'wireshark'
   - 'wmaker'
