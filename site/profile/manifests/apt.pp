@@ -170,4 +170,17 @@ class profile::apt {
     },
   }
 
+  # config
+  file { '/etc/apt/apt.conf.d/50appstream':
+    ensure => absent,
+  }
+
+  file { '/etc/apt/apt.conf.d/99nmt':
+    ensure  => file,
+    content => "Acquire::Languages \"none\";\n",
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+  }
+
 }
