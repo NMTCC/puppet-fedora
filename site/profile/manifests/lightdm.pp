@@ -20,9 +20,8 @@ class profile::lightdm {
     require => File['/usr/local/libexec'],
   }
 
-  $nmtlightdm = '/etc/lightdm/lightdm.conf.d/lightdm-tcc.conf'
+  $nmtlightdm = '/etc/lightdm/lightdm.conf.d/lightdm-nmt.conf'
   $lightdmgreeter = '/etc/lightdm/lightdm-gtk-greeter.conf'
-  $lightdmxsession = '/usr/share/xsessions/lightdm-xsession.desktop'
 
   ini_setting {
 
@@ -48,6 +47,14 @@ class profile::lightdm {
       section => 'SeatDefaults',
       setting => 'greeter-allow-guest',
       value   => false,
+      require => File['/etc/lightdm/lightdm.conf.d'],;
+
+    'lightdm-user-session':
+      ensure  => present,
+      path    => $nmtlightdm,
+      section => 'SeatDefaults',
+      setting => 'user-session',
+      value   => 'lightdm-xsession',
       require => File['/etc/lightdm/lightdm.conf.d'],;
 
     'lightdm-session-cleanup-script':
@@ -90,22 +97,6 @@ class profile::lightdm {
       value   => '%a %m/%d, %I:%M %p',
       require => Package['lightdm-gtk-greeter'],;
 
-    'lightdm-Exec':
-      ensure  => present,
-      path    => $lightdmxsession,
-      section => 'Desktop Entry',
-      setting => 'Exec',
-      value   => 'cinnamon-session-cinnamon',
-      require => Package['lightdm-gtk-greeter'],;
-
-    'lightdm-TryExec':
-      ensure  => present,
-      path    => $lightdmxsession,
-      section => 'Desktop Entry',
-      setting => 'TryExec',
-      value   => '/usr/bin/cinnamon',
-      require => Package['lightdm-gtk-greeter'],;
-
   }
 
   file { '/usr/share/backgrounds/nmtstretch.png':
@@ -114,6 +105,11 @@ class profile::lightdm {
     group  => 'root',
     mode   => '0644',
     source => "${moduleloc}/nmtstretch.png",
+  }
+
+  file { '/etc/alternatives/x-session-manager':
+    ensure => link,
+    target => '/usr/bin/cinnamon-session',
   }
 
   file { '/etc/alternatives/x-cursor-theme':
@@ -129,13 +125,12 @@ class profile::lightdm {
         'lightdm-allow-user-switching',
         'lightdm-greeter-hide-users',
         'lightdm-greeter-allow-guest',
+        'lightdm-user-session',
         'lightdm-session-cleanup-script',
         'lightdm-hidden-users',
         'lightdm-background',
         'lightdm-show-clock',
         'lightdm-clock-format',
-        'lightdm-Exec',
-        'lightdm-TryExec',
       ],
       File['/usr/share/backgrounds/nmtstretch.png'],
     ],
