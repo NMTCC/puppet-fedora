@@ -7,6 +7,7 @@ class role::stretch {
   include profile::firewall
   include profile::ldap
   include profile::lightdm
+  include profile::localtime
   include profile::kerberos
   include profile::packages
   include profile::sshd
