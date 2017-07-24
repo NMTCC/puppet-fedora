@@ -5,7 +5,6 @@ packlist:
   - 'ack'
   - 'alpine'
   - 'alsamixergui'
-  - 'apcupsd'
   - 'arduino'
   - 'aria2'
   - 'audacious'
