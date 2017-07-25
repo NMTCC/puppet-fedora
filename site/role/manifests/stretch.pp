@@ -12,6 +12,7 @@ class role::stretch {
   include profile::kerberos
   include profile::packages
   include profile::scripts
+  include profile::services
   include profile::sshd
   include profile::sssd
   include profile::sudo

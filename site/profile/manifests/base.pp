@@ -44,4 +44,13 @@ class profile::base {
     match  => '^XKBOPTIONS',
   }
 
+  file { '/etc/network/interfaces':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content =>
+      "source /etc/network/interfaces.d/*\nauto lo\niface lo inet loopback\n",
+  }
+
 }
