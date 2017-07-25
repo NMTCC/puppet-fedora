@@ -176,7 +176,7 @@ class profiles::nmt::config::jessie {
 
   rsync::get { 'wallpapers':
     source    => "userhost.nmt.edu::wallpapers",
-    path      => '/usr/share/backgrounds/itc',
+    path      => '/usr/share/backgrounds/nmt',
     recursive => true,
     links     => true,
     times     => true,
