@@ -54,7 +54,7 @@ class profiles::nmt::config::jessie {
   configfile { 'nmtmutt.rc': dest => '/etc/Muttrc.d', }
   configfile { 'pine.conf': dest => '/etc', }
   configfile { 'rssh.conf': dest => '/etc', }
-  configfile { 'itcjessie.png': dest => '/usr/share/backgrounds', }
+  configfile { 'nmtjessie.png': dest => '/usr/share/backgrounds', }
   configfile { 'client.conf': dest => '/etc/cups', }
   configfile { 'smartd.conf': dest => '/etc', }
   configfile { '65-iscan.rules': dest => '/lib/udev/rules.d', }
