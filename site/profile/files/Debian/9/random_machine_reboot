@@ -1,0 +1,25 @@
+#!/bin/bash
+
+ME=$(hostname -s)
+BASE="ou=clients,ou=machines,dc=tcc,dc=nmt,dc=edu"
+ATTR="tccSpecialOS"
+
+# Reboot instructor stations to Windows
+if [ "${ME: -4}" = "inst" ]
+then
+	exec /usr/local/libexec/reboot_to_win
+fi
+
+# Reboot odd numbered computers to Windows
+if [ $((${ME: -1} % 2)) -eq 1 ]
+then
+	exec /usr/local/libexec/reboot_to_win
+fi
+
+SOS=$(ldapsearch -xZZLLL -b $BASE cn=$ME $ATTR | awk 'NR == 2 { print $2 }')
+
+# Reboot tagged machines
+if [ "$SOS" == "Windows" ]
+then
+	exec /usr/local/libexec/reboot_to_win
+fi

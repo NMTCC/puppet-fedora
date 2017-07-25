@@ -1,0 +1,16 @@
+#!/bin/sh
+
+LOGF="/var/log/auth.log"
+DATE="$(date '+%b %d')"
+MSUB="** SECURITY information for $(hostname -f) **"
+
+sudosearch () {
+
+	cat $1.1 $1 | grep -e "$2.*sudoers"
+
+}
+
+if sudosearch $LOGF $DATE >> /dev/null 2>&1
+then
+	sudosearch $LOGF $DATE | mail -s "$MSUB" itc-eng@nmt.edu
+fi

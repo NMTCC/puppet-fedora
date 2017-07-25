@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Reboots a machine to Windows
+# It does some checks first, pass "--force" to override
+
+oops() {
+
+	if [ "$1" != "--force" ]
+	then
+		printf "$(date) $2\n"
+		exit 1
+	fi
+
+}
+
+# Check for any NTFS partitions
+winpart=$(/sbin/blkid -o device -t TYPE=ntfs)
+if [ "$winpart" == "" ]
+then
+	printf "$(date) No reboot attempted: no NTFS partitions found\n"
+	exit 1
+fi
+
+# Don't ruin apt-get's day
+if lslocks -n -o COMMAND | grep apt > /dev/null 2>&1
+then
+	msg="No reboot attempted: apt doing something"
+	oops "$1" "$msg"
+fi
+
+# Check for any logged in users
+users=$(loginctl --no-legend list-users | grep -v "lightdm\|root" | wc -l)
+if [ "$users" -gt "0" ]
+then
+	msg="No reboot attempted: users logged in"
+	oops "$1" "$msg"
+fi
+
+# Check that we're not running on a staff machine.
+hostname=$(hostname --short)
+base="ou=clients,ou=machines,dc=tcc,dc=nmt,dc=edu"
+staff=$(ldapsearch -xZZLLL -b ${base} cn=${hostname} tccOfficeMachine | sed -n -e '2p' | cut -d ':' -f 2)
+if [ "$staff" != " FALSE" ]
+then
+	msg="No reboot attempted: staff machine"
+	oops "$1" "$msg"
+fi
+
+# We can't read grub.cfg anymore, since the Windows entry is dynamically
+# generated. But if we're here, we found an NTFS partition above.
+# The ITC GRUB2 config will always place Windows as the second menu entry.
+/usr/local/bin/set_next_os 1 10
+systemctl reboot

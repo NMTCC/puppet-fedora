@@ -1,0 +1,34 @@
+#!/bin/sh
+
+zap () {
+	rm -rf $1 >> ~/.nmtresetlog 2>&1
+}
+
+date=$(date)
+host=$(hostname --short)
+printf "reset_linux ($host): $date\n" >> ~/.nmtresetlog
+
+printf "  Log out from all Linux graphical sessions before proceeding.\n"
+printf "  I will remove your Linux desktop environment settings, sessions,\n"
+printf "  cache, and X authority files.\n"
+printf "Continue? <Y/n> "
+read input
+
+if [ "$input" != "Y" ]
+then
+	printf "Aborting per user request...\n"
+	printf "Aborting per user request...\n" >> ~/.nmtresetlog
+	exit
+fi
+
+zap ~/.cache
+zap ~/.dmrc
+zap ~/.ICEauthority
+zap ~/.kde
+zap ~/.local
+zap ~/.gnome2
+zap ~/.Xauthority
+zap ~/.xsession-errors
+zap ~/.config
+
+printf "Done.\n"

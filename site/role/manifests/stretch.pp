@@ -11,6 +11,7 @@ class role::stretch {
   include profile::localtime
   include profile::kerberos
   include profile::packages
+  include profile::scripts
   include profile::sshd
   include profile::sssd
   include profile::sudo

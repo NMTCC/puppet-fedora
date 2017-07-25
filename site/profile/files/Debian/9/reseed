@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ -e "/usr/local/etc/template.conf" ]
+then
+	. /usr/local/etc/template.conf
+else
+	printf "Could not read deployment configuration!\n"
+	exit 66 # EX_NOINPUT from sysexits.h
+fi
+
+export WINMODE="Post"
+
+download_libsync () {
+
+    wget -P /tmp $PRESEED/libsync > /dev/null 2>&1
+    if [ -s "/tmp/libsync" ]
+    then
+        return
+    fi
+    echo "Could not retrieve SYNC library!"
+    exit 69 # EX_UNAVAILABLE from sysexits.h
+
+}
+
+download_libsync
+source /tmp/libsync
+start_transmission
+transmission-remote -t $TORRENT --remove
+sleep 2
+torrent_image
+rm -f /tmp/libsync
+rm -f /tmp/$SEMESTER-$BRANCH.$BUILD.torrent

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+accts=$(loginctl --no-legend list-users | grep -v "lightdm\|root" | awk '{ print $2 }')
+if [ "$accts" ]; then echo $accts; fi
