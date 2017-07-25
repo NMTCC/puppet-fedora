@@ -32,4 +32,9 @@ class profile::base {
     content => "#!/bin/sh\ncat /fs/tcc/motd/motd\n",
   }
 
+  file { '/usr/bin/wall':
+    group => 'tty',
+    mode  => '0755',
+  }
+
 }
