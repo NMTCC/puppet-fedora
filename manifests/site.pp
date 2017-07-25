@@ -1,4 +1,4 @@
-Exec { path => '/bin:/usr/bin:/sbin:/usr/sbin', }
+Exec { path => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', }
 File { backup => false, }
 
 node default {
