@@ -37,4 +37,11 @@ class profile::base {
     mode  => '0755',
   }
 
+  file_line { 'ctrl-alt-bksp':
+    ensure => present,
+    path   => '/etc/default/keyboard',
+    line   => 'XKBOPTIONS="terminate:ctrl_alt_bksp"',
+    match  => '^XKBOPTIONS',
+  }
+
 }
