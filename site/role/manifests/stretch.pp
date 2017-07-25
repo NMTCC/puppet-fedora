@@ -4,6 +4,7 @@ class role::stretch {
   include profile::apt
   include profile::automount
   include profile::base
+  include profile::fail2ban
   include profile::firewall
   include profile::ldap
   include profile::lightdm
