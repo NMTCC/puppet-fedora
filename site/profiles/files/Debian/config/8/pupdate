@@ -3,6 +3,6 @@
 if [ ! -e  /var/lib/puppet/state/agent_catalog_run.lock ]
 then
     apt-mark unhold puppet
-    DEBIAN_FRONTEND=noninteractive apt-get -y dist-upgrade puppet
+    DEBIAN_FRONTEND=noninteractive apt-get -y upgrade puppet
     apt-mark hold puppet
 fi

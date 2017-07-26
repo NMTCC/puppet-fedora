@@ -9,5 +9,5 @@ HOME=/
 # GRUB conf updater
 01  * * * * root /usr/local/bin/grub2
 # Update puppet w/o puppet
-02 04 * * * root /usr/local/libexec/pupdate > /dev/null
+#02 04 * * * root /usr/local/libexec/pupdate > /dev/null
 
