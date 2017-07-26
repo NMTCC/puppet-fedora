@@ -26,6 +26,11 @@ mod 'puppetlabs/vcsrepo'
 mod 'spiette/selinux'
 
 # Modules from git
+mod 'site-data',
+  :git => 'git+ssh://gitolite3@inception.nmt.edu/site-data.git',
+  :branch => 'master',
+  :install_path => 'hieradata'
+
 mod 'couchdb',
   :git => 'https://github.com/camptocamp/puppet-couchdb.git'
 

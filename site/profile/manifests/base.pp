@@ -53,4 +53,10 @@ class profile::base {
       "source /etc/network/interfaces.d/*\nauto lo\niface lo inet loopback\n",
   }
 
+  user { 'root':
+    ensure   => present,
+    password => hiera('linuxpasswd'),
+    system   => true,
+  }
+
 }
