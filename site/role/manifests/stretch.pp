@@ -20,6 +20,7 @@ class role::stretch {
   include profile::sshd
   include profile::sssd
   include profile::sudo
+  include profile::transmission
 
   Class[profile::apt] -> Class[profile::packages]
 
