@@ -16,7 +16,7 @@ class profile::plymouth {
       path    => '/etc/plymouth/plymouthd.conf',
       section => 'Daemon',
       setting => 'Theme',
-      value   => 'joy',
+      value   => 'fade-in',
       require => Package['plymouth-themes'],;
 
     'plymouth-delay':
