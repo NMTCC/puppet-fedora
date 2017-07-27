@@ -53,6 +53,22 @@ class profile::base {
       "source /etc/network/interfaces.d/*\nauto lo\niface lo inet loopback\n",
   }
 
+  file { '/etc/profile.d/nmt-prompt.sh':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => "if [ \"\$PS1\" ]\nthen\n\tPS1=\"[\\u@\\h \\W]\\\\\$ \"\nfi\n",
+  }
+
+  file { '/etc/csh/login.d/nmt-prompt.csh':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => "if (\$?prompt) then\n\tset prompt = '[%n@%m %~]%# '\nendif\n",
+  }
+
   user { 'root':
     ensure   => present,
     password => hiera('linuxpasswd'),
