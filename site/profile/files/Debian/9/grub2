@@ -1,12 +1,14 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-import sys,os
-import socket
-import commands
-import time,random
-import re
 import argparse
 import fnmatch
+import os
+import random
+import re
+import socket
+import subprocess
+import sys
+import time
 
 
 def getKernels():
@@ -37,7 +39,7 @@ def getHashes():
 
 def getGrubRoot():
     # ask GRUB which partition it's on
-    grubnoise = commands.getoutput('/usr/sbin/grub-probe -t compatibility_hint /boot')
+    grubnoise = subprocess.getoutput('/usr/sbin/grub-probe -t compatibility_hint /boot')
     grubpart = None
     for line in grubnoise.split('\n'):
         if re.search('hd\d,\w*\d', line):
@@ -60,7 +62,7 @@ def findWindows():
     # we're determining if Windows is installed here,
     # so we bump the timer count if we find out it is
     timer = 30
-    winpart = commands.getoutput('/sbin/blkid -o device -t TYPE=ntfs')
+    winpart = subprocess.getoutput('/sbin/blkid -o device -t TYPE=ntfs')
     if winpart != "":
         timer = 300
     return winpart, timer
@@ -145,6 +147,7 @@ def writeGrubConf(grubpart, hashes, kernels, path):
     grubconf.write('}\n\n')
     grubconf.write('play 480 932 1\n')
     grubconf.close()
+    os.chmod(path, 0o640)
 
 
 def writeUnlockedConf(grubpart, hashes, kernels, path):
@@ -208,6 +211,7 @@ def writeUnlockedConf(grubpart, hashes, kernels, path):
     unlockedconf.write('\tconfigfile /grub/grub.cfg\n')
     unlockedconf.write('}\n')
     unlockedconf.close()
+    os.chmod(path, 0o640)
 
 
 if __name__ == '__main__':
