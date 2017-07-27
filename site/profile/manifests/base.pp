@@ -69,6 +69,15 @@ class profile::base {
     content => "if (\$?prompt) then\n\tset prompt = '[%n@%m %~]%# '\nendif\n",
   }
 
+  ini_setting { 'disable-gnome-software':
+    ensure  => present,
+    path    => '/etc/xdg/autostart/gnome-software-service.desktop',
+    section => 'Desktop Entry',
+    setting => 'X-GNOME-Autostart-enabled',
+    value   => false,
+    require => Package['gnome'],
+  }
+
   user { 'root':
     ensure   => present,
     password => hiera('linuxpasswd'),
