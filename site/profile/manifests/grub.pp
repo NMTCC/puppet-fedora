@@ -18,12 +18,12 @@ class profile::grub {
 
   }
 
-  file { 'grubtheme':
+  file { 'nmt-grub-theme':
     ensure  => directory,
     owner   => 'root',
     group   => 'root',
-    path    => '/boot',
-    source  => "${moduleloc}/boot",
+    path    => '/boot/grub/themes',
+    source  => "${moduleloc}/grub-themes",
     recurse => true,
     links   => 'manage',
   }
@@ -35,7 +35,7 @@ class profile::grub {
     mode    => '0755',
     source  => "${moduleloc}/grub2",
     require => [
-      File['grubtheme'],
+      File['nmt-grub-theme'],
       User['nmtgrubitc'],
       User['nmtgrubact'],
     ],
