@@ -32,8 +32,10 @@ class profile::kerberos {
   k5login { '/root/.k5login':
     ensure     => present,
     principals => [
-      'ken@NMT.EDU',
       'dgraham@NMT.EDU',
+      'jluster@NMT.EDU',
+      'ken@NMT.EDU',
+      'travis@NMT.EDU',
     ]
   }
 
