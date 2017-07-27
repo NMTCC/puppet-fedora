@@ -23,6 +23,8 @@ class profile::lightdm {
   $nmtlightdm = '/etc/lightdm/lightdm.conf.d/lightdm-nmt.conf'
   $lightdmgreeter = '/etc/lightdm/lightdm-gtk-greeter.conf'
 
+  Ini_setting { key_val_separator => '=', }
+
   ini_setting {
 
     'lightdm-allow-user-switching':

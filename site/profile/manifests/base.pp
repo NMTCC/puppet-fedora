@@ -70,12 +70,13 @@ class profile::base {
   }
 
   ini_setting { 'disable-gnome-software':
-    ensure  => present,
-    path    => '/etc/xdg/autostart/gnome-software-service.desktop',
-    section => 'Desktop Entry',
-    setting => 'X-GNOME-Autostart-enabled',
-    value   => false,
-    require => Package['gnome'],
+    ensure            => present,
+    path              => '/etc/xdg/autostart/gnome-software-service.desktop',
+    section           => 'Desktop Entry',
+    key_val_separator => '=',
+    setting           => 'X-GNOME-Autostart-enabled',
+    value             => false,
+    require           => Package['gnome'],
   }
 
   user { 'root':

@@ -12,20 +12,22 @@ class profile::plymouth {
   ini_setting {
 
     'plymouth-theme':
-      ensure  => present,
-      path    => '/etc/plymouth/plymouthd.conf',
-      section => 'Daemon',
-      setting => 'Theme',
-      value   => 'fade-in',
-      require => Package['plymouth-themes'],;
+      ensure            => present,
+      path              => '/etc/plymouth/plymouthd.conf',
+      section           => 'Daemon',
+      key_val_separator => '=',
+      setting           => 'Theme',
+      value             => 'fade-in',
+      require           => Package['plymouth-themes'],;
 
     'plymouth-delay':
-      ensure  => present,
-      path    => '/etc/plymouth/plymouthd.conf',
-      section => 'Daemon',
-      setting => 'ShowDelay',
-      value   => '0',
-      require => Package['plymouth-themes'],;
+      ensure            => present,
+      path              => '/etc/plymouth/plymouthd.conf',
+      section           => 'Daemon',
+      key_val_separator => '=',
+      setting           => 'ShowDelay',
+      value             => '0',
+      require           => Package['plymouth-themes'],;
 
   }
 
