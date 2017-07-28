@@ -1,0 +1,19 @@
+# NMT Configuration for Mutt
+# see https://dev.mutt.org/trac/wiki/UseCases/Gmail
+set hostname = "nmt.edu"
+set ssl_starttls = "yes"
+set ssl_force_tls = "yes"
+set spoolfile = "imaps://imap.gmail.com/INBOX"
+set folder = "imaps://imap.gmail.com/"
+set record = ""
+set postponed = "imaps://imap.gmail.com/[Gmail]/Drafts"
+set mbox = "imaps://imap.gmail.com/[Gmail]/All Mail"
+set move = "no"
+
+bind editor <space> noop
+macro index,pager y "<save-message>=[Gmail]/All Mail<enter><enter>" "Archive"
+macro index,pager d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
+macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
