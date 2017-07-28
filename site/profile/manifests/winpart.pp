@@ -1,6 +1,9 @@
 # Configure Windows mount
 class profile::winpart {
 
+  $moduleloc =
+    "puppet:///modules/profile/${::operatingsystem}/${::operatingsystemmajrelease}"
+
   if $::template == 'dual-boot' {
 
     file { '/etc/systemd/system/media-winpart.mount':
@@ -55,6 +58,15 @@ class profile::winpart {
       command     => 'systemctl daemon-reload',
       subscribe   => File['/etc/systemd/system/media-winpart.mount'],
       refreshonly => true,
+    }
+
+    file { '/usr/local/libexec/fix-windows':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      source  => "${moduleloc}/fix-windows",
+      require => File['/usr/local/libexec'],
     }
 
   }

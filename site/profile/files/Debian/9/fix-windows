@@ -1,0 +1,21 @@
+#!/bin/sh
+
+PROGRAMDATA="/media/winpart/ProgramData"
+PUPPETLOCK="$PROGRAMDATA/PuppetLabs/puppet/cache/state/agent_catalog_run.lock"
+CHOCOCONF="$PROGRAMDATA/chocolatey/config/chocolatey.config"
+
+systemctl start media-winpart.mount
+
+# remove stale Puppet Agent lockfile
+if [ -e "$PUPPETLOCK" ]
+then
+	rm -f $PUPPETLOCK
+fi
+
+# remove corrupt Chocolatey config
+if [ -e "$CHOCOCONF" ] && ! file -b $CHOCOCONF | grep XML > /dev/null 2>&1
+then
+	rm -f $CHOCOCONF
+fi
+
+systemctl stop media-winpart.mount
