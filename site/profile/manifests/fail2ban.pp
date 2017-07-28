@@ -1,6 +1,9 @@
 # Configure fail2ban
 class profile::fail2ban {
 
+  $moduleloc =
+    "puppet:///modules/profile/${::operatingsystem}/${::operatingsystemmajrelease}"
+
   package { 'fail2ban': }
 
   $localjail = '/etc/fail2ban/jail.d/local.conf'
@@ -175,6 +178,15 @@ class profile::fail2ban {
       Ini_setting['f2b-rec-maxretry'],
       Ini_setting['f2b-dbpurgeage'],
     ],
+  }
+
+  file { '/usr/local/libexec/fail2log':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    source  => "${moduleloc}/fail2log",
+    require => File['/usr/local/libexec'],
   }
 
 }
