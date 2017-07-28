@@ -41,6 +41,12 @@ class profile::scripts {
     source => "${moduleloc}/sfdisk2parted",
   }
 
+  $line1 = 'To change your password, please visit https://tcc.nmt.edu/password/.'
+  $line2 = 'Log in with your NMT account, and follow the password rules.'
+  file { '/usr/local/bin/passwd':
+    content => "#!/bin/sh\nprintf \"${line1}\\n\"\nprintf \"${line2}\\n\"\n",
+  }
+
   # /usr/local/libexec
   file { '/usr/local/libexec/kick_old_x_session':
     source => "${moduleloc}/kick_old_x_session",
