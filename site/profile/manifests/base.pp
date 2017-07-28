@@ -1,6 +1,9 @@
 # Configure basic stuff
 class profile::base {
 
+  $moduleloc =
+    "puppet:///modules/profile/${::operatingsystem}/${::operatingsystemmajrelease}"
+
   file { '/usr/local/libexec':
     ensure => directory,
     owner  => 'root',
@@ -77,6 +80,20 @@ class profile::base {
     setting           => 'X-GNOME-Autostart-enabled',
     value             => false,
     require           => Package['gnome'],
+  }
+
+  file { '/usr/bin/sl':
+    ensure  => link,
+    target  => '/usr/games/sl',
+    require => Package['sl'],
+  }
+
+  file { '/lib/udev/rules.d/65-iscan.rules':
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => "${moduleloc}/65-iscan.rules",
   }
 
   user { 'root':

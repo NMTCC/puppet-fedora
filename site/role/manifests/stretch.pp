@@ -16,6 +16,7 @@ class role::stretch {
   include profile::packages
   include profile::plymouth
   include profile::puppet
+  include profile::rssh
   include profile::scripts
   include profile::services
   include profile::smartd
@@ -23,6 +24,7 @@ class role::stretch {
   include profile::sssd
   include profile::sudo
   include profile::transmission
+  include profile::winpart
 
   Class[profile::apt] -> Class[profile::packages]
 
