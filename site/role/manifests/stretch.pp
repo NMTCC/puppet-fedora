@@ -18,6 +18,7 @@ class role::stretch {
   include profile::puppet
   include profile::scripts
   include profile::services
+  include profile::smartd
   include profile::sshd
   include profile::sssd
   include profile::sudo
