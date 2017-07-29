@@ -1,7 +1,17 @@
-Facter.add("cpu_flags") do 
-  confine :operatingsystem => "Fedora"
+Facter.add('processorflags') do 
+  confine :kernel => 'Linux'
 
   setcode do
-    Facter::Util::Resolution.exec("cat /proc/cpuinfo | grep 'flags' | uniq").gsub(/\s*?flags\s*?:\s*?/,'')
+    flags = []
+    cpuinfo = File.open('/proc/cpuinfo')
+    cpuinfo.each_line do |line|
+      if line =~ /flags/
+        flags = line.split(':')[1].chomp.split.sort
+        break
+      end
+    end
+    cpuinfo.close
+    result = flags
   end
+
 end
