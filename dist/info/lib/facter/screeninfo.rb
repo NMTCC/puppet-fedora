@@ -1,20 +1,11 @@
-Facter.add("screencount") do
-  confine :operatingsystem => "Fedora"
+Facter.add('resolution') do
+  confine :kernel => 'Linux'
 
   setcode do
-    `DISPLAY=:0 xrandr 2>&1 | grep -E "\sconnected" | wc -l`.to_i
+    kres = File.open('/sys/class/graphics/fb0/virtual_size', 'rb')
+    xy = kres.read.chomp.split(',')
+    kres.close
+    result = [xy[0].to_i, xy[1].to_i]
   end
   
-  resolutions = `DISPLAY=:0 xrandr 2>&1 | grep -E "\sconnected" -A1 --no-group-separator | grep -v -E "\sconnected" | cut -f 4 -d" "`.split("\n")
-  $stderr.reopen("/dev/null", "w")
-end
-
-(0..Facter.value('screencount').to_i).each do |n|
-  Facter.add("screen%d_resolution" % n) do
-  confine :operatingsystem => "Fedora"
-  
-  setcode do
-      resolutions[n]
-    end
-  end
 end
