@@ -2,7 +2,7 @@ Facter.add(:torrentsactive) do
   confine :kernel => "Linux"
 
   setcode do
-    torrents = `transmission-remote -t all -i | awk '/Hash/ { print $2 }'`
+    torrents = `pgrep transmission-daemon && transmission-remote -t all -i | awk '/Hash/ { print $2 }'`
     result = torrents.split()
   end
 
