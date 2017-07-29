@@ -1,4 +1,4 @@
-Facter.add("netdrivers") do
+Facter.add('netdrivers') do
   confine :kernel => 'Linux'
 
   setcode do

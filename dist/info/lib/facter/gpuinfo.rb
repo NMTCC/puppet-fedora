@@ -1,19 +1,16 @@
-Facter.add("gpucount") do
-  confine :operatingsystem => "Fedora"
+Facter.add('gpudrivers') do
+  confine :kernel => 'Linux'
 
   setcode do
-    `lspci -m | grep -i vga | wc -l`.to_i
+    drivers = {}
+    uevent = File.open('/sys/class/drm/card0/device/uevent', 'rb')
+    lines = uevent.read.chomp.split("\n")
+    uevent.close
+    lines.sort!
+    driver = lines[0].chomp.split('=')[1]
+    pciid = lines[3].chomp.split('=')[1]
+    drivers[driver] = [pciid]
+    result = drivers
   end
   
-  gpus = `lspci -m | grep -i vga | cut -f 4-6 -d'"' | tr -d '"'`.split("\n")
-end
-
-(0..Facter.value('gpucount').to_i).each do |n|
-  Facter.add("gpu%d" % n) do
-  confine :operatingsystem => "Fedora"
-
-  setcode do
-      gpus[n]
-    end
-  end
 end
