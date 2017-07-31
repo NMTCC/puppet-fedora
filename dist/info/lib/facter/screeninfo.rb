@@ -9,3 +9,32 @@ Facter.add('resolution') do
   end
   
 end
+
+Facter.add('monitor') do
+  confine :kernel => 'Linux'
+
+  setcode do
+    monitor = {
+      'Manufacturer' => '',
+      'Monitor name' => '',
+      'Serial number' => ''
+    }
+    Dir.chdir('/sys/class/drm/card0')
+    vidints = Dir.glob('card0-*')
+    edid = ''
+    vidints.each do |vid|
+      edid = `/usr/bin/edid-decode /sys/class/drm/card0/#{vid}/edid`
+      if $?.success?
+        break
+      end
+    end
+    edid.split("\n").each do |line|
+      monitor.each_key do |value|
+        if line =~ /#{value}/
+          monitor[value] = line.split(': ')[1].chomp
+        end
+      end
+    result = monitor
+  end
+
+end

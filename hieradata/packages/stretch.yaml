@@ -50,6 +50,7 @@ packlist:
   - 'eclipse'
   - 'eclipse-cdt'
   - 'ecryptfs-utils'
+  - 'edid-decode'
   - 'elinks'
   - 'emacs'
   - 'enigmail'
