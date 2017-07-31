@@ -10,7 +10,7 @@ mod 'maestrodev/wget'
 mod 'pfmooney/mit_krb5'
 mod 'puppet/autofs'
 mod 'puppetlabs/apt'
-mod 'puppetlabs/concat'
+mod 'puppetlabs/concat', '3.0.0' # blame remctl
 mod 'puppetlabs/inifile'
 mod 'puppetlabs/rsync'
 mod 'puppetlabs/stdlib'
@@ -18,12 +18,6 @@ mod 'puppetlabs/xinetd'
 mod 'saz/sudo'
 mod 'trlinkin/nsswitch'
 mod 'walkamongus/sssd'
-# deprecated
-mod 'puppetlabs/firewall'
-mod 'puppetlabs/postgresql'
-mod 'puppetlabs/puppetdb'
-mod 'puppetlabs/vcsrepo'
-mod 'spiette/selinux'
 
 # Modules from git
 mod 'site-data',
@@ -31,8 +25,6 @@ mod 'site-data',
   :branch => 'master',
   :install_path => 'hieradata'
 
-mod 'couchdb',
-  :git => 'https://github.com/camptocamp/puppet-couchdb.git'
-
 mod 'remctl',
-  :git => 'https://github.com/NMTCC/puppet-remctl.git'
+  :git => 'https://github.com/ccin2p3/puppet-remctl',
+  :tag => 'v2.2.2'

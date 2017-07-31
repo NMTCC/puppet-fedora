@@ -18,6 +18,7 @@ class role::stretch {
   include profile::plymouth
   include profile::postfix
   include profile::puppet
+  include profile::remctl
   include profile::rssh
   include profile::rsync
   include profile::scripts
