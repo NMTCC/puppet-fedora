@@ -12,5 +12,5 @@ sudosearch () {
 
 if sudosearch $LOGF $DATE >> /dev/null 2>&1
 then
-	sudosearch $LOGF $DATE | mail -s "$MSUB" itc-eng@nmt.edu
+	sudosearch $LOGF $DATE | s-nail -s "$MSUB" itc-eng@nmt.edu
 fi

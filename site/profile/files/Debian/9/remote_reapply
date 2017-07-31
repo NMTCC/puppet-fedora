@@ -34,4 +34,4 @@ fi
 
 date2="$(date)"
 
-printf "I completed the template application process with $TEMPLATE.\n\n * Started at: $date1\n * Finished at: $date2\n\n * NTFS boot partition return code was: $res1\n * NTFS main partition return code was: $res2\n\nDon't forget to clean my old Puppet certificates!\n\nSincerely,\n$ME" | mail -r "$ME@nmt.edu" -s "$ME reapply" itc-triage@nmt.edu
+printf "I completed the template application process with $TEMPLATE.\n\n * Started at: $date1\n * Finished at: $date2\n\n * NTFS boot partition return code was: $res1\n * NTFS main partition return code was: $res2\n\nDon't forget to clean my old Puppet certificates!\n\nSincerely,\n$ME" | s-nail -r "$ME@nmt.edu" -s "$ME reapply" itc-triage@nmt.edu

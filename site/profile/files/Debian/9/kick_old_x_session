@@ -17,5 +17,5 @@ SCREEN=$(DISPLAY=:0 XAUTHORITY=$MAGIC xset -q | grep Monitor 2>/dev/null)
 if [ "$SCREEN" == "Monitor is Off" ]
 then
     loginctl terminate-user $ACCT
-    printf "User $ACCT was kicked from $ME on $DATE.\n\nSincerely,\n$ME\n" | mail -r "$ME@nmt.edu" -s "$ME kicked a user" itc-uc@nmt.edu
+    printf "User $ACCT was kicked from $ME on $DATE.\n\nSincerely,\n$ME\n" | s-nail -r "$ME@nmt.edu" -s "$ME kicked a user" itc-uc@nmt.edu
 fi
