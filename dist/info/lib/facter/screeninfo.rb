@@ -34,6 +34,7 @@ Facter.add('monitor') do
           monitor[value] = line.split(': ')[1].chomp
         end
       end
+    end
     result = monitor
   end
 
