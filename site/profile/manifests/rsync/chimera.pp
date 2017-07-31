@@ -1,7 +1,8 @@
-class profiles::nmt::rsync::stretch::chimera {
+class profile::rsync::chimera {
 
   rsync::get { 'chimera':
-    source    => 'duplicon.nmt.edu::Stretch-chimera/UCSF-Chimera64-1.11.2',
+    source    =>
+      "duplicon.nmt.edu::${::lsbdistcodename}-chimera/UCSF-Chimera64-1.11.2",
     path      => '/usr/local/',
     recursive => true,
     links     => true,
@@ -9,14 +10,15 @@ class profiles::nmt::rsync::stretch::chimera {
   }
 
   rsync::get { 'chimera-icon':
-    source  => 'duplicon.nmt.edu::Stretch-chimera/UCSF-Chimera.png',
+    source  => "duplicon.nmt.edu::${::lsbdistcodename}-chimera/UCSF-Chimera.png",
     path    => '/usr/share/pixmaps/',
     times   => true,
     require => Rsync::Get['chimera'],
   }
 
   rsync::get { 'chimera-desktop':
-    source  => 'duplicon.nmt.edu::Stretch-chimera/UCSF-Chimera64-1.11.2.desktop',
+    source  =>
+      "duplicon.nmt.edu::${::lsbdistcodename}-chimera/UCSF-Chimera64-1.11.2.desktop",
     path    => '/usr/local/share/applications/UCSF-Chimera64.desktop',
     times   => true,
     require => Rsync::Get['chimera-icon'],

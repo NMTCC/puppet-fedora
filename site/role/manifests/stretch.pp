@@ -19,6 +19,7 @@ class role::stretch {
   include profile::postfix
   include profile::puppet
   include profile::rssh
+  include profile::rsync
   include profile::scripts
   include profile::services
   include profile::smartd
