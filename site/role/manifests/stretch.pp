@@ -5,6 +5,7 @@ class role::stretch {
   include profile::automount
   include profile::base
   include profile::cups
+  include profile::deployment
   include profile::fail2ban
   include profile::firewall
   include profile::grub
