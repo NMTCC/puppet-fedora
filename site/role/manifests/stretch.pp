@@ -15,6 +15,7 @@ class role::stretch {
   include profile::kerberos
   include profile::packages
   include profile::plymouth
+  include profile::postfix
   include profile::puppet
   include profile::rssh
   include profile::scripts
