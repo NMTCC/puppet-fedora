@@ -189,6 +189,14 @@ class profile::fail2ban {
     require => File['/usr/local/libexec'],
   }
 
+  file_line { 'pam_tally2':
+    ensure => present,
+    path   => '/etc/pam.d/sshd',
+    line   => 'auth       required     pam_tally2.so',
+    match  => '^auth.*pam_tally2.so$',
+    after  => '^# PAM configuration for the Secure Shell service',
+  }
+
   cron::daily { 'fail2log':
     minute      => '07',
     hour        => '00',

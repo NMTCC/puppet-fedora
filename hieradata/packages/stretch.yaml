@@ -173,6 +173,7 @@ packlist:
   - 'libnss3-tools'
   - 'libpam-gnome-keyring'
   - 'libpam-krb5'
+  - 'libpam-modules'
   - 'libquota-perl'
   - 'libreoffice'
   - 'libreoffice-gtk3'
