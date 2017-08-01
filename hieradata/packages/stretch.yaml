@@ -276,6 +276,7 @@ packlist:
   - 'ruby-gtk2'
   - 'ruby-gnome2'
   - 'ruby-ldap'
+  - 'ruby-rugged'
   - 'rsync'
   - 'rxvt-unicode'
   - 'sbcl'
