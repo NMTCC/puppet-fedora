@@ -169,6 +169,7 @@ packlist:
   - 'libncarg-dev'
   - 'libnet-ldap-perl'
   - 'libnet-remctl-perl'
+  - 'libnotify-bin'
   - 'libnspr4'
   - 'libnss3-tools'
   - 'libpam-gnome-keyring'
