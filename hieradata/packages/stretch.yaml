@@ -228,6 +228,7 @@ packlist:
   - 'plymouth-themes'
   - 'poppler-utils'
   - 'postgresql-client'
+  - 'puppet'
   - 'puppet-lint'
   - 'pv'
   - 'pymol'
@@ -358,11 +359,11 @@ removelist:
   - 'bsd-mailx'
   - 'erlang-mode'
   - 'python-wicd'
+  - 'unattended-upgrades'
   - 'wicd'
   - 'wicd-daemon'
   - 'wicd-gkt'
 holdlist:
-  - 'puppet'
 backportlist:
 nochroot:
   - 'resolvconf'

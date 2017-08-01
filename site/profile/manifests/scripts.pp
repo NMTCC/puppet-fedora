@@ -57,9 +57,6 @@ class profile::scripts {
   file { '/usr/local/libexec/mail_sudo_logs':
     source => "${moduleloc}/mail_sudo_logs",
   }
-  file { '/usr/local/libexec/pupdate':
-    source => "${moduleloc}/pupdate",
-  }
   file { '/usr/local/libexec/random_machine_reboot':
     source => "${moduleloc}/random_machine_reboot",
   }

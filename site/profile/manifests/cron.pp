@@ -49,16 +49,6 @@ class profile::cron {
         command     => '/usr/local/bin/grub2',
         description => 'GRUB conf updater',
       },
-#      {
-#        minute      => '02',
-#        hour        => '04',
-#        date        => '*',
-#        month       => '*',
-#        weekday     => '*',
-#        user        => 'root',
-#        command     => '/usr/local/libexec/pupdate',
-#        description => 'Update puppet w/o puppet',
-#      },
     ],
     environment => [
       'SHELL=/bin/bash',

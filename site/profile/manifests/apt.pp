@@ -1,6 +1,9 @@
 # Configure apt
 class profile::apt {
 
+  $moduleloc =
+    "puppet:///modules/profile/${::operatingsystem}/${::operatingsystemmajrelease}"
+
   package { 'apt-transport-https': }
 
   class { 'apt':
@@ -177,10 +180,118 @@ class profile::apt {
 
   file { '/etc/apt/apt.conf.d/99nmt':
     ensure  => file,
-    content => "Acquire::Languages \"none\";\n",
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
+    content => "Acquire::Languages \"none\";\n",
   }
+
+  # timer to full-upgrade w/o breaking puppet OR cron
+  file { '/usr/local/libexec/safeupgrade':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content =>
+      "#!/bin/sh\nDEBIAN_FRONTEND=noninteractive /usr/bin/apt -y full-upgrade\n",
+    require => File['/usr/local/libexec'],
+  }
+
+  file { '/etc/systemd/system/safeupgrade.service':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => File['/usr/local/libexec/safeupgrade'],
+  }
+
+  file { '/etc/systemd/system/safeupgrade.timer':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => File['/etc/systemd/system/safeupgrade.service'],
+  }
+
+  Ini_setting {
+    ensure            => present,
+    key_val_separator => '=',
+  }
+
+  ini_setting {
+
+    'apt-service-description':
+      path    => '/etc/systemd/system/safeupgrade.service',
+      section => 'Unit',
+      setting => 'Description',
+      value   => 'Run apt upgrade',
+      require => File['/etc/systemd/system/safeupgrade.service'],;
+
+    'apt-service-type':
+      path    => '/etc/systemd/system/safeupgrade.service',
+      section => 'Service',
+      setting => 'Type',
+      value   => 'oneshot',
+      require => File['/etc/systemd/system/safeupgrade.service'],;
+
+    'apt-service-exec':
+      path    => '/etc/systemd/system/safeupgrade.service',
+      section => 'Service',
+      setting => 'ExecStart',
+      value   => '/usr/local/libexec/safeupgrade',
+      require => File['/etc/systemd/system/safeupgrade.service'],;
+
+    'apt-timer-description':
+      path    => '/etc/systemd/system/safeupgrade.timer',
+      section => 'Unit',
+      setting => 'Description',
+      value   => 'Run apt upgrade nightly',
+      require => File['/etc/systemd/system/safeupgrade.timer'],;
+
+    'apt-timer-oncalendar':
+      path    => '/etc/systemd/system/safeupgrade.timer',
+      section => 'Timer',
+      setting => 'OnCalendar',
+      value   => '04:17:00',
+      require => File['/etc/systemd/system/safeupgrade.timer'],;
+
+    'apt-timer-persistent':
+      path    => '/etc/systemd/system/safeupgrade.timer',
+      section => 'Timer',
+      setting => 'Persistent',
+      value   => true,
+      require => File['/etc/systemd/system/safeupgrade.timer'],;
+
+    'apt-timer-wantedby':
+      path    => '/etc/systemd/system/safeupgrade.timer',
+      section => 'Install',
+      setting => 'WantedBy',
+      value   => 'timers.target',
+      require => File['/etc/systemd/system/safeupgrade.timer'],;
+
+  }
+
+  exec { 'safeupgrade-daemon-reload':
+    command     => 'systemctl daemon-reload',
+    subscribe   => [
+      File['/etc/systemd/system/safeupgrade.service'],
+      File['/etc/systemd/system/safeupgrade.timer'],
+    ],
+    refreshonly => true,
+  }
+
+  exec { 'safeupgrade-enable':
+    command     => 'systemctl enable --now safeupgrade.timer',
+    subscribe   => [
+      File['/etc/systemd/system/safeupgrade.timer'],
+    ],
+    require     => [
+      Exec['safeupgrade-daemon-reload'],
+    ],
+    refreshonly => true,
+  }
+
+  service { 'apt-daily.timer': enable => false, }
+  service { 'apt-daily-upgrade.timer': enable => false, }
 
 }

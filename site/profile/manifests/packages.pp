@@ -18,8 +18,10 @@ class profile::packages {
     ensure => absent,
   }
 
-  package { $holdlist:
-    ensure => held,
+  if $holdlist {
+    package { $holdlist:
+      ensure => held,
+    }
   }
 
   if $backportlist {
