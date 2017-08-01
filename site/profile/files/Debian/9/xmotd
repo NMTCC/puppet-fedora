@@ -1,0 +1,29 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Quota;
+
+# notification strings
+my $summary = "Message Of The Day";
+my $body = "";
+
+# get motd
+local $/ = undef;
+open(MOTD, "/etc/motd");
+binmode MOTD;
+my $motd = <MOTD>;
+close(MOTD);
+$body .= $motd;
+
+# get quota
+my $dev = Quota::getqcarg($ENV{"HOME"});
+my @quotadata = Quota::query($dev, $<);
+if (@quotadata) {
+  $body .= "You are using $quotadata[0] KB / $quotadata[2] KB";
+  $body .= " of your filesystem quota.\n\n";
+}
+
+# send notification
+if ($body ne "") {
+  system("/usr/bin/notify-send", "$summary", "$body");
+}

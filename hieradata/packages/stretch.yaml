@@ -303,7 +303,6 @@ packlist:
   - 'syslinux-common'
   - 'syslinux-utils'
   - 'sysvbanner'
-  - 'tccmotd'
   - 'tcl'
   - 'texlive'
   - 'texlive-font-utils'

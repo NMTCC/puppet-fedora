@@ -35,6 +35,25 @@ class profile::base {
     content => "#!/bin/sh\ncat /fs/tcc/motd/motd\n",
   }
 
+  $xmotddefaults = {
+    'path'              => '/etc/xdg/autostart/xmotd.desktop',
+    'key_val_separator' => '=',
+  }
+  $xmotdsettings = {
+    'Desktop Entry' => {
+      'Version'       => '1.0',
+      'Name'          => 'xmotd',
+      'Comment'       => 'NMT Message of the Day',
+      'Exec'          => '/usr/local/bin/xmotd',
+      'Icon'          => 'utilities-termial',
+      'Terminal'      => false,
+      'Type'          => 'Application',
+      'StartupNotify' => false,
+      'Categories'    => 'Applications',
+    },
+  }
+  create_ini_settings($xmotdsettings, $xmotddefaults)
+
   file { '/usr/bin/wall':
     group => 'tty',
     mode  => '0755',

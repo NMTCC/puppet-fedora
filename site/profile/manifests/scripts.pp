@@ -40,6 +40,9 @@ class profile::scripts {
   file { '/usr/local/bin/sfdisk2parted':
     source => "${moduleloc}/sfdisk2parted",
   }
+  file { '/usr/local/bin/xmotd':
+    source => "${moduleloc}/xmotd",
+  }
 
   $line1 = 'To change your password, please visit https://tcc.nmt.edu/password/.'
   $line2 = 'Log in with your NMT account, and follow the password rules.'
