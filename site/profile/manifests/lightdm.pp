@@ -11,12 +11,12 @@ class profile::lightdm {
     require => Package['lightdm-gtk-greeter'],
   }
 
-  file { '/usr/local/libexec/LightDM_PostLogout':
+  file { '/usr/local/libexec/session-cleanup-script':
     ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    source  => "${moduleloc}/LightDM_PostLogout",
+    source  => "${moduleloc}/session-cleanup-script",
     require => File['/usr/local/libexec'],
   }
 
@@ -64,7 +64,7 @@ class profile::lightdm {
       path    => $nmtlightdm,
       section => 'SeatDefaults',
       setting => 'session-cleanup-script',
-      value   => '/usr/local/libexec/LightDM_PostLogout',
+      value   => '/usr/local/libexec/session-cleanup-script',
       require => File['/etc/lightdm/lightdm.conf.d'],;
 
     'lightdm-hidden-users':
