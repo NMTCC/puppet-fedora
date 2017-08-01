@@ -1,3 +1,4 @@
+# rsync extlinux
 class profile::rsync::extlinux {
 
   file { '/boot/extlinux':

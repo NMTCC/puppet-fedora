@@ -1,3 +1,4 @@
+# rsync chimera
 class profile::rsync::chimera {
 
   rsync::get { 'chimera':

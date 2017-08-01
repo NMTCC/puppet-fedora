@@ -1,3 +1,4 @@
+# rsync anaconda
 class profile::rsync::anaconda {
 
   rsync::get { 'anaconda2':
