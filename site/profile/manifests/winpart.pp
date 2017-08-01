@@ -69,6 +69,20 @@ class profile::winpart {
       require => File['/usr/local/libexec'],
     }
 
+    cron::daily { 'fix-windows':
+      minute      => '50',
+      hour        => '03',
+      user        => 'root',
+      command     => '/usr/local/libexec/fix-windows',
+      environment => [
+        'SHELL=/bin/bash',
+        'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+        'MAILTO=root',
+        'HOME=/',
+      ],
+      require     => File['/usr/local/libexec/fix-windows'],
+    }
+
   }
 
 }

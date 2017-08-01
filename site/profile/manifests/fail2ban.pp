@@ -189,4 +189,18 @@ class profile::fail2ban {
     require => File['/usr/local/libexec'],
   }
 
+  cron::daily { 'fail2log':
+    minute      => '07',
+    hour        => '00',
+    user        => 'root',
+    command     => '/usr/local/libexec/fail2log',
+    environment => [
+      'SHELL=/bin/bash',
+      'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+      'MAILTO=root',
+      'HOME=/',
+    ],
+    require     => File['/usr/local/libexec/fail2log'],
+  }
+
 }

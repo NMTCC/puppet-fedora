@@ -32,7 +32,6 @@ packlist:
   - 'claws-mail-plugins'
   - 'clearlooks-phenix-theme'
   - 'cmake'
-  - 'cron'
   - 'cups'
   - 'curl'
   - 'cvs'
