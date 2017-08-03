@@ -6,6 +6,7 @@ class profile::rsync {
       include profile::rsync::anaconda
       include profile::rsync::chimera
       include profile::rsync::extlinux
+      include profile::rsync::maple
       include profile::rsync::phono3py
     }
     default: {
