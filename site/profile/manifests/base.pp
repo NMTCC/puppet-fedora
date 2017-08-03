@@ -35,24 +35,52 @@ class profile::base {
     content => "#!/bin/sh\ncat /fs/tcc/motd/motd\n",
   }
 
-  $xmotddefaults = {
-    'path'              => '/etc/xdg/autostart/xmotd.desktop',
-    'key_val_separator' => '=',
+  Ini_setting {
+    ensure            => present,
+    key_val_separator => '=',
+    path              => '/etc/xdg/autostart/xmotd.desktop',
+    section           => 'Desktop Entry',
   }
-  $xmotdsettings = {
-    'Desktop Entry' => {
-      'Version'       => '1.0',
-      'Name'          => 'xmotd',
-      'Comment'       => 'NMT Message of the Day',
-      'Exec'          => '/usr/local/bin/xmotd',
-      'Icon'          => 'utilities-termial',
-      'Terminal'      => false,
-      'Type'          => 'Application',
-      'StartupNotify' => false,
-      'Categories'    => 'Applications',
-    },
+
+  ini_setting {
+
+    'xmotd-dt-version':
+      setting => 'Version',
+      value   => '1.0',;
+
+    'xmotd-dt-name':
+      setting => 'Name',
+      value   => 'xmotd',;
+
+    'xmotd-dt-comment':
+      setting => 'Comment',
+      value   => 'NMT Message of the Day',;
+
+    'xmotd-dt-exec':
+      setting => 'Exec',
+      value   => '/usr/local/bin/xmotd',;
+
+    'xmotd-dt-icon':
+      setting => 'Icon',
+      value   => 'utilities-terminal',;
+
+    'xmotd-dt-terminal':
+      setting => 'Terminal',
+      value   => false,;
+
+    'xmotd-dt-type':
+      setting => 'Type',
+      value   => 'Application',;
+
+    'xmotd-dt-startup':
+      setting => 'StartupNotify',
+      value   => false,;
+
+    'xmotd-dt-categories':
+      setting => 'Categories',
+      value   => 'Applications',;
+
   }
-  create_ini_settings($xmotdsettings, $xmotddefaults)
 
   file { '/usr/bin/wall':
     group => 'tty',
