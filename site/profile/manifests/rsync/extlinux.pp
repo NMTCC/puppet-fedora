@@ -1,6 +1,9 @@
 # rsync extlinux
 class profile::rsync::extlinux {
 
+  $moduleloc =
+    "puppet:///modules/profile/${::operatingsystem}/${::operatingsystemmajrelease}"
+
   file { '/boot/extlinux':
     ensure => directory,
     owner  => 'root',
@@ -13,7 +16,7 @@ class profile::rsync::extlinux {
     owner   => 'root',
     group   => 'root',
     mode    => '0640',
-    source  => '',
+    source  => "${moduleloc}/extlinux.conf",
     require => File['/boot/extlinux'],
   }
 

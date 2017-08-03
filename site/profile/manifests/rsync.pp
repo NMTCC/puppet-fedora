@@ -5,6 +5,7 @@ class profile::rsync {
     'stretch': {
       include profile::rsync::anaconda
       include profile::rsync::chimera
+      include profile::rsync::extlinux
       include profile::rsync::phono3py
     }
     default: {
