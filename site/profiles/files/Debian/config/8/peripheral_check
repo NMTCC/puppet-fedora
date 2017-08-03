@@ -76,7 +76,7 @@ then
 	esac
 	case $odd in
 		"0" )
-			echo "$host does not have an optical drive installed." | mail -s "$host: missing ODD" -a $ATTACH $MAILTO
+			#echo "$host does not have an optical drive installed." | mail -s "$host: missing ODD" -a $ATTACH $MAILTO
 			;;
 		"1" )
 			#move along
