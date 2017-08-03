@@ -270,6 +270,7 @@ packlist:
   - 'python3-pygame'
   - 'quota'
   - 'r-base'
+  - 'rake'
   - 'rcs'
   - 'rdesktop'
   - 'remctl-client'
