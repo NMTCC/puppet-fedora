@@ -8,6 +8,7 @@ class profile::rsync {
       include profile::rsync::comsol
       include profile::rsync::extlinux
       include profile::rsync::maple
+      include profile::rsync::matlab
       include profile::rsync::phono3py
     }
     default: {
