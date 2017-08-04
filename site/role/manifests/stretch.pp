@@ -21,7 +21,6 @@ class role::stretch {
   include profile::puppet
   include profile::remctl
   include profile::rssh
-  include profile::rsync
   include profile::scripts
   include profile::services
   include profile::smartd
@@ -30,6 +29,10 @@ class role::stretch {
   include profile::sudo
   include profile::transmission
   include profile::winpart
+
+  if ($::nodehour == 4) or $::chroot {
+    include profile::rsync
+  }
 
   Class[profile::apt] -> Class[profile::packages]
 
