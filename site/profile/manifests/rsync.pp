@@ -13,6 +13,7 @@ class profile::rsync {
       include profile::rsync::oracle
       include profile::rsync::phono3py
       include profile::rsync::taup
+      include profile::rsync::vmd
     }
     default: {
       warning('No rsync paths for this distribution')
