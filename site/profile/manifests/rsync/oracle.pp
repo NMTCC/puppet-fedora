@@ -24,31 +24,31 @@ class profile::rsync::oracle {
   }
 
   file { '/usr/local/bin/ott':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/instantclient_12_2/sdk/ott',
     require => Rsync::Get['instantclient'],
   }
 
   file { '/usr/local/bin/proc':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/instantclient_12_2/sdk/proc',
     require => Rsync::Get['instantclient'],
   }
 
   file { '/usr/local/bin/procob':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/instantclient_12_2/sdk/procob',
     require => Rsync::Get['instantclient'],
   }
 
   file { '/usr/local/bin/rtsora':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/instantclient_12_2/sdk/rtsora',
     require => Rsync::Get['instantclient'],
   }
 
   file { '/usr/local/bin/sqlplus':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/instantclient_12_2/sqlplus',
     require => Rsync::Get['instantclient'],
   }

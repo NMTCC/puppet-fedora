@@ -23,13 +23,13 @@ class profile::rsync::maple {
   }
 
   file { '/usr/local/bin/maple':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/maple2017/bin/maple',
     require => Rsync::Get['maple'],
   }
 
   file { '/usr/local/bin/xmaple':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/maple2017/bin/xmaple',
     require => Rsync::Get['maple'],
   }

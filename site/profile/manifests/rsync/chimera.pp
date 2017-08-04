@@ -27,7 +27,7 @@ class profile::rsync::chimera {
   }
 
   file { '/usr/local/bin/chimera':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/UCSF-Chimera64-1.11.2/bin/chimera',
     require => Rsync::Get['chimera'],
   }

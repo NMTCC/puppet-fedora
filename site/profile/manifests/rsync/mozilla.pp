@@ -20,7 +20,7 @@ class profile::rsync::mozilla {
   }
 
   file { '/usr/local/bin/firefox-mozilla':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/firefox/firefox',
     require => Rsync::Get['firefox'],
   }
@@ -44,7 +44,7 @@ class profile::rsync::mozilla {
   }
 
   file { '/usr/local/bin/thunderbird-mozilla':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/thunderbird/thunderbird',
     require => Rsync::Get['thunderbird'],
   }
@@ -68,7 +68,7 @@ class profile::rsync::mozilla {
   }
 
   file { '/usr/local/bin/seamonkey':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/usr/local/seamonkey/seamonkey',
     require => Rsync::Get['seamonkey'],
   }
