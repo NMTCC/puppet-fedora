@@ -10,6 +10,7 @@ class profile::rsync {
       include profile::rsync::maple
       include profile::rsync::matlab
       include profile::rsync::mozilla
+      include profile::rsync::oracle
       include profile::rsync::phono3py
     }
     default: {
