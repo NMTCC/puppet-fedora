@@ -16,6 +16,7 @@ class profile::rsync::mozilla {
     path    => '/usr/local/share/applications/',
     times   => true,
     require => Rsync::Get['firefox'],
+    notify  => Exec['xdg-desktop-menu'],
   }
 
   file { '/usr/local/bin/firefox-mozilla':
@@ -39,6 +40,7 @@ class profile::rsync::mozilla {
     path    => '/usr/local/share/applications/',
     times   => true,
     require => Rsync::Get['thunderbird'],
+    notify  => Exec['xdg-desktop-menu'],
   }
 
   file { '/usr/local/bin/thunderbird-mozilla':
@@ -62,6 +64,7 @@ class profile::rsync::mozilla {
     path    => '/usr/local/share/applications/',
     times   => true,
     require => Rsync::Get['seamonkey'],
+    notify  => Exec['xdg-desktop-menu'],
   }
 
   file { '/usr/local/bin/seamonkey':

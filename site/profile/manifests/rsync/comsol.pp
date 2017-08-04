@@ -22,6 +22,7 @@ class profile::rsync::comsol {
       File['/usr/local/share/applications'],
       Rsync::Get['comsol'],
     ],
+    notify  => Exec['xdg-desktop-menu'],
   }
 
   rsync::get { 'comsolsh':

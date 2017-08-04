@@ -23,9 +23,10 @@ class profile::rsync::chimera {
     path    => '/usr/local/share/applications/UCSF-Chimera64.desktop',
     times   => true,
     require => Rsync::Get['chimera-icon'],
+    notify  => Exec['xdg-desktop-menu'],
   }
 
-  file { '/usr/bin/chimera':
+  file { '/usr/local/bin/chimera':
     ensure  => 'link',
     target  => '/usr/local/UCSF-Chimera64-1.11.2/bin/chimera',
     require => Rsync::Get['chimera'],

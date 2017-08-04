@@ -22,6 +22,7 @@ class profile::rsync::matlab {
       File['/usr/local/share/applications'],
       Rsync::Get['matlab'],
     ],
+    notify  => Exec['xdg-desktop-menu'],
   }
 
   rsync::get { 'matlab-sh':

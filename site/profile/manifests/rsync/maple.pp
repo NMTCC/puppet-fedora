@@ -19,6 +19,7 @@ class profile::rsync::maple {
     path    => '/usr/local/share/applications/maple.desktop',
     times   => true,
     require => File['/usr/local/share/applications'],
+    notify  => Exec['xdg-desktop-menu'],
   }
 
   file { '/usr/local/bin/maple':

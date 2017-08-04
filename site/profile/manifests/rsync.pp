@@ -17,4 +17,9 @@ class profile::rsync {
     }
   }
 
+  exec { 'xdg-desktop-menu':
+    command     => 'xdg-desktop-menu forceupdate --mode system',
+    refreshonly => true,
+  }
+
 }
