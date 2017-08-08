@@ -1,6 +1,8 @@
 # Configure template deployment
 class profile::deployment {
 
-  include "profile::deployment::${::lsbdistcodename}"
+  unless $::chroot {
+    include "profile::deployment::${::lsbdistcodename}"
+  }
 
 }
