@@ -53,7 +53,6 @@ packlist:
   - 'elinks'
   - 'emacs'
   - 'enigmail'
-  - 'erlang'
   - 'expect'
   - 'extlinux'
   - 'feh'
@@ -367,4 +366,5 @@ removelist:
 holdlist:
 backportlist:
 nochroot:
+  - 'erlang'
   - 'resolvconf'
