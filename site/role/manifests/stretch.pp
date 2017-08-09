@@ -6,7 +6,6 @@ class role::stretch {
   include profile::base
   include profile::cron
   include profile::cups
-  include profile::fail2ban
   include profile::grub
   include profile::ldap
   include profile::lightdm
