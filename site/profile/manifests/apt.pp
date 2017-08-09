@@ -18,6 +18,12 @@ class profile::apt {
     },
   }
 
+  apt::pin { 'erlang':
+    packages => 'erlang-mode',
+    release  => '*',
+    priority => -1,
+  }
+
   # import keys
   # apt-key output changed in Stretch, and apt::key
   # currently execs every run, so we have to do this... :\
