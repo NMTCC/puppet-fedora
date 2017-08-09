@@ -71,6 +71,33 @@ class profile::apt {
   $nmt_fingerprint = '6B9BE830DEB754D51DA1EF5D9A316557DA217D04'
   $obspy_fingerprint = 'AB88DF222C40D448E99F0F07054D40E834811F05'
 
+  # Debian bug 867681
+  if $::chroot {
+
+    file { '/etc/apt/trusted.gpg':
+      ensure => absent,
+      before => Exec['chroot-key-import'],
+    }
+
+    exec { 'chroot-key-import':
+      provider => shell,
+      command  => "for k in ${keys}/*; do apt-key add \$k; done",
+      before   => [
+        Exec['add-google-linux-key'],
+        Exec['add-puppet-key'],
+        Exec['add-nmt-key'],
+        Exec['add-obspy-key'],
+      ],
+      require  => [
+        Wget::Fetch['google-linux-key'],
+        Wget::Fetch['puppet-key'],
+        Wget::Fetch['nmt-key'],
+        Wget::Fetch['obspy-key'],
+      ],
+    }
+
+  }
+
   exec { 'add-google-linux-key':
     command => "apt-key add ${keys}/linux_signing_key.pub",
     unless  => "gpg ${gpgopts} | grep ${google_fingerprint}",
