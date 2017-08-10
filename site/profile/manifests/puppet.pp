@@ -45,7 +45,7 @@ class profile::puppet {
       path    => '/etc/puppet/puppet.conf',
       section => 'agent',
       setting => 'environment',
-      value   => 'puppet4',;
+      value   => $::environment,;
 
     'splay':
       ensure  => present,
