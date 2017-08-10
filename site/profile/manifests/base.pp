@@ -18,13 +18,15 @@ class profile::base {
     mode   => '2775',
   }
 
-  file { '/etc/motd':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    source  => '/fs/tcc/motd/motd',
-    require => Service['autofs'],
+  unless $::chroot {
+    file { '/etc/motd':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      source  => '/fs/tcc/motd/motd',
+      require => Service['autofs'],
+    }
   }
 
   file { '/usr/bin/motd':
