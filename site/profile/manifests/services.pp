@@ -47,13 +47,19 @@ class profile::services {
     service { 'dhcpcd':
       ensure  => running,
       enable  => true,
-      require => Package['dhcpcd5'],
+      require => [
+        Package['dhcpcd5'],
+        Service['NetworkManager'],
+      ],
     }
 
     service { 'resolvconf':
       ensure  => running,
       enable  => true,
-      require => Package['resolvconf'],
+      require => [
+        Package['resolvconf'],
+        Service['dhcpcd'],
+      ],
     }
 
   }
