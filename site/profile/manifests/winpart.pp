@@ -54,10 +54,12 @@ class profile::winpart {
 
     }
 
-    exec { 'winpart-daemon-reload':
-      command     => 'systemctl daemon-reload',
-      subscribe   => File['/etc/systemd/system/media-winpart.mount'],
-      refreshonly => true,
+    unless $::chroot {
+      exec { 'winpart-daemon-reload':
+        command     => 'systemctl daemon-reload',
+        subscribe   => File['/etc/systemd/system/media-winpart.mount'],
+        refreshonly => true,
+      }
     }
 
     file { '/usr/local/libexec/fix-windows':
