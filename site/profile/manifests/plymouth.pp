@@ -17,7 +17,7 @@ class profile::plymouth {
       section           => 'Daemon',
       key_val_separator => '=',
       setting           => 'Theme',
-      value             => 'fade-in',
+      value             => 'text',
       require           => Package['plymouth-themes'],;
 
     'plymouth-delay':
