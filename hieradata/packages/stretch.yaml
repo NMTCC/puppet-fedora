@@ -39,7 +39,6 @@ packlist:
   - 'dconf-editor'
   - 'debconf-utils'
   - 'devscripts'
-  - 'dhcpcd5'
   - 'dia'
   - 'dialog'
   - 'diffutils'
@@ -358,7 +357,9 @@ packlist:
 removelist:
   - 'bsd-mailx'
   - 'erlang-mode'
+  - 'dhcpcd5'
   - 'python-wicd'
+  - 'resolvconf'
   - 'unattended-upgrades'
   - 'wicd'
   - 'wicd-daemon'
@@ -367,4 +368,3 @@ holdlist:
 backportlist:
 nochroot:
   - 'erlang'
-  - 'resolvconf'

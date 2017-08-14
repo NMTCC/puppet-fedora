@@ -16,11 +16,6 @@ class profile::services {
     enable => false,
   }
 
-  service { 'NetworkManager':
-    ensure => stopped,
-    enable => false,
-  }
-
   service { 'pppd-dns':
     ensure => stopped,
     enable => false,
@@ -44,22 +39,9 @@ class profile::services {
       require => Package['cron'],
     }
 
-    service { 'dhcpcd':
-      ensure  => running,
-      enable  => true,
-      require => [
-        Package['dhcpcd5'],
-        Service['NetworkManager'],
-      ],
-    }
-
-    service { 'resolvconf':
-      ensure  => running,
-      enable  => true,
-      require => [
-        Package['resolvconf'],
-        Service['dhcpcd'],
-      ],
+    service { 'NetworkManager':
+      ensure => running,
+      enable => true,
     }
 
   }
