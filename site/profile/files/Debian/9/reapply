@@ -67,7 +67,7 @@ preunroll () {
 	if [ -d "$WPCONFDIR" ]
 	then
 		rm -rf $WPCONFDIR/ssl > /dev/null 2>&1
-		echo "certname=$(hostname -s).tcc7" >> /tmp/winpuppet.conf
+		echo "certname=$(hostname -s).win7" >> /tmp/winpuppet.conf
 		cat /tmp/winpuppet.conf > $WPCONFDIR/puppet.conf
 	fi
 	systemctl stop media-winpart.mount
