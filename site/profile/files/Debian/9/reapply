@@ -13,7 +13,7 @@ export WPCONFDIR="/media/winpart/ProgramData/PuppetLabs/puppet/etc"
 
 download_libsync () {
 
-	wget -P /tmp $PRESEED/libsync > /dev/null 2>&1
+	curl -s $PRESEED/libsync -o /tmp/libsync > /dev/null 2>&1
 	if [ -s "/tmp/libsync" ]
 	then
 		return
@@ -26,7 +26,7 @@ download_libsync () {
 
 download_wpconf () {
 
-	wget -P /tmp $PRESEED/winpuppet.conf > /dev/null 2>&1
+	curl -s $PRESEED/winpuppet.conf -o /tmp/winpuppet.conf > /dev/null 2>&1
 	if [ -s "/tmp/winpuppet.conf" ]
 	then
 		return
