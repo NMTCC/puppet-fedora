@@ -111,7 +111,7 @@ case "$(cat /tmp/reapply.$$)" in
 esac
 rm -f /tmp/libsync
 
-remctl puppet-win.nmt.edu puppet cert clean "$(hostname -s).tcc7"
+remctl puppet4-win.nmt.edu puppet cert clean "$(hostname -s).win7"
 preunroll
 kdestroy -A
 
