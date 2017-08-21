@@ -14,8 +14,8 @@ class profile::cron {
         month       => '*',
         weekday     => '*',
         user        => 'root',
-        command     => '/bin/true',
-#          '/usr/local/libexec/reboot_to_win >> /var/log/nightlyreboots.log',
+        command     =>
+          '/usr/local/libexec/reboot_to_win >> /var/log/nightlyreboots.log',
         description => 'Linux nightly reboot',
       },
       {
@@ -25,8 +25,8 @@ class profile::cron {
         month       => '*',
         weekday     => '*',
         user        => 'root',
-        command     => '/bin/true',
-#          '/usr/local/libexec/random_machine_reboot >> /var/log/nightlyreboots.log',
+        command     =>
+          '/usr/local/libexec/random_machine_reboot >> /var/log/nightlyreboots.log',
         description => 'Opening target OS nightly reboot',
       },
       {
