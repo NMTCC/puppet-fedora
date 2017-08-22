@@ -5,6 +5,7 @@ PUPPETLOCK="$PROGRAMDATA/PuppetLabs/puppet/cache/state/agent_catalog_run.lock"
 CHOCOCONF="$PROGRAMDATA/chocolatey/config/chocolatey.config"
 
 systemctl start media-winpart.mount
+sleep 5
 
 # remove stale Puppet Agent lockfile
 if [ -e "$PUPPETLOCK" ]
@@ -18,4 +19,5 @@ then
 	rm -f $CHOCOCONF
 fi
 
+sleep 5
 systemctl stop media-winpart.mount
