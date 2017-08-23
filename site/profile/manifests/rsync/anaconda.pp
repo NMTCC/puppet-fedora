@@ -7,6 +7,7 @@ class profile::rsync::anaconda {
     recursive => true,
     links     => true,
     times     => true,
+    schedule  => 'rsync',
   }
 
   rsync::get { 'anaconda3':
@@ -15,6 +16,7 @@ class profile::rsync::anaconda {
     recursive => true,
     links     => true,
     times     => true,
+    schedule  => 'rsync',
   }
 
 }

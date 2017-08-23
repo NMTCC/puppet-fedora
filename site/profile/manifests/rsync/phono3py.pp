@@ -7,6 +7,7 @@ class profile::rsync::phono3py {
     recursive => true,
     links     => true,
     times     => true,
+    schedule  => 'rsync',
   }
 
 }

@@ -12,6 +12,7 @@ class profile::rsync::matlab {
     recursive => true,
     links     => true,
     times     => true,
+    schedule  => 'rsync',
   }
 
   rsync::get { 'matlab-desktop':

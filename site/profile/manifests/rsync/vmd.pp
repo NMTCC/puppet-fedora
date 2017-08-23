@@ -11,6 +11,7 @@ class profile::rsync::vmd {
     recursive => true,
     links     => true,
     times     => true,
+    schedule  => 'rsync',
   }
 
   file { '/usr/local/bin/vmd':

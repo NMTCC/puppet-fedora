@@ -12,6 +12,7 @@ class profile::rsync::comsol {
     recursive => true,
     links     => true,
     times     => true,
+    schedule  => 'rsync',
   }
 
   rsync::get { 'comsol-desktop':

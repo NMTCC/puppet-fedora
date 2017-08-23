@@ -12,6 +12,7 @@ class profile::rsync::maple {
     recursive => true,
     links     => true,
     times     => true,
+    schedule  => 'rsync',
   }
 
   rsync::get { 'maple-desktop':

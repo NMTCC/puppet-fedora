@@ -8,6 +8,7 @@ class profile::rsync::mozilla {
     links     => true,
     times     => true,
     purge     => true,
+    schedule  => 'rsync',
   }
 
   rsync::get { 'firefox-desktop':
@@ -32,6 +33,7 @@ class profile::rsync::mozilla {
     links     => true,
     times     => true,
     purge     => true,
+    schedule  => 'rsync',
   }
 
   rsync::get { 'thunderbird-desktop':
@@ -56,6 +58,7 @@ class profile::rsync::mozilla {
     links     => true,
     times     => true,
     purge     => true,
+    schedule  => 'rsync',
   }
 
   rsync::get { 'seamonkey-desktop':

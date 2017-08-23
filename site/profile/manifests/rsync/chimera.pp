@@ -8,6 +8,7 @@ class profile::rsync::chimera {
     recursive => true,
     links     => true,
     times     => true,
+    schedule  => 'rsync',
   }
 
   rsync::get { 'chimera-icon':

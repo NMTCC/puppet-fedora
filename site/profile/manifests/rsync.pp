@@ -25,4 +25,10 @@ class profile::rsync {
     refreshonly => true,
   }
 
+  schedule { 'rsync':
+    range  => '0 - 23',
+    period => daily,
+    repeat => 1,
+  }
+
 }

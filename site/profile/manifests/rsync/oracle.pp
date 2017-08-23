@@ -7,6 +7,7 @@ class profile::rsync::oracle {
     recursive => true,
     links     => true,
     times     => true,
+    schedule  => 'rsync',
   }
 
   rsync::get { 'oracle-sqlplus-sh':

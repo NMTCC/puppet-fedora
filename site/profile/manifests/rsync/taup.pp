@@ -12,6 +12,7 @@ class profile::rsync::taup {
     recursive => true,
     links     => true,
     times     => true,
+    schedule  => 'rsync',
   }
 
   rsync::get { 'taup-sh':
