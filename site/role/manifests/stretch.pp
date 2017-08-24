@@ -23,6 +23,7 @@ class role::stretch {
   include profile::sssd
   include profile::sudo
   include profile::transmission
+  include profile::vmtools
   include profile::winpart
 
   unless $::chroot {
