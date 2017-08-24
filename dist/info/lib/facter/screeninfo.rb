@@ -12,6 +12,7 @@ end
 
 Facter.add('monitor') do
   confine :kernel => 'Linux'
+  confine :virtual => 'physical'
 
   setcode do
     monitor = {

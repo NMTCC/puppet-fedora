@@ -1,5 +1,6 @@
 Facter.add(:usb) do
   confine :kernel => 'Linux'
+  confine :virtual => 'physical'
 
   setcode do
     mine = { 'keyboard' => [], 'mouse' => [], 'scan' => [] }
