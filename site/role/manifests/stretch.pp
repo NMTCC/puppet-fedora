@@ -30,7 +30,9 @@ class role::stretch {
     include profile::firewall
     include profile::deployment
     include profile::remctl
-    include profile::smartd
+    if $::virtual == 'physical' {
+      include profile::smartd
+    }
   }
 
   Class[profile::apt] -> Class[profile::packages]
