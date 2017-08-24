@@ -5,6 +5,7 @@ class role::loginserver {
 
   unless $::chroot {
     include profile::fail2ban
+    include profile::nrpe
   }
 
 }
