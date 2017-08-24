@@ -9,6 +9,7 @@ node default {
     }
     '4.8.2': {
       include role::stretch
+      include role::graphical
     }
     default: {
       warning('No role for this Puppet Agent version.')

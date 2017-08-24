@@ -8,7 +8,6 @@ class role::stretch {
   include profile::cups
   include profile::grub
   include profile::ldap
-  include profile::lightdm
   include profile::localtime
   include profile::mail
   include profile::kerberos
