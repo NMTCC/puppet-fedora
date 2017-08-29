@@ -10,6 +10,7 @@ fi
 
 export UNATTEND="/media/winpart/Windows/Panther/unattend.xml"
 export WPCONFDIR="/media/winpart/ProgramData/PuppetLabs/puppet/etc"
+export ITCDIR="/media/winpart/itc"
 
 download_libsync () {
 
@@ -60,6 +61,7 @@ ntfs_check () {
 preunroll () {
 
 	systemctl start media-winpart.mount
+	sleep 2
 	if [ -e "$UNATTEND" ]
 	then
 		sed -i -e "s/reference1/$(hostname -s)/" $UNATTEND
@@ -69,7 +71,9 @@ preunroll () {
 		rm -rf $WPCONFDIR/ssl > /dev/null 2>&1
 		echo "certname=$(hostname -s).win7" >> /tmp/winpuppet.conf
 		cat /tmp/winpuppet.conf > $WPCONFDIR/puppet.conf
+		echo "$SEMESTER-$BRANCH.$BUILD" > $ITCDIR/etc/template-release
 	fi
+	sleep 2
 	systemctl stop media-winpart.mount
 
 }
