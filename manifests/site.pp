@@ -3,17 +3,7 @@ File { backup => false, }
 
 node default {
 
-  case $::puppetversion {
-    '3.7.2': {
-      include role::jessie
-    }
-    '4.8.2': {
-      include role::stretch
-      include role::graphical
-    }
-    default: {
-      warning('No role for this Puppet Agent version.')
-    }
-  }
+  include "role::${::lsbdistcodename}"
+  include role::graphical
 
 }

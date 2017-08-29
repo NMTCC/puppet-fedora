@@ -1,4 +1,4 @@
 puppet-linux
-=============
+============
 
-ITC Linux Puppet Configuration
+ITC Debian Linux Puppet configuration.

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if [[ "$1" =~ ^[0-9]$ ]]; then
-	/usr/bin/grub-editenv /boot/grub/grubenv set nmtboot="$1"
-fi
-
-if [[ "$2" =~ ^[0-9]+$ ]]; then
-	/usr/bin/grub-editenv /boot/grub/grubenv set nmttick="$2"
-fi

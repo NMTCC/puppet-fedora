@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# Terminate current user session
-/usr/bin/loginctl terminate-session $XDG_SESSION_ID
-/usr/bin/killall --user $USER -TERM gnome-keyring-daemon
-/usr/bin/pax11publish -r
-
-# Reset LightDM session settings
-/usr/bin/rm -f /var/lib/lightdm/.cache/lightdm-gtk-greeter/state

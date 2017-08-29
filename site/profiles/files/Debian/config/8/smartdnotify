@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Send mail
-echo -e "$SMARTD_MESSAGE""\n\nSincerely,\n$(hostname -f)" | mail -r "$(hostname -s)" -s "$SMARTD_FAILTYPE" "$SMARTD_ADDRESS"
-
