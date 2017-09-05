@@ -10,6 +10,7 @@ class role::stretch {
   include profile::ldap
   include profile::localtime
   include profile::mail
+  include profile::networkmanager
   include profile::kerberos
   include profile::packages
   include profile::plymouth
