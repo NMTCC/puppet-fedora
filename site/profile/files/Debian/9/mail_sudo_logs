@@ -1,16 +1,18 @@
-#!/bin/sh
+#!/usr/bin/ruby
 
-LOGF="/var/log/auth.log"
-DATE="$(date '+%b %d')"
-MSUB="** SECURITY information for $(hostname -f) **"
+require 'socket'
 
-sudosearch () {
+body = ''
+today = Time.now.strftime('%b %d')
+['/var/log/auth.log.1', '/var/log/auth.log'].each do |log|
+  File.readlines(log).each do |line|
+    if (line =~ /sudoers/) and (line =~ /#{today}/)
+      body += line
+    end
+  end
+end
 
-	cat $1.1 $1 | grep -e "$2.*sudoers"
-
-}
-
-if sudosearch $LOGF $DATE >> /dev/null 2>&1
-then
-	sudosearch $LOGF $DATE | s-nail -s "$MSUB" itc-eng@nmt.edu
-fi
+unless body.empty?
+  subject = "** SECURITY information for #{Socket.gethostname} **"
+  system("echo \"#{body}\" | s-nail -s '#{subject}' itc-eng@nmt.edu")
+end
