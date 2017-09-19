@@ -131,6 +131,7 @@ packlist:
   - 'iotop'
   - 'ipset'
   - 'ipython'
+  - 'ipython3'
   - 'irssi'
   - 'iscan'
   - 'iscan-data'
