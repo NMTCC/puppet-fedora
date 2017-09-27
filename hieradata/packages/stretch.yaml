@@ -208,6 +208,7 @@ packlist:
   - 'ncl-ncarg'
   - 'neovim'
   - 'nethack-console'
+  - 'nethogs'
   - 'netpbm'
   - 'nfs-common'
   - 'nmap'
