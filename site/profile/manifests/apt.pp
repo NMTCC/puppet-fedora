@@ -226,7 +226,7 @@ class profile::apt {
     group   => 'root',
     mode    => '0755',
     content =>
-      "#!/bin/bash\nDEBIAN_FRONTEND=noninteractive /bin/sleep \$((RANDOM % 600)) && /usr/bin/apt -y full-upgrade\n",
+      "#!/bin/bash\nexport DEBIAN_FRONTEND=noninteractive\n/bin/sleep \$((RANDOM % 600)) && /usr/bin/apt -y full-upgrade\n",
     require => File['/usr/local/libexec'],
   }
 
