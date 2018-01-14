@@ -4,19 +4,21 @@ class profile::deployment::stretch {
   $oldtemplates = [
     'Spring2017-master.3',
     'Fall2017-master.1',
+    'Spring2018-master.1',
   ]
 
   $oldtorrents = [
     '1f75bbcc246fac018212141c14c47b28cd8073ef',
     '24470d057aaa87beece9b3d450e6fd79ba1d30f4',
+    '8ac048b2d8c778cc5106f3e52ced9420976d0889',
   ]
 
   # deployment configuration
   $semester = 'Spring2018'
   $branch = 'master'
-  $build = '1'
+  $build = '2'
   $release = "${semester}-${branch}.${build}"
-  $torrent = '8ac048b2d8c778cc5106f3e52ced9420976d0889'
+  $torrent = '1dd0f3c9f5b1317e77e1f1aaffd385341aafdbc0'
   $preseed = 'http://duplicon.nmt.edu/preseed/stretch'
   $syncpre = 'http://template.nmt.edu/images/Spring2018'
 
