@@ -370,5 +370,6 @@ removelist:
   - 'wicd-gkt'
 holdlist:
 backportlist:
+  - 'tilix'
 nochroot:
   - 'erlang'
