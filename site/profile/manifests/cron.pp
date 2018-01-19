@@ -7,28 +7,28 @@ class profile::cron {
 
   cron::job::multiple { 'nmt-crons':
     jobs        => [
-#      {
-#        minute      => '15',
-#        hour        => '00',
-#        date        => '*',
-#        month       => '*',
-#        weekday     => '*',
-#        user        => 'root',
-#        command     =>
-#          '/usr/local/libexec/reboot_to_win >> /var/log/nightlyreboots.log',
-#        description => 'Linux nightly reboot',
-#      },
-#      {
-#        minute      => '45',
-#        hour        => '06',
-#        date        => '*',
-#        month       => '*',
-#        weekday     => '*',
-#        user        => 'root',
-#        command     =>
-#          '/usr/local/libexec/random_machine_reboot >> /var/log/nightlyreboots.log',
-#        description => 'Opening target OS nightly reboot',
-#      },
+      {
+        minute      => '15',
+        hour        => '00',
+        date        => '*',
+        month       => '*',
+        weekday     => '*',
+        user        => 'root',
+        command     =>
+          '/usr/local/libexec/reboot_to_win >> /var/log/nightlyreboots.log',
+        description => 'Linux nightly reboot',
+      },
+      {
+        minute      => '45',
+        hour        => '06',
+        date        => '*',
+        month       => '*',
+        weekday     => '*',
+        user        => 'root',
+        command     =>
+          '/usr/local/libexec/random_machine_reboot >> /var/log/nightlyreboots.log',
+        description => 'Opening target OS nightly reboot',
+      },
       {
         minute      => '59',
         hour        => '23',
